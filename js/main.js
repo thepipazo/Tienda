@@ -13,7 +13,7 @@ product();
 
     function product() {
         $.ajax({
-            url: "controlador/action.php",
+            url: "controlador/accion.php",
             method: "POST",
             data: { getProduct: 1 },
             success: function(data) {
@@ -24,4 +24,4 @@ product();
 
 
 
-}
+})
