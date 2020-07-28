@@ -1,6 +1,4 @@
 
-<!DOCTYPE html>
-<html>
 	<?php
 include "../menus/admin.html";
 ?>

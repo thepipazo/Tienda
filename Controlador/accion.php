@@ -114,13 +114,9 @@ if(isset($_POST["escritores"])){
 
 
 
-
-
-
-
-
+	
 	if(isset($_POST["getProduct_admin"])){
-		echo "jsdhajs"; exit();
+		
 		$pro_nombre="";
 		$limit = 9;
 		if(isset($_POST["setPage"])){
@@ -158,12 +154,12 @@ if(isset($_POST["escritores"])){
 						<div class='col-md-4'  >
 									<div class='panel panel-info' style= 'width: 200px;'>
 										<div class='panel-heading'  style= 'width: 200px;' >$nombre_corto...
-										<h style='float:right;'>  $pro_stock/U </h>
+										<h style='float:right;'>$pro_stock/U </h>
 										</div>
 										<div class='panel-body'>
 									
 											
-											<image type='image' src='/product_images/$pro_imagen'  style='width:200%px; height:300px; margin-left:-15px; margin-top:-15px; margin-bottom:-15px;'></image>
+											<image type='image' src='../product_images/$pro_imagen'  style='width:200%px; height:300px; margin-left:-15px; margin-top:-15px; margin-bottom:-15px;'></image>
 											
 							
 										</div>

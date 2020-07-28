@@ -5,6 +5,8 @@ escritor();
 product_admin();
 
 
+})
+
  //misdevoluciones();
  function cat() {
     $.ajax({
@@ -45,7 +47,7 @@ product_admin();
 
     function product_admin() {
         $.ajax({
-            url: "controlador/accion.php",
+            url: "../controlador/accion.php",
             method: "POST",
             data: { getProduct_admin: 1 },
             success: function(data) {
@@ -54,4 +56,3 @@ product_admin();
         })
     }
 
-})
