@@ -232,3 +232,50 @@ if(isset($_POST["escritores"])){
 		</div>
 	  </div>";
 	}
+
+
+
+
+
+	if(isset($_POST["autor_admin"])){
+
+
+		           // Ejecutar la sentencia
+			 
+			 echo "<div class='panel-group'>
+			 <div class='panel panel-default'>
+			   <div class='panel-heading' style='background-color:#d9edf7'>
+				 <h4 class'panel-title'>
+			 <a data-toggle='collapse' href='#autor_collapse'>Autores</a>
+			 </div>
+			 <div id='autor_collapse' class='panel-collapse collapse'>
+			 
+			 ";			
+			 
+			 
+			 $sql = "SELECT * FROM autor where estado = 1";
+		
+			 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+			 $ok   = oci_execute($stmt);   
+			 if( $ok == true )
+			{
+				 if( $row = oci_fetch_object($stmt) )
+				{
+					 do
+					 {
+					$autor_id = $row->ID;
+					$autor_nombres = $row->NOMBRES_Y_APELLIDOS;
+					echo "<div class='panel-body' style='height:15px;'> <h6 style='margin-top:-5px;' autor_id='$autor_id'>$autor_nombres   <button type='button' autor_id='$autor_id' id='editar_autor' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+					<span class='glyphicon glyphicon-edit'></span>   </button></li> </div>";
+					 } while( $row = oci_fetch_object($stmt) );			
+				}
+				else
+					echo "<p>No Hay Editorial Registrado</p>";
+			}
+			else
+				$ok = false;
+			 oci_free_statement($stmt); 
+			 echo"</div>
+</div>
+</div>";
+		}

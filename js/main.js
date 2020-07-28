@@ -4,6 +4,7 @@ cat();
 escritor();
 product_admin();
 cat_admin()
+autor_admin()
 
 })
 
@@ -33,7 +34,7 @@ cat_admin()
 
 
 
-    function escritor()            {
+    function escritor(){
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
@@ -70,4 +71,19 @@ cat_admin()
             }
         })
     }
+
+
+    function autor_admin() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { autor_admin: 1 },
+            success: function(data) {
+                $("#esc_admin_msg").html(data);
+            }
+        })
+    }
+
+
+   
 
