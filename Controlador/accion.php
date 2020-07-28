@@ -183,3 +183,52 @@ if(isset($_POST["escritores"])){
 		 oci_free_statement($stmt);  
 		}  	
 	}
+
+
+
+
+
+
+
+	if(isset($_POST["categoria_admin"])){
+			
+		
+
+
+		echo "<div class='panel-group'>
+		<div class='panel panel-default'>
+		  <div class='panel-heading' style='background-color:#d9edf7'>
+			<h4 class'panel-title'>
+		<a data-toggle='collapse' href='#cat_collapse'>Categorias</a>
+		</div>
+		<div id='cat_collapse' class='panel-collapse collapse'>
+		
+		";
+		
+		$sql = "SELECT * FROM categoria where estado = 1";
+		 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+		 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
+		if( $ok == true )
+		{
+			 if( $obj = oci_fetch_object($stmt) )
+			{
+				 do
+				 {
+					$cat_id = $obj->CAT_ID;
+					$cat_nombre = $obj->CAT_NOMBRE;
+			
+					echo " <div class='panel-body' style='height:15px;' > <h6 style='margin-top:-5px;' cid='$cat_id'>$cat_nombre  <button  type='button' cat_id='$cat_id' id='editar_categoria' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+					<span class='glyphicon glyphicon-edit'></span>   </button></a></li> </div>";
+				 } while( $obj = oci_fetch_object($stmt) );			
+			}
+			else
+				echo "<p>No Hay Libros En Venta</p>";
+		}
+		else
+			$ok = false;
+		 oci_free_statement($stmt);   
+		 
+		echo"</div>
+		</div>
+	  </div>";
+	}

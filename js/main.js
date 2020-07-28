@@ -3,7 +3,7 @@ product();
 cat();
 escritor();
 product_admin();
-
+cat_admin()
 
 })
 
@@ -52,6 +52,21 @@ product_admin();
             data: { getProduct_admin: 1 },
             success: function(data) {
                 $("#product_admin").html(data);
+            }
+        })
+    }
+
+
+
+
+    function cat_admin() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { categoria_admin: 1 },
+            success: function(data) {
+                $("#cat_admin_msg").html(data);
+
             }
         })
     }
