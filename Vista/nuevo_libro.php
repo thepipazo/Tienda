@@ -24,7 +24,7 @@ include "../menus/admin.html";
 					<div class="panel-heading">Formulario de registro de libro</div>
 					<div class="panel-body">
 					
-					<form name="formPrueba" method="post" enctype="multipart/form-data" id="formPrueba" action="subir_libro.php">
+					<form name="formPrueba" method="post" enctype="multipart/form-data" id="formPrueba" action="../controlador/subir_libro.php">
             		<div class="row">
                     
                    

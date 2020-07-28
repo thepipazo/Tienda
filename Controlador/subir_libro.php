@@ -1,6 +1,6 @@
 <?php
 
-include "db.php";
+include "../db.php";
 
 $stock        = $_POST ['stock'];
 $nombre       = $_POST ['l_nombre'];

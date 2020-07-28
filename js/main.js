@@ -23,7 +23,7 @@ escritores_admin();
     }
 
 
-    function product() {
+    function product(){
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
@@ -109,6 +109,3 @@ escritores_admin();
             }
         })
     }
-
-   
-

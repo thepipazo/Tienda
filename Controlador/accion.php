@@ -327,7 +327,7 @@ if(isset($_POST["escritores"])){
 
 
 
-			
+
 
 			if(isset($_POST["escritor_Admin"])){
 				$sql = "SELECT * FROM escritor where estado = 1";
