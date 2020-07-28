@@ -5,6 +5,7 @@ escritor();
 product_admin();
 cat_admin()
 autor_admin()
+editorial_admin();
 
 })
 
@@ -80,6 +81,18 @@ autor_admin()
             data: { autor_admin: 1 },
             success: function(data) {
                 $("#esc_admin_msg").html(data);
+            }
+        })
+    }
+
+
+    function editorial_admin() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { editorial_admin: 1 },
+            success: function(data) {
+                $("#edit_admin_msg").html(data);
             }
         })
     }

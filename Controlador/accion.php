@@ -279,3 +279,48 @@ if(isset($_POST["escritores"])){
 </div>
 </div>";
 		}
+
+
+
+
+
+
+
+
+		if(isset($_POST["editorial_admin"])){
+			$sql = "SELECT * FROM editorial where estado = 1";
+			
+				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				 $ok   = oci_execute($stmt);              // Ejecutar la sentencia
+				 
+				 echo "<div class='panel-group'>
+				 <div class='panel panel-default'>
+				   <div class='panel-heading' style='background-color:#d9edf7'>
+					 <h4 class'panel-title'>
+				 <a data-toggle='collapse' href='#edit_collapse'>Editoriales</a>
+				 </div>
+				 <div id='edit_collapse' class='panel-collapse collapse'>
+				 
+				 ";					
+				 if( $ok == true )
+				{
+					 if( $row = oci_fetch_object($stmt) )
+					{
+						 do
+						 {
+						$editorial_id = $row->ID;
+						$editorial_nombre = $row->NOMBRE;
+						echo "<div class='panel-body' style='height:15px;'> <h6 style='margin-top:-5px;' edit_id='$editorial_id'>$editorial_nombre   <button type='button' edit_id='$editorial_id' id='editar_editorial' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						<span class='glyphicon glyphicon-edit'></span>   </button></h6> </div> ";
+						 } while( $row = oci_fetch_object($stmt) );			
+					}
+					else
+						echo "<p>No Hay Editorial Registrado</p>";
+				}
+				else
+					$ok = false;
+				 oci_free_statement($stmt); 
+				 echo"</div>
+		</div>
+	  </div>";
+			}
