@@ -12,13 +12,13 @@ include "../menus/admin.html";
 				<div id="cat_admin_msg">
 				</div>
 			
-				<div id="esc_admin_msg">
+				<div id="autor_admin_msg">
 				</div>
 
 				<div id="edit_admin_msg">
 				</div>
 
-				<div id="autor_admin_msg">
+				<div id="esc_admin_msg">
 				</div>
 			
 			</div>

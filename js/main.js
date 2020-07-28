@@ -6,6 +6,7 @@ product_admin();
 cat_admin()
 autor_admin()
 editorial_admin();
+escritores_admin();
 
 })
 
@@ -80,7 +81,7 @@ editorial_admin();
             method: "POST",
             data: { autor_admin: 1 },
             success: function(data) {
-                $("#esc_admin_msg").html(data);
+                $("#autor_admin_msg").html(data);
             }
         })
     }
@@ -97,6 +98,17 @@ editorial_admin();
         })
     }
 
+
+    function escritores_admin() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { escritor_Admin: 1 },
+            success: function(data) {
+                $("#esc_admin_msg").html(data);
+            }
+        })
+    }
 
    
 

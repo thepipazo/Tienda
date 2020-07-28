@@ -324,3 +324,47 @@ if(isset($_POST["escritores"])){
 		</div>
 	  </div>";
 			}
+
+
+
+			
+
+			if(isset($_POST["escritor_Admin"])){
+				$sql = "SELECT * FROM escritor where estado = 1";
+				
+					 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					 $ok   = oci_execute($stmt);              // Ejecutar la sentencia
+	
+	
+					 echo "<div class='panel-group'>
+				<div class='panel panel-default'>
+				  <div class='panel-heading' style='background-color:#d9edf7'>
+					<h4 class'panel-title'>
+				<a data-toggle='collapse' href='#tipo_collapse'>Tipos De Libros</a>
+				</div>
+				<div id='tipo_collapse' class='panel-collapse collapse'>
+				
+				";
+					 
+					if( $ok == true )
+					{
+						 if( $row = oci_fetch_object($stmt) )
+						{
+							 do
+							 {
+							$escritor_id = $row->ESCRITOR_ID;
+							$escritor_nombre = $row->ESCRITOR_NOMBRE;
+							echo "<div class='panel-body' style='height:15px;'> <h6 style='margin-top:-5px;' escritor_id='$escritor_id'>$escritor_nombre   <button type='button' esc_id='$escritor_id' id='editar_escritor' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+							<span class='glyphicon glyphicon-edit'></span>   </button></a></h6> </div> ";
+							 } while( $row = oci_fetch_object($stmt) );			
+						}
+						else
+							echo "<p>No Hay Libros En Venta</p>";
+					}
+					else
+						$ok = false;
+					 oci_free_statement($stmt); 
+					 echo"</div>
+				</div>
+			  </div>";
+				}
