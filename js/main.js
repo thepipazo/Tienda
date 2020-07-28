@@ -33,7 +33,7 @@ product_admin();
 
 
 
-    function escritor() {
+    function escritor()            {
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
