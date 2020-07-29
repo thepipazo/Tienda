@@ -9,7 +9,7 @@ include "../menus/admin.html";
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-2"></div>
-			<div class="col-md-8" id="cat_msg">
+			<div class="col-md-8" id="escrit_msg">
 				
 			</div>
 			<div class="col-md-2"></div>
@@ -18,29 +18,29 @@ include "../menus/admin.html";
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="panel panel-primary">
-					<div class="panel-heading">Formulario de registro de categoria</div>
+					<div class="panel-heading">Formulario de registro de Escritores</div>
 					<div class="panel-body">
 					
 					<form method="post">
 						<div class="row">
 						
-							<div class="col-md-12">
-								<label for="catnombre">Nombre De La Categoria</label>
-								<input type="text" id="catnombre" name="catnombre" class="form-control">
+						<div class="col-md-12">
+								<label for="nombre_tipo">Nombre Del "TIPO"</label>
+								<input type="text" id="nombre_tipo" name="nombre_tipo" class="form-control">
 							</div>
-						</div>
-						<div class="row">	
 							<div class="col-md-12">
-								<label for="catdescripcion">Descripcion</label>
-								<textarea type="text" id="catdescripcion" name="catdescripcion" class="form-control"></textarea>
+								<label for="descripcion_tipo">Descripcion</label>
+								<textarea class="form-control" id="descripcion_tipo" name="descripcion_tipo" rows="5" ></textarea>
 							</div>
 						</div>
 						<p><br/></p>
 						<div class="row">
 							<div class="col-md-12">
-							<input style="" value="verificar" type="button" id="ingreso_cat" name="ingreso_cat"  class="btn btn-success btn-lg">
+							<input style="" value="Registrar" type="button" id="ingreso_tipo" name="ingreso_tipo"  class="btn btn-success btn-lg">
 							</div>
 						</div>
+						
+					</div>
 					</form>
 					<div class="panel-footer"></div>
 				</div>
@@ -50,22 +50,3 @@ include "../menus/admin.html";
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,4 @@
 
-
 <?php
 include "../menus/admin.html";
 ?>
@@ -9,7 +8,7 @@ include "../menus/admin.html";
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-2"></div>
-			<div class="col-md-8" id="escrit_msg">
+			<div class="col-md-8" id="edit_msg">
 				
 			</div>
 			<div class="col-md-2"></div>
@@ -18,25 +17,25 @@ include "../menus/admin.html";
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="panel panel-primary">
-					<div class="panel-heading">Formulario de registro de Escritores</div>
+					<div class="panel-heading">Formulario de registro de Editorial</div>
 					<div class="panel-body">
 					
 					<form method="post">
 						<div class="row">
 						
-						<div class="col-md-12">
-								<label for="nombre_tipo">Nombre Del "TIPO"</label>
-								<input type="text" id="nombre_tipo" name="nombre_tipo" class="form-control">
+							<div class="col-md-12">
+								<label for="nombre_editorial">Nombre De La Editorial</label>
+								<input type="text" id="nombre_editorial" name="nombre_editorial" class="form-control">
 							</div>
 							<div class="col-md-12">
-								<label for="descripcion_tipo">Descripcion</label>
-								<textarea class="form-control" id="descripcion_tipo" name="descripcion_tipo" rows="5" ></textarea>
+								<label for="descripcionedit">Descripcion</label>
+								<textarea class="form-control" id="descripcionedit" name="descripcionedit" rows="5" ></textarea>
 							</div>
 						</div>
 						<p><br/></p>
 						<div class="row">
 							<div class="col-md-12">
-							<input style="" value="Registrar" type="button" id="ingresotipo" name="ingresotipo"  class="btn btn-success btn-lg">
+							<input style="" value="Ingresar" type="button" id="ingreso_edit" name="ingreso_edit"  class="btn btn-success btn-lg">
 							</div>
 						</div>
 						
@@ -50,3 +49,22 @@ include "../menus/admin.html";
 	</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

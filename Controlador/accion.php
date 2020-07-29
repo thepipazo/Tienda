@@ -518,6 +518,48 @@ if(isset($_POST["escritores"])){
 		
 		
 		}
+
+
+
+
+		if(isset($_POST["ingreso_editorial"])){
+	
+			$nombre = $_POST["nombre"];
+			$descripcion = $_POST["descripcion"];
+			
+			if($nombre == ""){
+				echo "
+				<div class='alert alert-warning'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					<b> Campo Vacio!!</b>
+				</div>
+			";
+			exit();
+			}
+			
+			$sql = "INSERT into editorial values (null,'$nombre','$descripcion',1)";
+			$run_query = oci_parse($con,$sql);
+			$ok = oci_execute($run_query);
+		
+			
+			if($ok == true){
+				echo "
+				<div class='alert alert-success'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b>Se ingreso Con Exito !!</b>
+				</div>
+			";
+			}else{
+				echo "
+					<div class='alert alert-success'>
+						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						<b> Error desconocido !!</b>
+					</div>
+				";
+				exit();
+			}	
+			
+			}
 			
 
 

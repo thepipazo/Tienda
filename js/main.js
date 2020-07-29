@@ -111,7 +111,7 @@ escritores_admin();
     }
 
 
-    $("#ingresocat").click(function(event) {
+    $("#ingreso_cat").click(function(event) {
         event.preventDefault();
         var nombrecat = $("#catnombre").val();
         var descripcioncat = $("#catdescripcion").val();
@@ -131,7 +131,7 @@ escritores_admin();
 
 
 
-$("#ingresotipo").click(function(event) {
+$("#ingreso_tipo").click(function(event) {
     event.preventDefault();
     var nombreescritor = $("#nombre_tipo").val();
     var descripcion = $("#descripcion_tipo").val();
@@ -158,6 +158,23 @@ $("#ingreso_autor").click(function() {
             data: { ingreso_autor: 1, nombre: nombre, descripcion:descripcion },
             success: function(data) {
                 $("#aut_msg").html(data);
+                
+            }
+        })
+})
+
+
+
+$("#ingreso_edit").click(function() {
+    var nombre = $("#nombre_editorial").val();
+    var descripcion = $("#descripcionedit").val();
+
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { ingreso_editorial: 1, nombre: nombre, descripcion:descripcion },
+            success: function(data) {
+                $("#edit_msg").html(data);
                 
             }
         })
