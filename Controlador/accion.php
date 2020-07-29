@@ -421,3 +421,104 @@ if(isset($_POST["escritores"])){
 						</div>";
 					}		
 					}
+
+
+
+					if(isset($_POST["ingresotipo"])){
+	
+						$escritor_nombre = $_POST["escritornombre"];
+						$escritor_descripcion = $_POST["descripcion"];
+						$estado=1;
+						if($escritor_nombre == ""){
+							echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b> Campo Vacio!!</b>
+							</div>
+						";
+						exit();
+						}
+						
+						/*$sql = "INSERT into escritor values (null,'$escritor_nombre')";
+						$run_query = oci_parse($con,$sql);
+						$ok = oci_execute($run_query);*/
+			
+			
+						$query = OCIParse($con, "begin agregar_escritor(:nombre,:descripcion,:estado); end;");
+						oci_bind_by_name($query, ':nombre', $escritor_nombre);
+						oci_bind_by_name($query, ':descripcion', $escritor_descripcion);
+						oci_bind_by_name($query, ':estado', $estado);
+			
+						$sp = @oci_execute($query);
+						
+						if($sp == true){
+							echo "
+							<div class='alert alert-success'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+							<b>Se ingreso Con Exito !!</b>
+							</div>
+						";
+						}else{
+							echo "
+								<div class='alert alert-success'>
+									<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+									<b> Error desconocido !!</b>
+								</div>
+							";
+							exit();
+						}
+						
+						
+						}
+
+
+
+
+
+
+				
+	
+
+	if(isset($_POST["ingreso_autor"])){
+	
+		$nombre_completo = $_POST["nombre"];
+		$descripcion = $_POST["descripcion"];
+		
+		if($nombre_completo == ""){
+			echo "
+			<div class='alert alert-warning'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+				<b> Campo Vacio!!</b>
+			</div>
+		";
+		exit();
+		}
+		
+		$sql = "INSERT into autor values (null,'$nombre_completo','$descripcion',1)";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+	
+		
+		if($ok == true){
+			echo "
+			<div class='alert alert-success'>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+			<b>Se ingreso Con Exito !!</b>
+			</div>
+		";
+		}else{
+			echo "
+				<div class='alert alert-success'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					<b> Error desconocido !!</b>
+				</div>
+			";
+			exit();
+		}
+		
+		
+		}
+			
+
+
+			

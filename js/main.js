@@ -126,4 +126,44 @@ escritores_admin();
 
     })
 
+
+
+
+
+
+$("#ingresotipo").click(function(event) {
+    event.preventDefault();
+    var nombreescritor = $("#nombre_tipo").val();
+    var descripcion = $("#descripcion_tipo").val();
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: {ingresotipo:1, escritornombre: nombreescritor,descripcion:descripcion },
+        success: function(data) {
+            $("#escrit_msg").html(data);
+        }
+    })
+
+})
+
+
+
+
+$("#ingreso_autor").click(function() {
+    var nombre = $("#nombre_autor").val();
+    var descripcion = $("#reseña_autor").val();
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { ingreso_autor: 1, nombre: nombre, descripcion:descripcion },
+            success: function(data) {
+                $("#aut_msg").html(data);
+                
+            }
+        })
+})
+
+
+
+
 })
