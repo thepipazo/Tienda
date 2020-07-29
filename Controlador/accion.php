@@ -560,6 +560,74 @@ if(isset($_POST["escritores"])){
 			}	
 			
 			}
+
+
+
+
+			if(isset($_POST["editar_autor"])){//esta funcion es para mostrar un menu de categorias para el administrador donde tendra la posibilidad de editar
+				$autor_id = $_POST["autor_id"];
+				$autor_nombre = "";
+				$autor_descripcion="";
+				
+				$sql = "SELECT * FROM autor WHERE id = $autor_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+			
+				if($ok){
+			
+					if( $obj = oci_fetch_object($run_query) )
+					{
+						 do
+						 {
+						
+							$autor_nombre = $obj->NOMBRES_Y_APELLIDOS;
+							$autor_descripcion= $obj->DESCRIPCION;
+						
+						} while( $obj = oci_fetch_object($run_query) );		
+						
+					
+					}
+					else
+						echo "<p>No Hay categorias</p>";
+				}
+				else{
+				echo "Error con la base de datos";
+					$ok = false;
+				 oci_free_statement($run_query);  
+				}  
+			
+				echo "
+				<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'>
+	  <div class='modal-dialog' role='document'>
+		<div class='modal-content'>
+		  <div class='modal-header'>
+			<h5 class='modal-title' id='exampleModalLongTitle'>Formulario Para Actualizar Libros</h5>
+			<div id='msg_actualizado' </div>
+			<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+			  <span aria-hidden='true'>&times;</span>
+			</button>
+			<div id='msg_actualizado' </div>
+		  </div>
+		  <div class='modal-body'>
+			
+						  <label for='autor_nombre'>Nombre</label>
+						  <input type='text' id='autor_nombre' name='autor_nombre' class='form-control' value = '$autor_nombre'>
+						  
+						<label for='reseña_autor'>Reseña</label>
+						<textarea class='form-control' rows='10' name='reseña_autor' id='reseña_autor'>$autor_descripcion</textarea>
+						</div>
+						<div class='modal-footer'>
+						<button  style='float:left' autor_id ='$autor_id' id='before_eliminar_autor' class='btn btn-danger'>Eliminar</button>
+						  <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cerrar</button>
+						  <button autor_id ='$autor_id' id='actualizar_autor' type='button' class='btn btn-primary'>Actualizar</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+						"; 
+						exit();
+			}
 			
 
 

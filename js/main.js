@@ -181,6 +181,26 @@ $("#ingreso_edit").click(function() {
 })
 
 
+function showModal() {
+    $('#exampleModal').modal('show');
+  }
+
+$("body").delegate("#editar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr('autor_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_autor: 0, autor_id: autor_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+
 
 
 })
