@@ -8,7 +8,7 @@ autor_admin()
 editorial_admin();
 escritores_admin();
 
-})
+
 
  //misdevoluciones();
  function cat() {
@@ -109,3 +109,21 @@ escritores_admin();
             }
         })
     }
+
+
+    $("#ingresocat").click(function(event) {
+        event.preventDefault();
+        var nombrecat = $("#catnombre").val();
+        var descripcioncat = $("#catdescripcion").val();
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { ingresar_categoria: nombrecat, cat_descripcion: descripcioncat },
+            success: function(data) {
+                $("#cat_msg").html(data);
+            }
+        })
+
+    })
+
+})

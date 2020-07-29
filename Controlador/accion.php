@@ -368,3 +368,56 @@ if(isset($_POST["escritores"])){
 				</div>
 			  </div>";
 				}
+
+
+				if(isset($_POST["ingresar_categoria"])){
+	
+
+					$cat_nombre = $_POST["ingresar_categoria"];
+					$cat_descripcion = $_POST["cat_descripcion"];
+					$estado = 1;
+			
+					if($cat_nombre == ""){
+						echo "
+						<div class='alert alert-warning'>
+							<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+							<b> Campo Vacio!!</b>
+						</div>
+					";
+					exit();
+					}
+					
+				if($con){
+			
+					$query = OCIParse($con, "begin AGREGAR_CATEGORIA(:nombre,:descripcion,:estado,:mensaje); end;");
+					oci_bind_by_name($query, ':nombre', $cat_nombre);
+					oci_bind_by_name($query, ':descripcion', $cat_descripcion);
+					oci_bind_by_name($query, ':estado',$estado);
+					oci_bind_by_name($query, ':mensaje',$mensaje,100);
+					
+					$sp = @oci_execute($query);
+			
+				
+			
+					oci_free_statement($query);
+					//Se cierra la conexión
+					oci_close($con);
+			
+					
+						echo "
+						<div class='alert alert-success'>
+							<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						<b>$mensaje</b>
+						</div>
+					
+					";
+					}else{
+						
+						
+						echo "
+						<div class='alert alert-warning'>
+							<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						<b>Error Al Conectar Con La Base De Datos></div></b>
+						</div>";
+					}		
+					}
