@@ -203,4 +203,22 @@ $("body").delegate("#editar_autor", "click", function(event) {
 
 
 
+$("body").delegate("#editar_categoria", "click", function(event) {
+    event.preventDefault();
+    var c_id = $(this).attr('cat_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_categoria: 0, c_id: c_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+
+
+
 })
