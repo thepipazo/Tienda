@@ -220,5 +220,22 @@ $("body").delegate("#editar_categoria", "click", function(event) {
 
 
 
+$("body").delegate("#editar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr('edit_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_editorial: 0, editorial_id: editorial_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+
+
 
 })
