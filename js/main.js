@@ -227,6 +227,22 @@ $("body").delegate("#editar_categoria", "click", function(event) {
 })
 
 
+$("body").delegate("#editar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr('tipo_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_tipo: 0, tipo_id: tipo_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+
 
 $("body").delegate("#editar_editorial", "click", function(event) {
     event.preventDefault();
@@ -328,6 +344,58 @@ $("body").delegate("#before_eliminar_categoria", "click", function(event) {
         url: "../controlador/accion.php",
         method: "POST",
         data: { before_eliminar_categoria: 0, cat_id: cat_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#before_eliminar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autor_id");    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_autor: 0, autor_id: autor_id },
+        success: function(data) {           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#before_eliminar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr("edit_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_editorial: 0, editorial_id: editorial_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#before_eliminar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr("tipo_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_tipo: 0, tipo_id: tipo_id },
         success: function(data) {
            
             $("#msg_actualizado").html(data);

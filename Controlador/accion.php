@@ -381,7 +381,7 @@ if(isset($_POST["escritores"])){
 							 {
 							$escritor_id = $row->ESCRITOR_ID;
 							$escritor_nombre = $row->ESCRITOR_NOMBRE;
-							echo "<div class='panel-body' style='height:15px;'> <h6 style='margin-top:-5px;' escritor_id='$escritor_id'>$escritor_nombre   <button type='button' esc_id='$escritor_id' id='editar_escritor' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+							echo "<div class='panel-body' style='height:15px;'> <h6 style='margin-top:-5px;' tipo_id='$escritor_id'>$escritor_nombre   <button type='button' tipo_id='$escritor_id' id='editar_tipo' style='float:right; margin-top:-5px;' class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
 							<span class='glyphicon glyphicon-edit'></span>   </button></a></h6> </div> ";
 							 } while( $row = oci_fetch_object($stmt) );			
 						}
@@ -805,6 +805,79 @@ if(isset($_POST["escritores"])){
 
 
 
+			if(isset($_POST["editar_tipo"])){
+				$tipo_id = $_POST["tipo_id"];
+				$tipo_nombre = "";
+				$tipo_descripcion="";
+				
+				$sql = "SELECT * FROM escritor WHERE escritor_id = $tipo_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+		
+				
+			
+				if($ok){
+			
+					if( $obj = oci_fetch_object($run_query) )
+					{
+						 do
+						 {
+						
+							$tipo_nombre = $obj->ESCRITOR_NOMBRE;
+							$tipo_descripcion= $obj->DESCRIPCION;
+						
+						} while( $obj = oci_fetch_object($run_query) );		
+						
+					
+					}
+					else
+						echo "<p>No Hay Escritores</p>";
+				}
+				else{
+				echo "Error con la base de datos";
+					$ok = false;
+				 oci_free_statement($run_query);  
+				}  
+			
+				echo "
+						<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'>
+			  <div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+				  <div class='modal-header'>
+					<h5 class='modal-title' id='exampleModalLongTitle'>Formulario Para Actualizar Libros</h5>
+					<div id='msg_actualizado' </div>
+					<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+					  <span aria-hidden='true'>&times;</span>
+					</button>
+					<div id='msg_actualizado' </div>
+				  </div>
+				  <div class='modal-body'>
+			
+						  <label for='esc_nombre'>Nombre</label>
+						  <input type='text' id='esc_nombre' name='esc_nombre' class='form-control' value = $tipo_nombre>
+						  
+						<label for='esc_desc'>Reseña</label>
+						<textarea class='form-control' rows='10' name='esc_desc' id='esc_desc' >$tipo_descripcion</textarea>
+						</div>
+						<div class='modal-footer'>
+						<button  style='float:left' tipo_id='$tipo_id' id='before_eliminar_tipo' class='btn btn-danger'>Eliminar</button>
+						  <button type='button'  class='btn btn-secondary' data-dismiss='modal'>Cerrar</button>
+						  <button type='button' esc_id='$tipo_id' id='actualizar_esc' style='float:right;'  class='btn btn-primary'>Actualizar</button>
+						</div>
+					  </div>
+					</div>
+				  </div>
+						"; 
+						exit();
+			
+				
+				
+			}
+
+
+
+
 
 			if(isset($_POST["getPedidos"])){
 				
@@ -889,3 +962,109 @@ if(isset($_POST["escritores"])){
 				}
 				
 			}
+
+
+
+
+			if(isset($_POST["before_eliminar_autor"])){
+
+				$autor_id = $_POST["autor_id"];
+
+				$sql = "SELECT * FROM libros WHERE libro_autor = $autor_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				$fetc = oci_fetch_object($run_query);
+				$num = oci_num_rows($run_query);
+			
+
+				if($num > 0){
+
+					echo " 
+					<h4 class='text-danger'> Este Autor Esta Asociado A un Libro Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' autor_id='$autor_id' id='deshabilitar_autor'  style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+				  </div>";
+				}else{
+					echo " 
+					<h4 class='text-danger'>Este Autor Se Eliminara Permanentemente</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button'  autor_id='$autor_id' id='eliminar_autor'  style='float'  class='btn btn-primary'>Eliminar</button>
+				  </div>";
+
+				}
+				
+			}
+
+
+
+
+			
+			if(isset($_POST["before_eliminar_editorial"])){
+
+				$editorial_id = $_POST["editorial_id"];
+
+				$sql = "SELECT * FROM libros WHERE libro_editorial = $editorial_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				$fetc = oci_fetch_object($run_query);
+				$num = oci_num_rows($run_query);
+			
+
+				if($num > 0){
+
+					echo " 
+					<h4 class='text-danger'> Esta Editoria Esta Asociado A un Libro Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' editorial_id='$editorial_id' id='deshabilitar_editorial'  style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+				  </div>";
+				}else{
+					echo " 
+					<h4 class='text-danger'>Esta Editorial Se Eliminara Permanentemente</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' editorial_id='$editorial_id' id='eliminar_editorial'  style='float'  class='btn btn-primary'>Eliminar</button>
+				  </div>";
+
+				}
+				
+			}
+
+
+
+
+
+			if(isset($_POST["before_eliminar_tipo"])){
+
+				$tipo_id = $_POST["tipo_id"];
+
+				$sql = "SELECT * FROM libros WHERE libro_escr = $tipo_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				$fetc = oci_fetch_object($run_query);
+				$num = oci_num_rows($run_query);
+			
+
+				if($num > 0){
+
+					echo " 
+					
+					<h4 class='text-danger'> Este Escritor Esta Asociado A un Libro Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button'  id_escritor='$tipo_id' id='deshabilitar_escritor' style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+				  </div>";
+				}else{
+					echo " 
+					<h4 class='text-danger'>Este Escritor Se Eliminara Permanentemente</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' id_escritor='$tipo_id' id='eliminar_escritor'  style='float'  class='btn btn-primary'>Eliminar</button>
+				  </div>";
+
+				}
+				
+			}
+
