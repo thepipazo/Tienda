@@ -36,13 +36,13 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
         </div>
     <div class="collapse navbar-collapse" id="collapse">
         <ul class="nav navbar-nav">
-            <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
+            <li><a href="../index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
             <li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
             <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Buscar</button></li>
             
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="mis_pedidos.php" class="dropdown-toggle"   class="glyphicon glyphicon-chevron-down"></span><?php echo "Mis Pedidos";?></a></li>
+        <li><a href="../Vista/mis_pedidos.php" class="dropdown-toggle"   class="glyphicon glyphicon-chevron-down"></span><?php echo "Mis Pedidos";?></a></li>
 
             <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Carro<span class="badge">0</span></a>
                 <div class="dropdown-menu" style="width:400px;">
