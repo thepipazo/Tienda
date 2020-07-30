@@ -235,6 +235,30 @@ $("body").delegate("#editar_editorial", "click", function(event) {
     })
 })
 
+$("#logear").click(function(event) {
+    event.preventDefault();
+    var email = $("#email").val();
+    var pass = $("#password").val();
+    $.ajax({
+        url: "controlador/login.php",
+        method: "POST",
+        data: { userLogin: 1, userEmail: email, userPassword: pass },
+        success: function(data) {
+            if (data == 0) {
+
+                location.href = "Vista/perfil_usuario.php";
+                //header("location:perfil_usuario.php");
+
+            }
+            if (data == 1) {
+                location.href = "Vista/perfil_admin.php";
+            }
+            if (data == 2) {
+                $("#e_msg").html('<div class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
+            }
+        }
+    })
+})
 
 
 
