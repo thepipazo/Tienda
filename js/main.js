@@ -284,4 +284,15 @@ function product() {
     })
 }
 
+function cat() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { category: 1 },
+        success: function(data) {
+            $("#get_category").html(data);
+
+        }
+    })
+}
 })

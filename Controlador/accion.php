@@ -894,7 +894,7 @@ if(isset($_POST["escritores"])){
 										<div class='panel panel-info'>
 											<div class='panel-heading'>$pro_nombre</div>
 											<div class='panel-body'>
-												<img src='product_images/$pro_imagen' style='width:160px; height:250px;'/>
+												<img src='../product_images/$pro_imagen' style='width:160px; height:250px;'/>
 											</div>
 											<div class='panel-heading'>$.$pro_precio.00
 												<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>
@@ -917,3 +917,29 @@ if(isset($_POST["escritores"])){
 				
 			}
 			
+
+
+			if(isset($_POST["category"])){
+				echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Categorias</h4></a></li>";
+				$sql = "SELECT * FROM categoria";
+				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
+				if( $ok == true )
+				{
+					 if( $obj = oci_fetch_object($stmt) )
+					{
+						 do
+						 {
+							$cid = $obj->CAT_ID;
+							$cat_nombre = $obj->CAT_NOMBRE;
+					
+							echo "<li><a href='#' class='category' cid='$cid'>$cat_nombre</a></li>";
+						 } while( $obj = oci_fetch_object($stmt) );			
+					}
+					else
+						echo "<p>No Hay Libros En Venta</p>";
+				}
+				else
+					$ok = false;
+				 oci_free_statement($stmt);    	
+			}
