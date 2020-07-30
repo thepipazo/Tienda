@@ -8,6 +8,8 @@ autor_admin()
 editorial_admin();
 escritores_admin();
 mispedidos();
+product_cli();
+
 
 
 
@@ -34,7 +36,7 @@ mispedidos();
             }
         })
     }
-
+ 
 
 
     function escritor(){
@@ -273,13 +275,13 @@ function mispedidos() {
     })
 }
 
-function product() {
+function product_cli() {
     $.ajax({
         url: "../controlador/accion.php",
         method: "POST",
         data: { getProduct: 1 },
         success: function(data) {
-            $("#get_product").html(data);
+            $("#get_product_cli").html(data);
         }
     })
 }

@@ -28,7 +28,7 @@ include "../menus/cliente.php";
 				<div class="panel panel-info" id="scroll">
 					<div class="panel-heading">Productos</div>
 					<div class="panel-body">
-						<div id="get_product">
+						<div id="get_product_cli">
 							<!--aqui vienen los Libros desde mein js -->
 						</div>
 						 

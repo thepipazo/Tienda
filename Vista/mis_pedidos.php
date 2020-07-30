@@ -66,7 +66,7 @@ while($row = oci_fetch_object($run_sql)){
     <tr>
       
       <td><?php echo $row->IDLIBRO?></td>
-      <td><?php echo " <div class='col-md-3 col-xs-3'><img src='product_images/$libro_image' width='60px' height='50px'></div>" ?></td>
+      <td><?php echo " <div class='col-md-3 col-xs-3'><img src='../product_images/$libro_image' width='60px' height='50px'></div>" ?></td>
       <td><?PHP echo  "$row->LIBRO_NOMBRE"?></td>
       <td><?php echo  "$row->LIBRO_PRECIO"?></td>
       <td><?php echo  "$row->IDDETALLE"?></td>
