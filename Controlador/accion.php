@@ -1068,3 +1068,42 @@ if(isset($_POST["escritores"])){
 				
 			}
 
+
+
+			if(isset($_POST["eliminar_categoria"])){				
+				$categoria_id = $_POST["categoria_id"];
+					echo $_POST["eliminar_categoria"]; 
+
+					if($_POST["eliminar_categoria"] == 0){
+
+				$sql = "DELETE from categoria where cat_id = $categoria_id ";
+
+					}elseif($_POST["eliminar_categoria"] == 1){
+
+					$sql = "UPDATE  categoria set estado = 0 where cat_id = $categoria_id ";
+				}
+
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				if($ok){			
+					if($_POST["eliminar_categoria"] == 0){	
+						echo " 					
+						<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
+					  <div class='modal-footer'> </div>";
+						}else{
+							echo " 					
+							<h4 class='alert alert-success'>Se Deshabilito Correctamente</h4>
+						  <div class='modal-footer'> </div>";
+						}
+				}else{
+					echo " 
+					<h4 class='text-danger'>Error Al Eliminar</h4>
+				  <div class='modal-footer'>
+					
+				  </div>";
+
+				}
+				
+			}
+

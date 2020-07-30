@@ -406,6 +406,45 @@ $("body").delegate("#before_eliminar_tipo", "click", function(event) {
 
 
 
+$("body").delegate("#eliminar_categoria", "click", function(event) {
+    event.preventDefault();
+    var categoria_id = $(this).attr("categoria_id");
+   
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_categoria: 0, categoria_id: categoria_id},
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            categorias_admin();
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#deshabilitar_categoria", "click", function(event) {
+    event.preventDefault();
+    var categoria_id = $(this).attr("categoria_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_categoria: 1, categoria_id: categoria_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            categorias_admin();
+            
+        }
+    })
+})
+
+
+
+
 
 
 })
