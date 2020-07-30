@@ -295,4 +295,19 @@ function cat() {
         }
     })
 }
+
+$("#misdevoluciones").click(function(event) {
+    event.preventDefault();
+    var codigo = $("#code").val();
+    $.ajax({
+        url: "../controlador/mis_devoluciones_php.php",
+        method: "POST",
+        data: { devolucion: 1 },
+        success: function(data) {
+            $("#pedidos_msg").html(data);
+            
+        }
+    })
+
+})
 })
