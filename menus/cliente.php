@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
+	header("location:../index.php");
+}
+
+?>
+<!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv=”Content-Type” content=”text/html;/>
     <meta charset="UTF-8">
@@ -34,7 +44,7 @@
             
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="mis_pedidos2.php" class="dropdown-toggle"   class="glyphicon glyphicon-chevron-down"></span><?php echo "Mis Pedidos";?></a></li>
+        <li><a href="mis_pedidos.php" class="dropdown-toggle"   class="glyphicon glyphicon-chevron-down"></span><?php echo "Mis Pedidos";?></a></li>
 
             <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Carro<span class="badge">0</span></a>
                 <div class="dropdown-menu" style="width:400px;">

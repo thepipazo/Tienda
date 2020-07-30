@@ -7,6 +7,7 @@ cat_admin()
 autor_admin()
 editorial_admin();
 escritores_admin();
+mispedidos();
 
 
 
@@ -260,6 +261,17 @@ $("#logear").click(function(event) {
     })
 })
 
+
+function mispedidos() {
+    $.ajax({
+        url: "../Vista/mis_pedidos.php",
+        method: "POST",
+        data: { pedido: 1 },
+        success: function(data) {
+            $("#pedidos_msg").html(data);
+        }
+    })
+}
 
 
 })
