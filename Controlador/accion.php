@@ -1054,14 +1054,14 @@ if(isset($_POST["escritores"])){
 					<h4 class='text-danger'> Este Escritor Esta Asociado A un Libro Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado</h4>
 				  <div class='modal-footer'>
 					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-					<button type='button'  id_escritor='$tipo_id' id='deshabilitar_escritor' style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+					<button type='button'  tipo_id='$tipo_id' id='deshabilitar_tipo' style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
 				  </div>";
 				}else{
 					echo " 
 					<h4 class='text-danger'>Este Escritor Se Eliminara Permanentemente</h4>
 				  <div class='modal-footer'>
 					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-					<button type='button' id_escritor='$tipo_id' id='eliminar_escritor'  style='float'  class='btn btn-primary'>Eliminar</button>
+					<button type='button' tipo_id='$tipo_id' id='eliminar_tipo'  style='float'  class='btn btn-primary'>Eliminar</button>
 				  </div>";
 
 				}
@@ -1088,6 +1088,113 @@ if(isset($_POST["escritores"])){
 				
 				if($ok){			
 					if($_POST["eliminar_categoria"] == 0){	
+						echo " 					
+						<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
+					  <div class='modal-footer'> </div>";
+						}else{
+							echo " 					
+							<h4 class='alert alert-success'>Se Deshabilito Correctamente</h4>
+						  <div class='modal-footer'> </div>";
+						}
+				}else{
+					echo " 
+					<h4 class='text-danger'>Error Al Eliminar</h4>
+				  <div class='modal-footer'>
+					
+				  </div>";
+
+				}
+				
+			}
+
+
+
+			if(isset($_POST["eliminar_autor"])){
+				
+				$autor_id = $_POST["autor_id"];
+
+				if($_POST["eliminar_autor"] == 0){
+				$sql = "DELETE from autor where id = $autor_id ";
+				}elseif($_POST["eliminar_autor"]==1){
+				$sql = "UPDATE autor set estado = 0 where id = $autor_id ";
+				}
+					
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				if($ok){			
+
+					if($_POST["eliminar_autor"] == 0){	
+					echo " 					
+					<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
+				  <div class='modal-footer'> </div>";
+					}else{
+						echo " 					
+						<h4 class='alert alert-success'>Se Deshabilito Correctamente</h4>
+					  <div class='modal-footer'> </div>";
+					}
+				}else{
+
+					echo " 
+					<h4 class='text-danger'>Error Al Eliminar</h4>
+				  <div class='modal-footer'>
+					
+				  </div>";
+
+				}
+				
+			}
+
+
+			if(isset($_POST["eliminar_editorial"])){
+
+				$editorial_id = $_POST["editorial_id"];
+
+				
+				if($_POST["eliminar_editorial"] == 0){
+					$sql = "DELETE from editorial where id = $editorial_id ";
+				}elseif($_POST["eliminar_editorial"] == 1 ){
+					$sql = "UPDATE  editorial  set estado = 0 where id = $editorial_id ";
+				}
+
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				if($ok){			
+					if($_POST["eliminar_editorial"] == 0){	
+						echo " 					
+						<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
+					  <div class='modal-footer'> </div>";
+						}else{
+							echo " 					
+							<h4 class='alert alert-success'>Se Deshabilito Correctamente</h4>
+						  <div class='modal-footer'> </div>";
+						}
+				}else{
+					echo " 
+					<h4 class='text-danger'>Error Al Eliminar</h4>
+				  <div class='modal-footer'>
+					
+				  </div>";
+
+				}
+				
+			}
+
+
+			if(isset($_POST["eliminar_tipo"])){
+
+				$tipo_id = $_POST["tipo_id"];
+			if($_POST["eliminar_tipo"] == 0){
+				$sql = "DELETE from escritor where escritor_id = $tipo_id ";
+			}elseif($_POST["eliminar_tipo"]==1){
+				$sql = "UPDATE  escritor set estado = 0 where escritor_id = $tipo_id ";
+			}
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				if($ok){			
+					if($_POST["eliminar_tipo"]==0){	
 						echo " 					
 						<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
 					  <div class='modal-footer'> </div>";

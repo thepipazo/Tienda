@@ -444,6 +444,122 @@ $("body").delegate("#deshabilitar_categoria", "click", function(event) {
 
 
 
+$("body").delegate("#eliminar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autor_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_autor: 0, autor_id: autor_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            autor_admin();
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#deshabilitar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autor_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_autor: 1, autor_id: autor_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            autor_admin();
+            
+        }
+    })
+})
+
+
+
+
+$("body").delegate("#eliminar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr("editorial_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_editorial: 0, editorial_id: editorial_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            editorial_admin();
+            
+        }
+    })
+})
+
+
+
+
+$("body").delegate("#deshabilitar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr("editorial_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_editorial: 1, editorial_id: editorial_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            editorial_admin();
+            
+        }
+    })
+})
+
+
+
+
+
+$("body").delegate("#eliminar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr("tipo_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_tipo: 0, tipo_id: tipo_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            escritores_admin();
+            
+        }
+    })
+})
+
+
+
+$("body").delegate("#deshabilitar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr("tipo_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_tipo: 1, tipo_id: tipo_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            escritores_admin();
+            
+        }
+    })
+})
+
 
 
 
