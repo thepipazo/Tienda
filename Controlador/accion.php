@@ -1214,3 +1214,304 @@ if(isset($_POST["escritores"])){
 				
 			}
 
+
+			if(isset($_POST["editar_product"])){
+				$libro_id = $_POST["proId"];
+				
+				$sql = "SELECT * FROM libros WHERE libro_id = '$libro_id'";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				$precio = 0;
+				$stock = 0;
+				$reseña = "";
+				$nombre = "";
+				$escritor_nombre = "";
+				$escritor_id=0;
+				$categoria_id=0;
+				$categoria_nombre="";
+				$editorial_id=0;
+				$editorial_nombre="";
+				$autor_id = 0;
+				$autor_nombre = "";
+				$palabra="";
+				if($ok){
+			
+					if( $obj = oci_fetch_object($run_query) )
+					{
+						 do
+						 {
+						
+							$categoria_id = $obj->LIBRO_CAT;
+							$escritor_id= $obj->LIBRO_ESCR;
+							$nombre = $obj->LIBRO_NOMBRE;
+							$precio = $obj->LIBRO_PRECIO;
+							$reseña = $obj->LIBRO_DESCR;
+							$editorial_id = $obj->LIBRO_EDITORIAL;
+							$autor_id = $obj->LIBRO_AUTOR;
+							$palabra = $obj->LIBRO_PAL_CLAVE;
+							//echo $obj->PRODUCT_IMAGE;
+							$pro_imagen = $obj->LIBRO_IMAGEN;
+							$stock = $obj->STOCK;
+			
+						} while( $obj = oci_fetch_object($run_query) );			
+					}
+					else
+						echo "<p>No Hay Libros En Venta</p>";
+				}
+				else{
+				echo "Error con la base de datos";
+					$ok = false;
+				 oci_free_statement($run_query);  
+				}  
+			
+				
+			
+				
+				
+						echo "
+						<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'>
+			  <div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+				  <div class='modal-header'>
+					<h5 class='modal-title' id='exampleModalLongTitle'>Formulario Para Actualizar Libros</h5>
+					<div id='msg_actualizado' </div>
+					<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+					  <span aria-hidden='true'>&times;</span>
+					</button>
+					<div id='msg_actualizado' </div>
+				  </div>
+				  <div class='modal-body'>
+			
+						  <label for='f_name'>Nombre</label>
+						  <input type='text' id='l_nombre' name='l_nombre' class='form-control' value ='$nombre'>
+						  
+						<label for='reseña'>Reseña</label>
+						<textarea class='form-control' rows='10' name='reseña' id='reseña'>$reseña</textarea>
+			
+						<label for='escritor'>Escritor</label>
+						<select class='form-control' id='l_escritor' name='l_escritor'>
+						
+					";
+								//en esta consulta se pregunta el nombre del escritor actual
+						$sql = 'SELECT * FROM escritor';       					
+						$runquery = oci_parse($con, $sql);                                  
+						$ok = oci_execute($runquery);	
+						
+						$sql_escritor = "SELECT * FROM escritor where escritor_id = $escritor_id"; 
+						$query_escritor = oci_parse($con, $sql_escritor);                                  
+						$ok_escritor = oci_execute($query_escritor);
+						IF($row_escritor = oci_fetch_object($query_escritor)) {	
+							do{
+								$escritor_nombre = $row_escritor->ESCRITOR_NOMBRE;
+							}while($row_escritor = oci_fetch_object($query_escritor));
+						}
+						echo "<option value=$escritor_id>$escritor_nombre</option>	";
+			
+			
+			//en esta consulta se pregunta los nombres y el id de los escritores para ponerlos en el combo
+			
+					   IF($row = oci_fetch_object($runquery)) {							  
+						   do{
+							   $escritor_id = $row->ESCRITOR_ID;
+							echo "<option value = $row->ESCRITOR_ID> $row->ESCRITOR_NOMBRE </option>";
+						   }while($row = oci_fetch_object($runquery));         						 
+					}	
+							
+							 oci_free_statement($runquery); 	
+				 //----------------------------------------------------------------------
+							echo " 	
+										
+						</select>
+			
+						 <label for='categoria'>Categoria</label>
+						<select class='form-control' id='l_categoria' name='l_categoria'>
+						
+			
+						";
+								//en esta consulta se pregunta el nombre de la categoria actual
+						$sql = 'SELECT * FROM categoria';       					
+						$runquery = oci_parse($con, $sql);                                  
+						$ok = oci_execute($runquery);	
+						
+						$sql_categoria = "SELECT * FROM categoria where cat_id = $categoria_id"; 
+						$query_categoria = oci_parse($con, $sql_categoria);                                  
+						$ok_escritor = oci_execute($query_categoria);
+						IF($row_categoria = oci_fetch_object($query_categoria)) {	
+							do{
+								$categoria_nombre = $row_categoria->CAT_NOMBRE;
+							}while($row_categoria = oci_fetch_object($query_categoria));
+						}
+						echo "<option value=$categoria_id>$categoria_nombre</option>	";
+			
+			
+			//en esta consulta se pregunta los nombres y el id de los escritores para ponerlos en el combo
+			
+					   IF($row = oci_fetch_object($runquery)) {							  
+						   do{
+							   $escritor_id = $row->ESCRITOR_ID;
+							echo "<option value = $row->CAT_ID> $row->CAT_NOMBRE </option>";
+						   }while($row = oci_fetch_object($runquery));         						 
+					}	
+							
+							 oci_free_statement($runquery); 
+					//----------------------------------------------------------------------	
+							echo " 	
+			
+						</select>
+			
+						<label for='S_Editorial'>Editorial</label>
+						<select class='form-control' id='S_Editorial' name='S_Editorial'>
+						";
+								//en esta consulta se pregunta el nombre de la categoria actual
+						$sql = 'SELECT * FROM editorial';       					
+						$runquery = oci_parse($con, $sql);                                  
+						$ok = oci_execute($runquery);	
+						
+						$sql_editorial = "SELECT * FROM editorial where ID = $editorial_id"; 
+						$query_editorial = oci_parse($con, $sql_editorial);                                  
+						$ok_escritor = oci_execute($query_editorial);
+						IF($row_editorial = oci_fetch_object($query_editorial)) {	
+							do{
+								$editorial_nombre = $row_editorial->NOMBRE;
+							}while($row_editorial = oci_fetch_object($query_editorial));
+						}
+						echo "<option value=$editorial_id>$editorial_nombre</option>	";
+			
+			
+			//en esta consulta se pregunta los nombres y el id de los escritores para ponerlos en el combo
+			
+					   IF($row = oci_fetch_object($runquery)) {							  
+						   do{
+							   $editorial_id = $row->ID;
+							echo "<option value = $row->ID> $row->NOMBRE </option>";
+						   }while($row = oci_fetch_object($runquery));         						 
+					}	
+							
+							 oci_free_statement($runquery); 
+					//----------------------------------------------------------------------	
+							echo " 		
+						</select>
+			
+						<label for='s_autor'>Autor</label>
+						<select class='form-control' id='s_autor' name='s_autor'>
+						";
+								//en esta consulta se pregunta el nombre de la categoria actual
+						$sql = 'SELECT * FROM AUTOR';       					
+						$runquery = oci_parse($con, $sql);                                  
+						$ok = oci_execute($runquery);	
+						
+						$sql2 = "SELECT * FROM AUTOR where ID = $autor_id"; 
+						$query2 = oci_parse($con, $sql2);                                  
+						$ok2 = oci_execute($query2);
+						IF($row = oci_fetch_object($query2)) {	
+							do{
+								$autor_nombre = $row->NOMBRES_Y_APELLIDOS;
+							}while($row = oci_fetch_object($query2));
+						}
+						echo "<option value=$autor_id>$autor_nombre</option>	";
+			
+			
+			//en esta consulta se pregunta los nombres y el id de los escritores para ponerlos en el combo
+			
+					   IF($row = oci_fetch_object($runquery)) {							  
+						   do{
+							  
+							echo "<option value = $row->ID> $row->NOMBRES_Y_APELLIDOS </option>";
+						   }while($row = oci_fetch_object($runquery));         						 
+					}	
+							
+							 oci_free_statement($runquery); 
+					//----------------------------------------------------------------------	
+							echo " 	
+						</select>
+			
+						<label for='l_precio'>precio</label>
+						<input type='number' id='l_precio' name='l_precio' class='form-control' value = $precio>
+			
+						<label for='stock'>stock</label>
+						<input type='number' id='stock' name='stock' class='form-control' value = $stock>
+			
+						<label for='mobile'>Palabra Clave</label>
+						<input type='text' id='l_clave' name='l_clave' class='form-control' value = $palabra>
+				 
+					
+				  </div>
+				  <div class='modal-footer'>
+				  <button  style='float:left' libro_id='$libro_id' id='before_eliminar_libro' class='btn btn-danger'>Eliminar</button>
+					<button type='button' class='btn btn-secondary' data-dismiss='modal'>Cerrar</button>
+					<button libro_id='$libro_id' id='actualizar_libro' type='button' class='btn btn-primary'>Actualizar</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
+						";
+			}
+
+			if(isset($_POST["before_eliminar_libro"])){
+
+				$id_libro = $_POST["id_libro"];
+
+				$sql = "SELECT * FROM venta WHERE idlibro = $id_libro";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				$fetc = oci_fetch_object($run_query);
+				$num = oci_num_rows($run_query);
+			
+
+				if($num > 0){
+
+					echo " 
+					<div class='alert alert-danger' role='alert'>
+					Este Libro Esta Asociado A una Venta Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado </div> 
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' libro_id='$id_libro' id='deshabilitar_libro'  style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+				  </div>";
+
+				}else{
+
+					echo " 
+					<div class='alert alert-danger' role='alert'>
+					Este Libro Se Eliminara Permanentemente
+					 </div> 
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button' libro_id='$id_libro' id='eliminar_libro'  style='float'  class='btn btn-primary'>Eliminar</button>
+				  </div>";
+				}
+			}
+
+			if(isset($_POST["eliminar_libro"])){
+
+				$libro_id = $_POST["libro_id"];
+				if($_POST["eliminar_libro"]==0){
+					$sql = "DELETE from libros where libro_id = $libro_id ";
+				}elseif($_POST["eliminar_libro"]==1){
+					$sql = "UPDATE libros set estado = 0 where libro_id = $libro_id ";
+
+				}
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				
+				if($ok){			
+					if($_POST["eliminar_libro"] == 0){	
+						echo " 					
+						<h4 class='alert alert-success'>Se Elimino Correctamente</h4>
+					  <div class='modal-footer'> </div>";
+						}else{
+							echo " 					
+							<h4 class='alert alert-success'>Se Deshabilito Correctamente</h4>
+						  <div class='modal-footer'> </div>";
+						}
+				}else{
+					echo " 
+					<h4 class='text-danger'>Error Al Eliminar</h4>
+				  <div class='modal-footer'>
+					
+				  </div>";
+
+				}
+				
+			}
+

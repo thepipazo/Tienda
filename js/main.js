@@ -58,6 +58,71 @@ function showModal() {
         })
     }
 
+    $("body").delegate("#editar_product", "click", function(event) {
+        event.preventDefault();
+        var p_id = $(this).attr('pid');
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { editar_product: 0, proId: p_id },
+            success: function(data) {
+                
+                $("#modal").html(data);
+                showModal();
+            }
+        })
+    })
+
+    $("body").delegate("#eliminar_libro", "click", function(event) {
+        event.preventDefault();
+        var libro_id = $(this).attr("libro_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { eliminar_libro: 0, libro_id: libro_id },
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                product_admin();
+                
+            }
+        })
+    })
+
+    $("body").delegate("#before_eliminar_libro", "click", function(event) {
+        event.preventDefault();
+        var id_libro = $(this).attr("libro_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { before_eliminar_libro: 0, id_libro: id_libro },
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                
+            }
+        })
+    })
+
+    $("body").delegate("#deshabilitar_libro", "click", function(event) {
+        event.preventDefault();
+        var libro_id = $(this).attr("libro_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { eliminar_libro: 1, libro_id: libro_id },
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                product_admin();
+                
+            }
+        })
+    })
+
 //----------------------CATEGORIAS------------------------------------
 
     function categorias_admin() {
