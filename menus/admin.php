@@ -35,7 +35,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
 		<div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
 				
-				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
+				<li><a href="../index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span><?php echo "Nuevo";?></a>
 					<ul class="dropdown-menu">
 						<li><a href="nuevo_libro.php" class="glyphicon glyphicon-book" id="nuevo_libro" name="nuevo_libro"style="text-decoration:none; color:blue;">Libro</a></li>
@@ -50,7 +50,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
 						
 					</ul>
 				</li>
-				<li><a href="habilitar.php"><span class="glyphicon glyphicon-ban-circle"></span>Habilitar</a></li>
+				<li><a href="../vista/habilitar.php"><span class="glyphicon glyphicon-ban-circle"></span>Habilitar</a></li>
 
 			</ul>
 

@@ -1,19 +1,30 @@
 $(document).ready(function() {
 product();
+product_admin();
+product_cli();
+libros_deshabilitados();
 
 categorias();
 categorias_cliente();
 categorias_admin();
+categorias_admin();
+categorias_deshabilitados();
+
 
 tipo();
-product_admin();
-categorias_admin();
-autor_admin()
-editorial_admin();
 tipo_admin();
-mispedidos();
-product_cli();
+tipos_deshabilitados();
 
+
+autor_admin()
+autores_deshabilitados();
+
+editorial_admin();
+editoriales_deshabilitados();
+
+
+
+mispedidos();
 
 
 
@@ -57,6 +68,19 @@ function showModal() {
             }
         })
     }
+
+    function libros_deshabilitados() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { libros_deshabilitados: 1 },
+            success: function(data) {
+                $("#libros_des_msg").html(data);
+
+            }
+        })
+    }
+
 
     $("body").delegate("#editar_product", "click", function(event) {
         event.preventDefault();
@@ -123,6 +147,22 @@ function showModal() {
         })
     })
 
+    $("body").delegate("#habilitar_libros", "click", function(event) {
+        event.preventDefault();
+        var libro_id = $(this).attr('libro_id'); 
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { habilitar_libros: 1,libro_id:libro_id },
+            success: function(data) {
+                libros_deshabilitados();
+                $("#msg_habilitado").html(data);
+               
+            }
+        })
+    })
+
+
 //----------------------CATEGORIAS------------------------------------
 
     function categorias_admin() {
@@ -145,6 +185,17 @@ function showModal() {
             success: function(data) {
                 $("#get_cat").html(data);
     
+            }
+        })
+    }
+
+    function categorias_deshabilitados() {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { categorias_deshabilitados: 1 },
+            success: function(data) {
+                $("#categorias_des_msg").html(data);
             }
         })
     }
@@ -255,6 +306,18 @@ function tipo_admin() {
         }
     })
 }
+
+function tipos_deshabilitados() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { tipos_deshabilitados: 1 },
+        success: function(data) {
+            $("#tipo_des_msg").html(data);
+        }
+    })
+}
+
 function tipo(){
     $.ajax({
         url: "controlador/accion.php",
@@ -360,6 +423,17 @@ function autor_admin() {
     })
 }
 
+function autores_deshabilitados() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { autor_deshabilitadoss: 1 },
+        success: function(data) {
+            $("#autor_des_msg").html(data);
+        }
+    })
+}
+
 $("#ingreso_autor").click(function() {
     var nombre = $("#nombre_autor").val();
     var descripcion = $("#reseña_autor").val();
@@ -448,6 +522,17 @@ function editorial_admin() {
         data: { editorial_admin: 1 },
         success: function(data) {
             $("#edit_admin_msg").html(data);
+        }
+    })
+}
+
+function editoriales_deshabilitados() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editoriales_deshabilitados: 1 },
+        success: function(data) {
+            $("#editoriales_des_msg").html(data);
         }
     })
 }

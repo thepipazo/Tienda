@@ -1515,3 +1515,279 @@ if(isset($_POST["escritores"])){
 				
 			}
 
+			if(isset($_POST["libros_deshabilitados"])){
+				
+				$sql = "SELECT libro_id,libro_nombre,libro_precio,libro_imagen,(select nombres_y_apellidos from autor where id = libro_autor) as autor FROM libros where estado = 0";
+				
+					 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					 $ok   = oci_execute($stmt);          // Ejecutar la sentencia
+
+				echo "  
+				<div style='height: 200px; overflow: auto;'>
+				<table class='table table-hover' style='font-size:15px'>
+				<thead>
+      			<tr>
+      			 <th>Portada</th>
+       			 <th>ID</th>
+					<th>Nombre</th>
+					<th>Autor</th>
+					<th>Precio</th>
+					<th>Habilitar</th>
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+				
+
+					if( $ok == true )
+					{
+						 if( $row = oci_fetch_object($stmt) )
+						{
+							 do
+							 {
+							$nombre = $row->LIBRO_NOMBRE;
+							$precio = $row->LIBRO_PRECIO;
+							$autor = $row->AUTOR;
+							$ID = $row->LIBRO_ID;
+							$imagen = $row->LIBRO_IMAGEN;
+							
+							echo "<tr>
+							<td><img src='../product_images/$imagen' width='50px' height='60'></td>
+							<td>$ID</td>
+							<td>$nombre</td>
+							<td>$autor</td>
+							<td>$precio</td>
+							<td> <button type='button' libro_id='$ID' id='habilitar_libros'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+							<span class='glyphicon glyphicon-edit'></span>  </button></td>
+							  </tr>";
+							  
+							 } while( $row = oci_fetch_object($stmt) );			
+						}
+						else
+							echo "<p>No Hay Libros Deshabilitados</p>";
+					}
+					else
+						$ok = false;
+					 oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+					 </div>
+					 ";exit();
+				}
+
+				if(isset($_POST["categorias_deshabilitados"])){
+
+					
+					$sql = "SELECT *from categoria where estado = 0";
+					$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					$ok   = oci_execute($stmt); 
+
+					echo "  
+					<div style='height: 150px; overflow: auto;'>
+				<table class='table table-hover'>
+				<thead>
+      			<tr>
+       			<th>ID</th>				
+				<th>Nombre</th>		
+				<th>Habilitar</th>			
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+					if( $ok  )
+				   {
+						if( $row = oci_fetch_object($stmt) )
+					   {
+							do
+							{
+
+								
+						   $nombre = $row->CAT_NOMBRE;
+						   $ID = $row->CAT_ID;
+						  
+						   
+						   echo "<tr>
+						   <td>$ID</td>
+						   <td>$nombre</td>
+						   <td> <button type='button' categoria_id='$ID' id='habilitar_categorias'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						   <span class='glyphicon glyphicon-edit'></span>  </button></td>
+							 </tr>";
+							 
+							} while( $row = oci_fetch_object($stmt) );			
+					   }
+					   else
+						   echo "<p>No Hay Categorias Deshabilitadas</p>";
+				   }
+				   else
+					oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+					 </div>
+					 ";exit();
+				}
+
+
+				if(isset($_POST["autor_deshabilitadoss"])){
+
+					
+					$sql = "SELECT *from autor where estado = 0";
+					$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					$ok   = oci_execute($stmt); 
+
+					echo "  
+					<div style='height: 150px; overflow: auto;'>
+				<table class='table table-hover'>
+				<thead>
+      			<tr>
+       			<th>ID</th>				
+				<th>Nombre</th>		
+				<th>Habilitar</th>			
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+					if( $ok  )
+				   {
+						if( $row = oci_fetch_object($stmt) )
+					   {
+							do
+							{
+
+								
+						   $nombre = $row->NOMBRES_Y_APELLIDOS;
+						   $ID = $row->ID;
+						  
+						   
+						   echo "<tr>
+						   <td>$ID</td>
+						   <td>$nombre</td>
+						   <td> <button type='button' autor_id='$ID' id='habilitar_autores'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						   <span class='glyphicon glyphicon-edit'></span>  </button></td>
+							 </tr>";
+							 
+							} while( $row = oci_fetch_object($stmt) );			
+					   }
+					   else
+						   echo "<p>No Hay Autores Deshabilitados</p>";
+				   }
+				   else
+					oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+				   	</div>
+					 ";exit();
+				}
+
+				
+				if(isset($_POST["editoriales_deshabilitados"])){
+
+					
+					$sql = "SELECT *from editorial where estado = 0";
+					$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					$ok   = oci_execute($stmt); 
+
+					echo " 
+					<div style='height: 150px; overflow: auto;'> 
+				<table class='table table-hover'>
+				<thead>
+      			<tr>
+       			<th>ID</th>				
+				<th>Nombre</th>	
+				<th>Habilitar</th>				
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+					if( $ok  )
+				   {
+						if( $row = oci_fetch_object($stmt) )
+					   {
+							do
+							{
+
+								
+						   $nombre = $row->NOMBRE;
+						   $ID = $row->ID;
+						  
+						   
+						   echo "<tr>
+						   <td>$ID</td>
+						   <td>$nombre</td>
+						   <td> <button type='button' editorial_id='$ID' id='habilitar_editoriales'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						   <span class='glyphicon glyphicon-edit'></span>  </button></td>
+							 </tr>";
+							 
+							} while( $row = oci_fetch_object($stmt) );			
+					   }
+					   else
+						   echo "<p>No Hay Editoriales Deshabilitadas</p>";
+				   }
+				   else
+					oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+					 </div>
+					 ";exit();
+				}
+
+				if(isset($_POST["tipos_deshabilitados"])){
+
+					
+					$sql = "SELECT *from escritor where estado = 0";
+					$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					$ok   = oci_execute($stmt); 
+
+					echo "  
+					<div style='height: 150px; overflow: auto;'>
+				<table class='table table-hover'>
+				<thead>
+      			<tr>
+       			<th>ID</th>				
+				<th>Nombre</th>	
+				<th>Habilitar</th>				
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+					if( $ok  )
+				   {
+						if( $row = oci_fetch_object($stmt) )
+					   {
+							do
+							{
+
+								
+						   $nombre = $row->ESCRITOR_NOMBRE;
+						   $ID = $row->ESCRITOR_ID;
+						  
+						   
+						   echo "<tr>
+						   <td>$ID</td>
+						   <td>$nombre</td>
+						   <td> <button type='button' tipo_id='$ID' id='habilitar_tipos'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						   <span class='glyphicon glyphicon-edit'></span>  </button></td>
+							 </tr>";
+							 
+							} while( $row = oci_fetch_object($stmt) );			
+					   }
+					   else
+						   echo "<p>No Hay Tipos Deshabilitados</p>";
+				   }
+				   else
+					oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+					 </div>
+					 ";exit();
+				}
+
