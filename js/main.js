@@ -1,9 +1,13 @@
 $(document).ready(function() {
 product();
-cat();
+
+categorias();
+categorias_cliente();
+categorias_admin();
+
 escritor();
 product_admin();
-cat_admin()
+categorias_admin();
 autor_admin()
 editorial_admin();
 escritores_admin();
@@ -13,14 +17,15 @@ product_cli();
 
 
 
+
  //misdevoluciones();
- function cat() {
+ function categorias() {
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
         data: { categorias: 1 },
         success: function(data) {
-            $("#get_category").html(data);
+            $("#get_categorias").html(data);
             }
         })
     }
@@ -65,7 +70,7 @@ product_cli();
 
 
 
-    function cat_admin() {
+    function categorias_admin() {
         $.ajax({
             url: "../controlador/accion.php",
             method: "POST",
@@ -286,13 +291,13 @@ function product_cli() {
     })
 }
 
-function cat() {
+function categorias_cliente() {
     $.ajax({
         url: "../controlador/accion.php",
         method: "POST",
-        data: { category: 1 },
+        data: { categorias: 1 },
         success: function(data) {
-            $("#get_category").html(data);
+            $("#get_cat").html(data);
 
         }
     })
@@ -312,4 +317,27 @@ $("#misdevoluciones").click(function(event) {
     })
 
 })
+
+
+
+$("body").delegate("#before_eliminar_categoria", "click", function(event) {
+    event.preventDefault();
+    var cat_id = $(this).attr("cat_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_categoria: 0, cat_id: cat_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
+
+
+
+
+
 })

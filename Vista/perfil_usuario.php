@@ -10,7 +10,7 @@ include "../menus/cliente.php";
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-2">
-				<div id="get_category">
+				<div id="get_cat">
 					<!--aqui vienen las categorias desde mein js -->
 				</div>
 				  

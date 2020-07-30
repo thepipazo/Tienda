@@ -95,7 +95,7 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-2 col-xs-12">
-				<div id="get_category">
+				<div id="get_categorias">
 				</div>
 				
 				<div id="get_escritores">

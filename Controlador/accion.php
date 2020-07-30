@@ -83,6 +83,7 @@ if(isset($_POST["getProduct"])){
 
 
 if(isset($_POST["categorias"])){
+	
 	echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Categorias</h4></a></li>";
 	$sql = "SELECT * FROM categoria";
 	 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
@@ -658,7 +659,7 @@ if(isset($_POST["escritores"])){
 
 
 
-			if(isset($_POST["editar_categoria"])){//esta funcion es para mostrar un menu de categorias para el administrador donde tendra la posibilidad de editar
+			if(isset($_POST["editar_categoria"])){
 				$cat_id = $_POST["c_id"];
 				$cat_nombre = "";
 				$cat_descripcion="";
@@ -731,7 +732,7 @@ if(isset($_POST["escritores"])){
 
 
 
-			if(isset($_POST["editar_editorial"])){//esta funcion es para mostrar un menu de categorias para el administrador donde tendra la posibilidad de editar
+			if(isset($_POST["editar_editorial"])){
 				$editorial_id = $_POST["editorial_id"];
 				$editorial_nombre = "";
 				$editorial_descripcion="";
@@ -805,23 +806,6 @@ if(isset($_POST["escritores"])){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			if(isset($_POST["getPedidos"])){
 				
 						
@@ -870,40 +854,38 @@ if(isset($_POST["escritores"])){
 				}  	
 			}	
 
-			if(isset($_POST["awa"])){
+
+
+
+
+
+			if(isset($_POST["before_eliminar_categoria"])){
+
+				$cat_id = $_POST["cat_id"];
+
+				$sql = "SELECT * FROM libros WHERE libro_cat = $cat_id";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				$fetc = oci_fetch_object($run_query);
+				$num = oci_num_rows($run_query);
 			
-				echo "
-				<div class='alert alert-success'>
-					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					<b> Error desconocido !!</b>
-				</div>
-			";
-			exit();
-			}
 
+				if($num > 0){
 
+					echo " 
+					<h4 class='text-danger'> Esta Categoria Esta Asociado A un Libro Por Lo Tanto Solo Se Actualizara Su Estado A Inhabilitado</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button'  categoria_id='$cat_id' id='deshabilitar_categoria' style='float'  class='btn btn-primary'>Seguir De Todas Formas</button>
+				  </div>";
+				}else{
+					echo " 
+					<h4 class='text-danger'>Esta Categoria Se Eliminara Permanentemente</h4>
+				  <div class='modal-footer'>
+					<button type='button'  style='float:left;' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+					<button type='button'  categoria_id='$cat_id' id='eliminar_categoria' style='float'  class='btn btn-primary'>Eliminar</button>
+				  </div>";
 
-			if(isset($_POST["category"])){
-				echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Categorias</h4></a></li>";
-				$sql = "SELECT * FROM categoria";
-				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
-				 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
-				if( $ok == true )
-				{
-					 if( $obj = oci_fetch_object($stmt) )
-					{
-						 do
-						 {
-							$cid = $obj->CAT_ID;
-							$cat_nombre = $obj->CAT_NOMBRE;
-					
-							echo "<li><a href='#' class='category' cid='$cid'>$cat_nombre</a></li>";
-						 } while( $obj = oci_fetch_object($stmt) );			
-					}
-					else
-						echo "<p>No Hay Libros En Venta</p>";
 				}
-				else
-					$ok = false;
-				 oci_free_statement($stmt);    	
+				
 			}
