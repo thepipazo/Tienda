@@ -11,9 +11,9 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
     <meta charset="UTF-8">
     <title>Venta De Libros</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <script src="js/jquery2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="main.js"></script>
+    <script src="../js/jquery2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
     <style>
         @media screen and (max-width:480px){
             #search{width:80%;}
@@ -75,7 +75,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
                     <li class="divider"></li>
                     <li><a href='enviarcorreo.php?hello=true' id="cambiar_password" name="cambiar_password"style="text-decoration:none; color:blue;">Cambia la contraseña</a></li>
                     <li class="divider"></li>
-                    <li><a href="logout.php" style="text-decoration:none; color:blue;">Cerrar sesión</a></li>
+                    <li><a href="../controlador/logout.php" style="text-decoration:none; color:blue;">Cerrar sesión</a></li>
                 
                 </ul>
             </li>
