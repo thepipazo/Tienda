@@ -5,31 +5,25 @@ categorias();
 categorias_cliente();
 categorias_admin();
 
-escritor();
+tipo();
 product_admin();
 categorias_admin();
 autor_admin()
 editorial_admin();
-escritores_admin();
+tipo_admin();
 mispedidos();
 product_cli();
 
 
 
 
+function showModal() {
+    $('#exampleModal').modal('show');
+  }
 
- //misdevoluciones();
- function categorias() {
-    $.ajax({
-        url: "controlador/accion.php",
-        method: "POST",
-        data: { categorias: 1 },
-        success: function(data) {
-            $("#get_categorias").html(data);
-            }
-        })
-    }
 
+
+//----------------LIBROS -----------------------------------------
 
     function product(){
         $.ajax({
@@ -41,21 +35,18 @@ product_cli();
             }
         })
     }
- 
 
-
-    function escritor(){
+    function product_cli() {
         $.ajax({
-            url: "controlador/accion.php",
+            url: "../controlador/accion.php",
             method: "POST",
-            data: { escritores: 1 },
+            data: { getProduct: 1 },
             success: function(data) {
-                $("#get_escritores").html(data);
+                $("#get_product_cli").html(data);
             }
         })
-    }
-
-
+    }    
+ 
     function product_admin() {
         $.ajax({
             url: "../controlador/accion.php",
@@ -67,8 +58,7 @@ product_cli();
         })
     }
 
-
-
+//----------------------CATEGORIAS------------------------------------
 
     function categorias_admin() {
         $.ajax({
@@ -82,42 +72,28 @@ product_cli();
         })
     }
 
-
-    function autor_admin() {
+    function categorias_cliente() {
         $.ajax({
             url: "../controlador/accion.php",
             method: "POST",
-            data: { autor_admin: 1 },
+            data: { categorias: 1 },
             success: function(data) {
-                $("#autor_admin_msg").html(data);
+                $("#get_cat").html(data);
+    
             }
         })
     }
 
-
-    function editorial_admin() {
+    function categorias() {
         $.ajax({
-            url: "../controlador/accion.php",
+            url: "controlador/accion.php",
             method: "POST",
-            data: { editorial_admin: 1 },
+            data: { categorias: 1 },
             success: function(data) {
-                $("#edit_admin_msg").html(data);
-            }
-        })
-    }
-
-
-    function escritores_admin() {
-        $.ajax({
-            url: "../controlador/accion.php",
-            method: "POST",
-            data: { escritor_Admin: 1 },
-            success: function(data) {
-                $("#esc_admin_msg").html(data);
-            }
-        })
-    }
-
+                $("#get_categorias").html(data);
+                }
+            })
+        }
 
     $("#ingreso_cat").click(function(event) {
         event.preventDefault();
@@ -134,10 +110,96 @@ product_cli();
 
     })
 
+    $("body").delegate("#editar_categoria", "click", function(event) {
+        event.preventDefault();
+        var c_id = $(this).attr('cat_id');
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { editar_categoria: 0, c_id: c_id },
+            success: function(data) {
+                
+                $("#modal").html(data);
+                showModal();
+            }
+        })
+    })
 
+    $("body").delegate("#before_eliminar_categoria", "click", function(event) {
+        event.preventDefault();
+        var cat_id = $(this).attr("cat_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { before_eliminar_categoria: 0, cat_id: cat_id },
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                
+            }
+        })
+    })
 
+    $("body").delegate("#eliminar_categoria", "click", function(event) {
+        event.preventDefault();
+        var categoria_id = $(this).attr("categoria_id");
+       
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { eliminar_categoria: 0, categoria_id: categoria_id},
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                categorias_admin();
+                
+            }
+        })
+    })
 
+    $("body").delegate("#deshabilitar_categoria", "click", function(event) {
+        event.preventDefault();
+        var categoria_id = $(this).attr("categoria_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { eliminar_categoria: 1, categoria_id: categoria_id },
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                categorias_admin();
+                
+            }
+        })
+    })
 
+    
+    
+
+//-----------------TIPOS DE LIBROS---------------------------------------------
+
+function tipo_admin() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { escritor_Admin: 1 },
+        success: function(data) {
+            $("#esc_admin_msg").html(data);
+        }
+    })
+}
+function tipo(){
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { escritores: 1 },
+        success: function(data) {
+            $("#get_escritores").html(data);
+        }
+    })
+}
 
 $("#ingreso_tipo").click(function(event) {
     event.preventDefault();
@@ -154,79 +216,6 @@ $("#ingreso_tipo").click(function(event) {
 
 })
 
-
-
-
-$("#ingreso_autor").click(function() {
-    var nombre = $("#nombre_autor").val();
-    var descripcion = $("#reseña_autor").val();
-        $.ajax({
-            url: "../controlador/accion.php",
-            method: "POST",
-            data: { ingreso_autor: 1, nombre: nombre, descripcion:descripcion },
-            success: function(data) {
-                $("#aut_msg").html(data);
-                
-            }
-        })
-})
-
-
-
-$("#ingreso_edit").click(function() {
-    var nombre = $("#nombre_editorial").val();
-    var descripcion = $("#descripcionedit").val();
-
-        $.ajax({
-            url: "../controlador/accion.php",
-            method: "POST",
-            data: { ingreso_editorial: 1, nombre: nombre, descripcion:descripcion },
-            success: function(data) {
-                $("#edit_msg").html(data);
-                
-            }
-        })
-})
-
-
-function showModal() {
-    $('#exampleModal').modal('show');
-  }
-
-$("body").delegate("#editar_autor", "click", function(event) {
-    event.preventDefault();
-    var autor_id = $(this).attr('autor_id');
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { editar_autor: 0, autor_id: autor_id },
-        success: function(data) {
-            
-            $("#modal").html(data);
-            showModal();
-        }
-    })
-})
-
-
-
-
-$("body").delegate("#editar_categoria", "click", function(event) {
-    event.preventDefault();
-    var c_id = $(this).attr('cat_id');
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { editar_categoria: 0, c_id: c_id },
-        success: function(data) {
-            
-            $("#modal").html(data);
-            showModal();
-        }
-    })
-})
-
-
 $("body").delegate("#editar_tipo", "click", function(event) {
     event.preventDefault();
     var tipo_id = $(this).attr('tipo_id');
@@ -241,152 +230,6 @@ $("body").delegate("#editar_tipo", "click", function(event) {
         }
     })
 })
-
-
-
-$("body").delegate("#editar_editorial", "click", function(event) {
-    event.preventDefault();
-    var editorial_id = $(this).attr('edit_id');
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { editar_editorial: 0, editorial_id: editorial_id },
-        success: function(data) {
-            
-            $("#modal").html(data);
-            showModal();
-        }
-    })
-})
-
-$("#logear").click(function(event) {
-    event.preventDefault();
-    var email = $("#email").val();
-    var pass = $("#password").val();
-    $.ajax({
-        url: "controlador/login.php",
-        method: "POST",
-        data: { userLogin: 1, userEmail: email, userPassword: pass },
-        success: function(data) {
-            if (data == 0) {
-
-                location.href = "Vista/perfil_usuario.php";
-                //header("location:perfil_usuario.php");
-
-            }
-            if (data == 1) {
-                location.href = "Vista/perfil_admin.php";
-            }
-            if (data == 2) {
-                $("#e_msg").html('<div class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
-            }
-        }
-    })
-})
-
-
-function mispedidos() {
-    $.ajax({
-        url: "../Vista/mis_pedidos.php",
-        method: "POST",
-        data: { pedido: 1 },
-        success: function(data) {
-            $("#pedidos_msg").html(data);
-        }
-    })
-}
-
-function product_cli() {
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { getProduct: 1 },
-        success: function(data) {
-            $("#get_product_cli").html(data);
-        }
-    })
-}
-
-function categorias_cliente() {
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { categorias: 1 },
-        success: function(data) {
-            $("#get_cat").html(data);
-
-        }
-    })
-}
-
-$("#misdevoluciones").click(function(event) {
-    event.preventDefault();
-    var codigo = $("#code").val();
-    $.ajax({
-        url: "../controlador/mis_devoluciones_php.php",
-        method: "POST",
-        data: { devolucion: 1 },
-        success: function(data) {
-            $("#pedidos_msg").html(data);
-            
-        }
-    })
-
-})
-
-
-
-$("body").delegate("#before_eliminar_categoria", "click", function(event) {
-    event.preventDefault();
-    var cat_id = $(this).attr("cat_id");
-    
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { before_eliminar_categoria: 0, cat_id: cat_id },
-        success: function(data) {
-           
-            $("#msg_actualizado").html(data);
-            
-        }
-    })
-})
-
-
-
-$("body").delegate("#before_eliminar_autor", "click", function(event) {
-    event.preventDefault();
-    var autor_id = $(this).attr("autor_id");    
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { before_eliminar_autor: 0, autor_id: autor_id },
-        success: function(data) {           
-            $("#msg_actualizado").html(data);
-            
-        }
-    })
-})
-
-
-
-$("body").delegate("#before_eliminar_editorial", "click", function(event) {
-    event.preventDefault();
-    var editorial_id = $(this).attr("edit_id");
-    
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { before_eliminar_editorial: 0, editorial_id: editorial_id },
-        success: function(data) {
-           
-            $("#msg_actualizado").html(data);
-            
-        }
-    })
-})
-
-
 
 $("body").delegate("#before_eliminar_tipo", "click", function(event) {
     event.preventDefault();
@@ -404,45 +247,96 @@ $("body").delegate("#before_eliminar_tipo", "click", function(event) {
     })
 })
 
-
-
-$("body").delegate("#eliminar_categoria", "click", function(event) {
+$("body").delegate("#eliminar_tipo", "click", function(event) {
     event.preventDefault();
-    var categoria_id = $(this).attr("categoria_id");
-   
-    $.ajax({
-        url: "../controlador/accion.php",
-        method: "POST",
-        data: { eliminar_categoria: 0, categoria_id: categoria_id},
-        success: function(data) {
-           
-            $("#msg_actualizado").html(data);
-            categorias_admin();
-            
-        }
-    })
-})
-
-
-
-$("body").delegate("#deshabilitar_categoria", "click", function(event) {
-    event.preventDefault();
-    var categoria_id = $(this).attr("categoria_id");
+    var tipo_id = $(this).attr("tipo_id");
     
     $.ajax({
         url: "../controlador/accion.php",
         method: "POST",
-        data: { eliminar_categoria: 1, categoria_id: categoria_id },
+        data: { eliminar_tipo: 0, tipo_id: tipo_id },
         success: function(data) {
            
             $("#msg_actualizado").html(data);
-            categorias_admin();
+            escritores_admin();
+            
+        }
+    })
+})
+
+$("body").delegate("#deshabilitar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr("tipo_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_tipo: 1, tipo_id: tipo_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            escritores_admin();
             
         }
     })
 })
 
 
+//-------------AUTORES---------------------------------------------
+
+function autor_admin() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { autor_admin: 1 },
+        success: function(data) {
+            $("#autor_admin_msg").html(data);
+        }
+    })
+}
+
+$("#ingreso_autor").click(function() {
+    var nombre = $("#nombre_autor").val();
+    var descripcion = $("#reseña_autor").val();
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { ingreso_autor: 1, nombre: nombre, descripcion:descripcion },
+            success: function(data) {
+                $("#aut_msg").html(data);
+                
+            }
+        })
+})
+
+$("body").delegate("#editar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr('autor_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_autor: 0, autor_id: autor_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+$("body").delegate("#before_eliminar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autor_id");    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_autor: 0, autor_id: autor_id },
+        success: function(data) {           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
 
 $("body").delegate("#eliminar_autor", "click", function(event) {
     event.preventDefault();
@@ -480,8 +374,64 @@ $("body").delegate("#deshabilitar_autor", "click", function(event) {
     })
 })
 
+//------------------------EDITORIALES--------------------------
 
+function editorial_admin() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editorial_admin: 1 },
+        success: function(data) {
+            $("#edit_admin_msg").html(data);
+        }
+    })
+}
 
+$("#ingreso_edit").click(function() {
+    var nombre = $("#nombre_editorial").val();
+    var descripcion = $("#descripcionedit").val();
+
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { ingreso_editorial: 1, nombre: nombre, descripcion:descripcion },
+            success: function(data) {
+                $("#edit_msg").html(data);
+                
+            }
+        })
+})
+
+$("body").delegate("#editar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr('edit_id');
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editar_editorial: 0, editorial_id: editorial_id },
+        success: function(data) {
+            
+            $("#modal").html(data);
+            showModal();
+        }
+    })
+})
+
+$("body").delegate("#before_eliminar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr("edit_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { before_eliminar_editorial: 0, editorial_id: editorial_id },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            
+        }
+    })
+})
 
 $("body").delegate("#eliminar_editorial", "click", function(event) {
     event.preventDefault();
@@ -500,9 +450,6 @@ $("body").delegate("#eliminar_editorial", "click", function(event) {
     })
 })
 
-
-
-
 $("body").delegate("#deshabilitar_editorial", "click", function(event) {
     event.preventDefault();
     var editorial_id = $(this).attr("editorial_id");
@@ -520,47 +467,60 @@ $("body").delegate("#deshabilitar_editorial", "click", function(event) {
     })
 })
 
+//-----------------LOGEAR-------------------------------------------------------
 
-
-
-
-$("body").delegate("#eliminar_tipo", "click", function(event) {
+$("#logear").click(function(event) {
     event.preventDefault();
-    var tipo_id = $(this).attr("tipo_id");
-    
+    var email = $("#email").val();
+    var pass = $("#password").val();
     $.ajax({
-        url: "../controlador/accion.php",
+        url: "controlador/login.php",
         method: "POST",
-        data: { eliminar_tipo: 0, tipo_id: tipo_id },
+        data: { userLogin: 1, userEmail: email, userPassword: pass },
         success: function(data) {
-           
-            $("#msg_actualizado").html(data);
-            escritores_admin();
-            
+            if (data == 0) {
+
+                location.href = "Vista/perfil_usuario.php";
+                //header("location:perfil_usuario.php");
+
+            }
+            if (data == 1) {
+                location.href = "Vista/perfil_admin.php";
+            }
+            if (data == 2) {
+                $("#e_msg").html('<div class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
+            }
         }
     })
 })
+//-------------------------------------------------------------------------
 
-
-
-$("body").delegate("#deshabilitar_tipo", "click", function(event) {
-    event.preventDefault();
-    var tipo_id = $(this).attr("tipo_id");
-    
+function mispedidos() {
     $.ajax({
-        url: "../controlador/accion.php",
+        url: "../Vista/mis_pedidos.php",
         method: "POST",
-        data: { eliminar_tipo: 1, tipo_id: tipo_id },
+        data: { pedido: 1 },
         success: function(data) {
-           
-            $("#msg_actualizado").html(data);
-            escritores_admin();
+            $("#pedidos_msg").html(data);
+        }
+    })
+}
+
+
+$("#misdevoluciones").click(function(event) {
+    event.preventDefault();
+    var codigo = $("#code").val();
+    $.ajax({
+        url: "../controlador/mis_devoluciones_php.php",
+        method: "POST",
+        data: { devolucion: 1 },
+        success: function(data) {
+            $("#pedidos_msg").html(data);
             
         }
     })
+
 })
-
-
 
 
 })
