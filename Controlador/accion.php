@@ -755,7 +755,7 @@ if(isset($_POST["escritores"])){
 		  <div class='modal-body'>
 			
 						  <label for='f_name'>Nombre</label>
-						  <input type='text' id='edit_nombre' name='edit_nombre' class='form-control' value = $editorial_nombre>
+				 		  <input type='text' id='edit_nombre' name='edit_nombre' class='form-control' value = $editorial_nombre>
 						  
 						<label for='reseña'>Reseña</label>
 						<textarea class='form-control' rows='10' name='reseña_edit' id='reseña_edit'>$editorial_descripcion</textarea>
@@ -775,63 +775,6 @@ if(isset($_POST["escritores"])){
 				
 			}
 
-			if(isset($_POST["getPedidos"])){
-				
-						
-				$sql = "SELECT * FROM libros ";
-				$filas = 0;
-				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
-				 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
-				if( $ok == true )
-				{
-					 if( $obj = oci_fetch_object($stmt) )
-					{
-						 do
-						 {
-							$pro_id = $obj->LIBRO_ID;
-							$pro_cat = $obj->LIBRO_CAT;
-							$pro_escritor= $obj->LIBRO_ESCR;
-							$pro_nombre = $obj->LIBRO_NOMBRE;
-							$pro_precio = $obj->LIBRO_PRECIO;
-							//echo $obj->PRODUCT_IMAGE;
-							$pro_imagen = $obj->LIBRO_IMAGEN;
-							
-							
-							echo "
-								<div class='col-md-4'>
-											<div class='panel panel-info'>
-												<div class='panel-heading'>$pro_nom25bre</div>
-												<div class='panel-body'>
-													<img src='product_images/$pro_imagesadn' style='width:160px; height:250px;'/>
-												</div>
-												<div class='panel-heading'>$pro_precio
-												
-													<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>
-												</div>
-											</div>
-										</div>	
-							";
-						 } while( $obj = oci_fetch_object($stmt) );			
-					}
-					else
-						echo "<p>No Hay Libros En Venta</p>";
-				}
-				else{
-				echo "Error con la base de datos";
-					$ok = false;
-				 oci_free_statement($stmt);  
-				}  	
-			}	
 
-			if(isset($_POST["awa"])){
-			
-				echo "
-				<div class='alert alert-success'>
-					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					<b> Error desconocido !!</b>
-				</div>
-			";
-			exit();
-			}
 
 			

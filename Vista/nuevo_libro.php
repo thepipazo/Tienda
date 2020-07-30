@@ -4,7 +4,7 @@ include "../db.php";
 ?>
 
 <?php
-include "../menus/admin.html";
+include "../menus/admin.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>

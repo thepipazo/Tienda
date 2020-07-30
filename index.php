@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
+	header("location:vista/perfil_usuario.php");
+}elseif(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 1 ){
+	header("location:vista/perfil_admin.php");
+}else
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,12 +34,11 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="../ecomerce" class="navbar-brand">Tienda Libros</a>
+				<a href="../ecomerce" class="navbar-brand">CoronaLibros</a>
 			</div>
 		<div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="index.html"><span class="glyphicon glyphicon-home"></span>Nosotros</a></li>
-				<li><a href="index.html"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
+				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
 				<li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
 				<li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Buscar</button></li>
 			</ul>

@@ -1,14 +1,7 @@
+
 <?php
 
-session_start();
-if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
-	header("location:index.php");
-}
-?>
-<!DOCTYPE html>
-<html>
-<?php
-include "../menus/cliente.html";
+include "../menus/cliente.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>

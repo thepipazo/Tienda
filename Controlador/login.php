@@ -4,6 +4,7 @@ include "../db.php";
 session_start();
 
 if(isset($_POST["userLogin"])){
+	
 	$email = $_POST["userEmail"];
 	$password = md5($_POST["userPassword"]);
 	$sql = "SELECT * FROM user_info WHERE email = '$email' AND password = '$password'";

@@ -1,3 +1,8 @@
+<?php
+session_start();
+if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
+	//header("location:../index.php");
+}?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -56,11 +61,11 @@
 				
 				
 				</li>
-				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></a>
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Bienvenido,".$_SESSION["name"]; ?></a>
 					<ul class="dropdown-menu">
 						<li><a href="enviarcorreo.php" id="cambiar_password" name="cambiar_password"style="text-decoration:none; color:blue;">Cambia la contraseña</a></li>
 						<li class="divider"></li>
-						<li><a href="logout.php" style="text-decoration:none; color:blue;">Cerrar sesión</a></li>
+						<li><a href="../controlador/logout.php" style="text-decoration:none; color:blue;">Cerrar sesión</a></li>
 					</ul>
 				</li>
 				
