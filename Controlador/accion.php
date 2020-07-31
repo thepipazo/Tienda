@@ -2193,7 +2193,7 @@ if(isset($_POST["actualizar_autor"])){
 			}
 
 
-			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["autor_cli_seleccionada"]) || isset($_POST["editorial_cli_seleccionada"])){
+			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["autor_cli_seleccionada"]) || isset($_POST["editorial_cli_seleccionada"]) || isset($_POST["buscador_cli"])){
 				if(isset($_POST["categoria_cli_seleccionada"])){
 					$id = $_POST["cat_id"];
 					$sql = "SELECT * FROM libros WHERE libro_cat = '$id'";
@@ -2205,10 +2205,10 @@ if(isset($_POST["actualizar_autor"])){
 					$sql = "SELECT * FROM libros WHERE libro_autor = '$autor_id'";
 				}else if(isset($_POST["editorial_cli_seleccionada"])){
 					$editorial_id = $_POST["editorial_id"];
-					$sql = "SELECT * FROM libros WHERE libro_editorial = '$editorial_id'";					
-				}else if(isset($_POST["tipo_cli_seleccionada"])){
-					$id = $_POST["tipo_id"];
-					$sql = "SELECT * FROM libros WHERE libro_escr = '$id'";
+					$sql = "SELECT * FROM libros WHERE libro_editorial = '$editorial_id'";
+				}else if(isset($_POST["buscador_cli"])){
+					$buscador_cliente = $_POST["buscador_cliente"];
+					$sql = "SELECT * FROM libros WHERE libro_pal_clave LIKE '%$buscador_cliente%'";
 				}
 				
 				$stmt = oci_parse($con, $sql);        // Preparar la sentencia

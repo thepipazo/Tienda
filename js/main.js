@@ -953,5 +953,22 @@ $("#misdevoluciones").click(function(event) {
 
 })
 
+$("#boton_buscar").click(function() {
+    $("#get_product_cli").html("<h3>Cargando...</h3>");
+    var buscador_cliente = $("#buscador_cliente").val();
+    if (buscador_cliente != "") {
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { buscador_cli: 1, buscador_cliente: buscador_cliente },
+            success: function(data) {
+                $("#get_product_cli").html(data);
+                if ($("body").width() < 480) {
+                    $("body").scrollTop(683);
+                }
+            }
+        })
+    }
+})
 
 })
