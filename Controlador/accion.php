@@ -2155,7 +2155,7 @@ if(isset($_POST["actualizar_autor"])){
 							$autorid = $obj->ID;
 							$autor_nombre = $obj->NOMBRES_Y_APELLIDOS;
 					
-							echo "<li><a href='#' class='category' cid='$autorid'>$autor_nombre</a></li>";
+							echo "<li><a href='#' class='autor_cliente' autor_id='$autorid'>$autor_nombre</a></li>";
 						 } while( $obj = oci_fetch_object($stmt) );			
 					}
 					else
@@ -2181,7 +2181,7 @@ if(isset($_POST["actualizar_autor"])){
 							$editorialid = $obj->ID;
 							$editorial_nombre = $obj->NOMBRE;
 					
-							echo "<li><a href='#' class='category' cid='$editorialid'>$editorial_nombre</a></li>";
+							echo "<li><a href='#' class='editorial_cliente' editorial_id='$editorialid'>$editorial_nombre</a></li>";
 						 } while( $obj = oci_fetch_object($stmt) );			
 					}
 					else
@@ -2193,16 +2193,22 @@ if(isset($_POST["actualizar_autor"])){
 			}
 
 
-			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["search"])){
+			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["autor_cli_seleccionada"]) || isset($_POST["editorial_cli_seleccionada"])){
 				if(isset($_POST["categoria_cli_seleccionada"])){
 					$id = $_POST["cat_id"];
 					$sql = "SELECT * FROM libros WHERE libro_cat = '$id'";
 				}else if(isset($_POST["tipo_cli_seleccionada"])){
 					$id = $_POST["tipo_id"];
 					$sql = "SELECT * FROM libros WHERE libro_escr = '$id'";
-				}else {
-					$keyword = $_POST["keyword"];
-					$sql = "SELECT * FROM libros WHERE libro_pal_clave LIKE '%$keyword%'";
+				}else if(isset($_POST["autor_cli_seleccionada"])){
+					$autor_id = $_POST["autor_id"];
+					$sql = "SELECT * FROM libros WHERE libro_autor = '$autor_id'";
+				}else if(isset($_POST["editorial_cli_seleccionada"])){
+					$editorial_id = $_POST["editorial_id"];
+					$sql = "SELECT * FROM libros WHERE libro_editorial = '$editorial_id'";					
+				}else if(isset($_POST["tipo_cli_seleccionada"])){
+					$id = $_POST["tipo_id"];
+					$sql = "SELECT * FROM libros WHERE libro_escr = '$id'";
 				}
 				
 				$stmt = oci_parse($con, $sql);        // Preparar la sentencia

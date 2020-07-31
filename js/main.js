@@ -714,6 +714,24 @@ $("body").delegate("#deshabilitar_autor", "click", function(event) {
     })
 })
 
+$("body").delegate(".autor_cliente", "click", function(event) {
+    $("#get_product_cli").html("<h3>Cargando...</h3>");
+    event.preventDefault();
+    var autor_id = $(this).attr('autor_id');
+
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { autor_cli_seleccionada: 1, autor_id: autor_id },
+        success: function(data) {
+            $("#get_product_cli").html(data);
+            if ($("body").width() < 480) {
+                $("body").scrollTop(683);
+            }
+        }
+    })
+
+}) 
 //------------------------EDITORIALES--------------------------
 function editorial_cli() {
     $.ajax({
@@ -862,6 +880,24 @@ $("body").delegate("#deshabilitar_editorial", "click", function(event) {
     })
 })
 
+$("body").delegate(".editorial_cliente", "click", function(event) {
+    $("#get_product_cli").html("<h3>Cargando...</h3>");
+    event.preventDefault();
+    var editorial_id = $(this).attr('editorial_id');
+
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editorial_cli_seleccionada: 1, editorial_id: editorial_id },
+        success: function(data) {
+            $("#get_product_cli").html(data);
+            if ($("body").width() < 480) {
+                $("body").scrollTop(683);
+            }
+        }
+    })
+
+}) 
 //-----------------LOGEAR-------------------------------------------------------
 
 $("#logear").click(function(event) {
