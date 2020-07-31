@@ -16,7 +16,7 @@ $autor = explode("|", $_POST['s_autor']);
 $editorial = explode("|", $_POST['S_Editorial']);
 $cats = explode("|", $_POST['l_categoria']);
 $nombre_imagen=$_FILES ['imagen'] ['name'];
-$ruta = "product_images/" . $_FILES ['imagen'] ['name'];
+$ruta = "../product_images/" . $_FILES ['imagen'] ['name'];
 
 if($con){
 $query = OCIParse($con, "begin agregar_libro(:id_cat,:id_escritor,:libro_nombre,:libro_precio,:libro_descr,:libro_imagen,:libro_clave,:libro_stock,:libro_editorial,:libro_autor,:estado ,:mensaje); end;");
