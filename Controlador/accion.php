@@ -97,7 +97,7 @@ if(isset($_POST["categorias"])){
 				$cid = $obj->CAT_ID;
 				$cat_nombre = $obj->CAT_NOMBRE;
 		
-				echo "<li><a href='#' class='category' cid='$cid'>$cat_nombre</a></li>";
+				echo "<li><a href='#' class='categorias' cid='$cid'>$cat_nombre</a></li>";
 			 } while( $obj = oci_fetch_object($stmt) );			
 		}
 		else
@@ -2140,3 +2140,108 @@ if(isset($_POST["actualizar_autor"])){
 					$ok = false;
 				 oci_free_statement($stmt); 
 			}
+
+			if(isset($_POST["autor_cli"])){
+				echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Autores</h4></a></li>";
+				$sql = "SELECT * FROM autor";
+				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
+				if( $ok == true )
+				{
+					 if( $obj = oci_fetch_object($stmt) )
+					{
+						 do
+						 {
+							$autorid = $obj->ID;
+							$autor_nombre = $obj->NOMBRES_Y_APELLIDOS;
+					
+							echo "<li><a href='#' class='category' cid='$autorid'>$autor_nombre</a></li>";
+						 } while( $obj = oci_fetch_object($stmt) );			
+					}
+					else
+						echo "<p>No Hay Autores</p>";
+				}
+				else
+					$ok = false;
+				 oci_free_statement($stmt);    	
+			}
+
+
+			if(isset($_POST["editorial_cli"])){
+				echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Editoriales</h4></a></li>";
+				$sql = "SELECT * FROM editorial";
+				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				 $ok   = oci_execute( $stmt );              // Ejecutar la sentencia
+				if( $ok == true )
+				{
+					 if( $obj = oci_fetch_object($stmt) )
+					{
+						 do
+						 {
+							$editorialid = $obj->ID;
+							$editorial_nombre = $obj->NOMBRE;
+					
+							echo "<li><a href='#' class='category' cid='$editorialid'>$editorial_nombre</a></li>";
+						 } while( $obj = oci_fetch_object($stmt) );			
+					}
+					else
+						echo "<p>No Hay Editoriales</p>";
+				}
+				else
+					$ok = false;
+				 oci_free_statement($stmt);    	
+			}
+
+
+			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])){
+				if(isset($_POST["categoria_cli_seleccionada"])){
+					$id = $_POST["cat_id"];
+					$sql = "SELECT * FROM libros WHERE libro_cat = '$id'";
+				}else if(isset($_POST["selectBrand"])){
+					$id = $_POST["brand_id"];
+					$sql = "SELECT * FROM libros WHERE libro_escr = '$id'";
+				}else {
+					$keyword = $_POST["keyword"];
+					$sql = "SELECT * FROM libros WHERE libro_pal_clave LIKE '%$keyword%'";
+				}
+				
+				$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				$ok   = oci_execute( $stmt );              // Ejecutar la sentencia
+			   if( $ok == true )
+			   {
+					if( $obj = oci_fetch_object($stmt) )
+				   {
+						do
+						{
+							$pro_id = $obj->LIBRO_ID;
+							$pro_cat = $obj->LIBRO_CAT;
+							$pro_escritor= $obj->LIBRO_ESCR;
+							$pro_nombre = $obj->LIBRO_NOMBRE;
+							$pro_precio = $obj->LIBRO_PRECIO;
+							$pro_imagen = $obj->LIBRO_IMAGEN;
+			
+							echo "
+							<div class='col-md-4'>
+										<div class='panel panel-info'>
+											<div class='panel-heading'>$pro_nombre</div>
+											<div class='panel-body'>
+												<img src='product_images/$pro_imagen' style='width:160px; height:250px;'/>
+											</div>
+											<div class='panel-heading'>$.$pro_precio.00
+												<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>
+											</div>
+										</div>
+									</div>	
+						";
+				   
+						   
+						} while( $obj = oci_fetch_object($stmt) );			
+				   }
+				   else
+					   echo "<p>No hay nada que mostrar</p>";
+			   }
+			   else
+				   $ok = false;
+				oci_free_statement($stmt);  
+			
+				}

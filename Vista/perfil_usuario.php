@@ -16,7 +16,10 @@ include "../menus/cliente.php";
 				  
 				<div id="get_brand">
 				</div>
-				
+				<div id="autor_cli_msg">
+				</div>
+				<div id="edit_cli_msg">
+				</div>
 					<!--aqui vienen los escritores desde mein js -->
 
 			</div>

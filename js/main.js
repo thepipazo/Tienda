@@ -17,10 +17,12 @@ tipos_deshabilitados();
 tipo_cli();
 
 
-autor_admin()
+autor_admin();
+autor_cli();
 autores_deshabilitados();
 
 editorial_admin();
+editorial_cli();
 editoriales_deshabilitados();
 
 
@@ -367,7 +369,24 @@ function showModal() {
         })
     })
 
-    
+    $("body").delegate(".categoria", "click", function(event) {
+        $("#get_product").html("<h3>Cargando...</h3>");
+        event.preventDefault();
+        var cid = $(this).attr('cid');
+
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { categoria_cli_seleccionada: 1, cat_id: cid },
+            success: function(data) {
+                $("#get_product").html(data);
+                if ($("body").width() < 480) {
+                    $("body").scrollTop(683);
+                }
+            }
+        })
+
+    })   
     
 
 //-----------------TIPOS DE LIBROS---------------------------------------------
@@ -530,6 +549,16 @@ function tipo_cli() {
 }
 
 //-------------AUTORES---------------------------------------------
+function autor_cli() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { autor_cli: 1 },
+        success: function(data) {
+            $("#autor_cli_msg").html(data);
+        }
+    })
+}
 
 function autor_admin() {
     $.ajax({
@@ -667,6 +696,16 @@ $("body").delegate("#deshabilitar_autor", "click", function(event) {
 })
 
 //------------------------EDITORIALES--------------------------
+function editorial_cli() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { editorial_cli: 1 },
+        success: function(data) {
+            $("#edit_cli_msg").html(data);
+        }
+    })
+}
 
 function editorial_admin() {
     $.ajax({
