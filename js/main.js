@@ -11,7 +11,7 @@ categorias_admin();
 categorias_deshabilitados();
 
 
-tipo();
+tipo_index();
 tipo_admin();
 tipos_deshabilitados();
 
@@ -80,6 +80,34 @@ function showModal() {
             }
         })
     }
+
+    $("body").delegate("#actualizar_libro", "click", function(event) {
+        event.preventDefault();
+        
+        var nombre_libro = $("#l_nombre").val();
+        var reseña_libro = $("#reseña").val();
+        var escritor_libro = $("#l_escritor").val();
+        var categoria_libro = $("#l_categoria").val();
+        var editorial_libro = $("#S_Editorial").val();
+        var autor_libro = $("#s_autor").val();
+        var precio_libro = $("#l_precio").val();
+        var stock_libro = $("#stock").val();
+        var palabra_clave = $("#l_clave").val();
+        var id_libro = $(this).attr("libro_id");
+        
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { actualizar_libros: 0,nombre: nombre_libro, reseña: reseña_libro, escritor: escritor_libro,
+            categoria: categoria_libro, editorial: editorial_libro, autor: autor_libro, precio: precio_libro, stok: stock_libro,
+            palabra: palabra_clave, id: id_libro},
+            success: function(data) {
+               
+                $("#msg_actualizado").html(data);
+                product_admin();
+            }
+        })
+    })
 
     $("body").delegate("#habilitar_libros", "click", function(event) {
         event.preventDefault();
@@ -225,6 +253,24 @@ function showModal() {
             })
         }
 
+        $("body").delegate("#actualizar_cat", "click", function(event) {
+            event.preventDefault();
+            var descripcion_categoria = $("#cat_reseña").val();
+            var nombre_nuevo_categoria = $("#cat_nombre").val();
+            var id = $(this).attr("cat_id");
+            
+            $.ajax({
+                url: "../controlador/accion.php",
+                method: "POST",
+                data: { actualizar_categoria: 0, id_cat: id, nombre_nuevo_categoria : nombre_nuevo_categoria, descripcion_categoria : descripcion_categoria  },
+                success: function(data) {
+                   
+                    $("#msg_actualizado").html(data);
+                    categorias_admin();
+                }
+            })
+        })
+
         $("body").delegate("#habilitar_categorias", "click", function(event) {
             event.preventDefault();
             var categoria_id = $(this).attr('categoria_id'); 
@@ -347,7 +393,7 @@ function tipos_deshabilitados() {
     })
 }
 
-function tipo(){
+function tipo_index(){
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
@@ -357,6 +403,24 @@ function tipo(){
         }
     })
 }
+
+$("body").delegate("#actualizar_tipo", "click", function(event) {
+    event.preventDefault();
+    var descripcion_nuevo_tipo = $("#tipo_desc").val();
+    var nombre_nuevo_tipo = $("#tipo_nombre").val();
+    var id = $(this).attr("tipo_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { actualizar_tipo: 0, id: id, nombre_nuevo_tipo:nombre_nuevo_tipo,descripcion_nuevo_tipo:descripcion_nuevo_tipo  },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            escritores_admin();
+        }
+    })
+})
 
 $("body").delegate("#habilitar_tipos", "click", function(event) {
     event.preventDefault();
@@ -478,6 +542,25 @@ function autores_deshabilitados() {
     })
 }
 
+$("body").delegate("#actualizar_autor", "click", function(event) {
+    event.preventDefault();
+    var descripcion_autor = $("#reseña_autor").val();
+    var nombre_nuevo_autor = $("#autor_nombre").val();
+    var id_autor = $(this).attr("autor_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { actualizar_autor: 0, id_autor: id_autor, nombre_nuevo_autor : nombre_nuevo_autor, descripcion_autor : descripcion_autor  },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            autor_admin();
+        }
+    })
+})
+
+
 $("body").delegate("#habilitar_autores", "click", function(event) {
     event.preventDefault();
     var autor_id = $(this).attr('autor_id'); 
@@ -595,6 +678,24 @@ function editoriales_deshabilitados() {
         }
     })
 }
+
+$("body").delegate("#actualizar_edit", "click", function(event) {
+    event.preventDefault();
+    var descripcion_editorial = $("#reseña_edit").val();
+    var nombre_nuevo_editorial = $("#edit_nombre").val();
+    var id_edit = $(this).attr("edit_id");
+    
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { actualizar_editorial: 0, id_edit: id_edit, nombre_nuevo_editorial : nombre_nuevo_editorial, descripcion_editorial : descripcion_editorial  },
+        success: function(data) {
+           
+            $("#msg_actualizado").html(data);
+            editorial_admin();
+        }
+    })
+})
 
 $("body").delegate("#habilitar_editoriales", "click", function(event) {
     event.preventDefault();

@@ -855,15 +855,15 @@ if(isset($_POST["escritores"])){
 				  <div class='modal-body'>
 			
 						  <label for='esc_nombre'>Nombre</label>
-						  <input type='text' id='esc_nombre' name='esc_nombre' class='form-control' value = $tipo_nombre>
+						  <input type='text' id='tipo_nombre' name='tipo_nombre' class='form-control' value = $tipo_nombre>
 						  
 						<label for='esc_desc'>Reseña</label>
-						<textarea class='form-control' rows='10' name='esc_desc' id='esc_desc' >$tipo_descripcion</textarea>
+						<textarea class='form-control' rows='10' name='tipo_desc' id='tipo_desc' >$tipo_descripcion</textarea>
 						</div>
 						<div class='modal-footer'>
 						<button  style='float:left' tipo_id='$tipo_id' id='before_eliminar_tipo' class='btn btn-danger'>Eliminar</button>
 						  <button type='button'  class='btn btn-secondary' data-dismiss='modal'>Cerrar</button>
-						  <button type='button' esc_id='$tipo_id' id='actualizar_esc' style='float:right;'  class='btn btn-primary'>Actualizar</button>
+						  <button type='button' tipo_id='$tipo_id' id='actualizar_tipo' style='float:right;'  class='btn btn-primary'>Actualizar</button>
 						</div>
 					  </div>
 					</div>
@@ -1941,3 +1941,177 @@ if(isset($_POST["escritores"])){
 					}
 				}
 
+				if(isset($_POST["actualizar_categoria"])){
+					$categoria_id = $_POST["id_cat"];
+					$nuevo_nombre = $_POST["nombre_nuevo_categoria"];
+					$nueva_descripcion = $_POST["descripcion_categoria"];
+					
+					
+	
+					if(trim($nueva_descripcion) == "" ||  trim($nuevo_nombre) == ""){
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+	
+					}else{
+	
+						
+					$sql = "update categoria set cat_nombre = upper('$nuevo_nombre'), cat_descripcion = '$nueva_descripcion' WHERE cat_id = $categoria_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Actualizar El Escritor¡¡ </div>";
+	
+					}
+				}
+			
+				}
+
+if(isset($_POST["actualizar_autor"])){
+
+
+	$autor_id = $_POST["id_autor"];
+	$nuevo_nombre = $_POST["nombre_nuevo_autor"];
+	$nueva_descripcion = $_POST["descripcion_autor"];
+	
+	
+
+	if(trim($nueva_descripcion) == "" ||  trim($nuevo_nombre) == ""){
+		echo "<div class='alert alert-danger' role='alert'>
+		 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+
+	}else{
+
+		
+	$sql = "update autor set nombres_y_apellidos = upper('$nuevo_nombre'), descripcion = '$nueva_descripcion' WHERE id = $autor_id";
+	$run_query = oci_parse($con,$sql);
+	$ok = oci_execute($run_query);
+	if($ok){
+
+		
+		
+		echo "<div class='alert alert-success' role='alert'>
+		 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+	}else{
+		echo "<div class='alert alert-danger' role='alert'>
+		 !Error Al Actualizar El Escritor¡¡ </div>";
+
+	}}}
+
+
+
+	if(isset($_POST["actualizar_editorial"])){
+
+
+		$editorial_id = $_POST["id_edit"];
+		$nuevo_nombre = $_POST["nombre_nuevo_editorial"];
+		$nueva_descripcion = $_POST["descripcion_editorial"];
+		
+		
+
+		if(trim($nueva_descripcion) == "" ||  trim($nuevo_nombre) == ""){
+			echo "<div class='alert alert-danger' role='alert'>
+			 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+
+		}else{
+
+			
+		$sql = "update editorial set nombre = upper('$nuevo_nombre'), descripcion = '$nueva_descripcion' WHERE id = $editorial_id";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+		if($ok){
+
+			
+			
+			echo "<div class='alert alert-success' role='alert'>
+			 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+		}else{
+			echo "<div class='alert alert-danger' role='alert'>
+			 !Error Al Actualizar El Escritor¡¡ </div>";
+
+		}}}
+
+
+		if(isset($_POST["actualizar_tipo"])){
+			$tipo_id = $_POST["id"];
+			$nuevo_nombre_tipo = $_POST["nombre_nuevo_tipo"];
+			$nueva_descripcion_escritor = $_POST["descripcion_nuevo_tipo"];
+			
+			
+
+			if(trim($nueva_descripcion_escritor) == "" ||  trim($nuevo_nombre_tipo) == ""){
+				echo "<div class='alert alert-danger' role='alert'>
+				 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+
+			}else{
+
+				
+			$sql = "update escritor set escritor_nombre = upper('$nuevo_nombre_tipo'), descripcion = '$nueva_descripcion_escritor' WHERE escritor_id = $tipo_id";
+			$run_query = oci_parse($con,$sql);
+			$ok = oci_execute($run_query);
+			if($ok){
+
+				
+				
+				echo "<div class='alert alert-success' role='alert'>
+				 !Exito Al Actualizar El Tipo De Libro¡ </div>"; 
+			}else{
+				echo "<div class='alert alert-danger' role='alert'>
+				 !Error Al Actualizar El Tipo De Libro¡¡ </div>";
+			}}}
+
+
+		if(isset($_POST["actualizar_libros"])){
+
+
+			$nombre = $_POST["nombre"];
+			$reseña = $_POST["reseña"];
+			
+			$escritor = $_POST["escritor"];
+			$categoria = $_POST["categoria"];
+			$editorial = $_POST["editorial"];
+			$autor = $_POST["autor"];
+			$precio = $_POST["precio"];
+			$stok = $_POST["stok"];
+			$palabra = $_POST["palabra"];
+			$id_libro = $_POST["id"];
+			
+
+			if(trim($nombre) == "" ||  trim($reseña) == "" ||  trim($escritor) == "" ||  trim($categoria) == "" ||  trim($editorial) == "" ||  trim($editorial) == "" ||  trim($autor) == "" ||  trim($precio) == "" ||  trim($stok) == "" ||  trim($palabra) == "" ){
+				echo "<div class='alert alert-danger' role='alert'>
+				 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+
+			}else{
+
+				
+			$sql = "update libros set libro_cat = '$categoria',
+			 libro_escr = '$escritor',
+			 libro_nombre = '$nombre',
+			 libro_precio = '$precio',
+			 libro_descr = '$reseña',
+			 libro_pal_clave = '$palabra',
+			 stock = '$stok',
+			 libro_editorial = '$editorial',
+			 libro_autor = '$autor' WHERE libro_id = $id_libro";
+			$run_query = oci_parse($con,$sql);
+			$ok = oci_execute($run_query);
+			if($ok){
+
+				
+				
+				echo "<div class='alert alert-success' role='alert'>
+				 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+			}else{
+				echo "<div class='alert alert-danger' role='alert'>
+				 !Error Al Actualizar El Escritor¡¡ </div>";
+
+			}
+		}
+	
+		}
