@@ -1,5 +1,5 @@
     <?php
-include "../menus/admin.php";
+include "../../menus/admin.php";
 ?>
 <head>
     <meta charset="UTF-8">

@@ -1,6 +1,6 @@
 
 <?php
-include "../menus/cliente.php";
+include "../../menus/cliente.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>

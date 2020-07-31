@@ -1,10 +1,10 @@
 <?php
 
-include "../db.php";
+include "../../db.php";
 ?>
 
 <?php
-include "../menus/admin.php";
+include "../../menus/admin.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>

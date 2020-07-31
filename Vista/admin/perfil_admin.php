@@ -1,7 +1,6 @@
 
 <?php
-
-include "../menus/cliente.php";
+include "../../menus/admin.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>
@@ -10,18 +9,18 @@ include "../menus/cliente.php";
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-2">
-				<div id="get_cat">
-					<!--aqui vienen las categorias desde mein js -->
+				<div id="cat_admin_msg">
 				</div>
-				  
-				<div id="get_brand">
+			
+				<div id="autor_admin_msg">
 				</div>
-				<div id="autor_cli_msg">
-				</div>
-				<div id="edit_cli_msg">
-				</div>
-					<!--aqui vienen los escritores desde mein js -->
 
+				<div id="edit_admin_msg">
+				</div>
+
+				<div id="esc_admin_msg">
+				</div>
+			
 			</div>
 			<div class="col-md-8">	
 				<div class="row">
@@ -31,12 +30,10 @@ include "../menus/cliente.php";
 				<div class="panel panel-info" id="scroll">
 					<div class="panel-heading">Productos</div>
 					<div class="panel-body">
-						<div id="get_product_cli">
-							<!--aqui vienen los Libros desde mein js -->
+						<div id="product_admin">
+							
 						</div>
 						
-						 
-
 					</div>
 					<div class="panel-footer">
 
@@ -55,53 +52,13 @@ include "../menus/cliente.php";
 			</div>
 		</div>
 	</div>
+	
+
+
+<div id="modal">
+
+</div>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

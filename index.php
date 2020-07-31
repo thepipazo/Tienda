@@ -2,9 +2,9 @@
 session_start();
 
 if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
-	header("location:vista/perfil_usuario.php");
+	header("location:vista/cliente/perfil_usuario.php");
 }elseif(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 1 ){
-	header("location:vista/perfil_admin.php");
+	header("location:vista/admin/perfil_admin.php");
 }
 ?>
 <!DOCTYPE html>

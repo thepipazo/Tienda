@@ -31,7 +31,7 @@ if(isset($_POST["getProduct"])){
 							<div class='panel panel-info'>
 								<div class='panel-heading'>$pro_nombre</div>
 								<div class='panel-body'>
-									<img src='../product_images/$pro_imagen' style='width:160px; height:250px;'/>
+									<img src='../../product_images/$pro_imagen' style='width:160px; height:250px;'/>
 								</div>
 								<div class='panel-heading'>$$pro_precio
 									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>
@@ -186,7 +186,7 @@ if(isset($_POST["escritores"])){
 										<div class='panel-body'>
 									
 											
-											<image type='image' src='../product_images/$pro_imagen'  style='width:199px; height:300px; margin-left:-15px; margin-top:-15px; margin-bottom:-15px;'></image>
+											<image type='image' src='../../product_images/$pro_imagen'  style='width:199px; height:300px; margin-left:-15px; margin-top:-15px; margin-bottom:-15px;'></image>
 											
 							
 										</div>
@@ -1552,7 +1552,7 @@ if(isset($_POST["escritores"])){
 							$imagen = $row->LIBRO_IMAGEN;
 							
 							echo "<tr>
-							<td><img src='../product_images/$imagen' width='50px' height='60'></td>
+							<td><img src='../../product_images/$imagen' width='50px' height='60'></td>
 							<td>$ID</td>
 							<td>$nombre</td>
 							<td>$autor</td>
@@ -2207,8 +2207,13 @@ if(isset($_POST["actualizar_autor"])){
 					$editorial_id = $_POST["editorial_id"];
 					$sql = "SELECT * FROM libros WHERE libro_editorial = '$editorial_id'";
 				}else if(isset($_POST["buscador_cli"])){
+					if(trim($_POST["buscador_cli"]) == ""){
+						ECHO"DSASA";Exit();
+						$sql = "SELECT * FROM libros";
+					}else{
 					$buscador_cliente = $_POST["buscador_cliente"];
 					$sql = "SELECT * FROM libros WHERE libro_pal_clave LIKE '%$buscador_cliente%'";
+					}
 				}
 				
 				$stmt = oci_parse($con, $sql);        // Preparar la sentencia
@@ -2231,7 +2236,7 @@ if(isset($_POST["actualizar_autor"])){
 										<div class='panel panel-info'>
 											<div class='panel-heading'>$pro_nombre</div>
 											<div class='panel-body'>
-												<img src='../product_images/$pro_imagen' style='width:160px; height:250px;'/>
+												<img src='../../product_images/$pro_imagen' style='width:160px; height:250px;'/>
 											</div>
 											<div class='panel-heading'>$.$pro_precio.00
 												<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>

@@ -1,7 +1,7 @@
 
 
 <?php
-include "../menus/admin.php";
+include "../../menus/admin.php";
 ?>
 	<p><br/></p>
 	<p><br/></p>
