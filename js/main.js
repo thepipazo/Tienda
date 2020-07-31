@@ -14,6 +14,7 @@ categorias_deshabilitados();
 tipo_index();
 tipo_admin();
 tipos_deshabilitados();
+tipo_cli();
 
 
 autor_admin()
@@ -517,6 +518,16 @@ $("body").delegate("#deshabilitar_tipo", "click", function(event) {
     })
 })
 
+function tipo_cli() {
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { tipo: 1 },
+        success: function(data) {
+            $("#get_brand").html(data);
+        }
+    })
+}
 
 //-------------AUTORES---------------------------------------------
 

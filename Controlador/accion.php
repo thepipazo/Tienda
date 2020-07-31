@@ -2115,3 +2115,28 @@ if(isset($_POST["actualizar_autor"])){
 		}
 	
 		}
+
+		if(isset($_POST["tipo"])){
+			$sql = "SELECT * FROM escritor";
+			
+				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
+				 $ok   = oci_execute($stmt);              // Ejecutar la sentencia
+			echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Tipo de Libro</h4></a></li>";
+				if( $ok == true )
+				{
+					 if( $row = oci_fetch_object($stmt) )
+					{
+						 do
+						 {
+						$bid = $row->ESCRITOR_ID;
+						$escritor_nombre = $row->ESCRITOR_NOMBRE;
+						echo "<li><a href='#' class='selectBrand' bid='$bid'>$escritor_nombre</a></li>";
+						 } while( $row = oci_fetch_object($stmt) );			
+					}
+					else
+						echo "<p>No Hay Libros En Venta</p>";
+				}
+				else
+					$ok = false;
+				 oci_free_statement($stmt); 
+			}
