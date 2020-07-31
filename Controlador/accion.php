@@ -1791,3 +1791,153 @@ if(isset($_POST["escritores"])){
 					 ";exit();
 				}
 
+				if(isset($_POST["habilitar_libros"])){
+
+					$libro_id = $_POST["libro_id"];				
+					$sql = "update libros set estado = 1 WHERE libro_id = $libro_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Habilitar El Libro </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Habilitar El Libro¡¡ </div>";
+	
+					}
+				}
+			
+
+
+				if(isset($_POST["autor_deshabilitadoss"])){
+
+					
+					$sql = "SELECT *from autor where estado = 0";
+					$stmt = oci_parse($con, $sql);        // Preparar la sentencia
+					$ok   = oci_execute($stmt); 
+
+					echo "  
+					<div style='height: 150px; overflow: auto;'>
+				<table class='table table-hover'>
+				<thead>
+      			<tr>
+       			<th>ID</th>				
+				<th>Nombre</th>		
+				<th>Habilitar</th>			
+      			</tr>
+    			</thead>
+  			  <tbody>";
+				
+					if( $ok  )
+				   {
+						if( $row = oci_fetch_object($stmt) )
+					   {
+							do
+							{
+
+								
+						   $nombre = $row->NOMBRES_Y_APELLIDOS;
+						   $ID = $row->ID;
+						  
+						   
+						   echo "<tr>
+						   <td>$ID</td>
+						   <td>$nombre</td>
+						   <td> <button type='button' autor_id='$ID' id='habilitar_autores'  class='btn btn-danger btn-xs' class='btn btn-default btn-sm'>
+						   <span class='glyphicon glyphicon-edit'></span>  </button></td>
+							 </tr>";
+							 
+							} while( $row = oci_fetch_object($stmt) );			
+					   }
+					   else
+						   echo "<p>No Hay Autores Deshabilitados</p>";
+				   }
+				   else
+					oci_free_statement($stmt); 
+
+					echo"
+					 </tbody> 
+					 </table>
+				   	</div>
+					 ";exit();
+				}
+
+				if(isset($_POST["habilitar_categorias"])){
+
+					$categoria_id = $_POST["categoria_id"];				
+					$sql = "update categoria set estado = 1 WHERE cat_id = $categoria_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Habilitar La categoria Libro </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Habilitar Categoria Libro</div>";
+	
+					}
+				}
+
+				if(isset($_POST["habilitar_autores"])){
+
+					$autor_id = $_POST["autor_id"];				
+					$sql = "update autor set estado = 1 WHERE id = $autor_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Habilitar El Autor </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Habilitar El Autor </div>";
+	
+					}
+				}
+
+				if(isset($_POST["habilitar_editoriales"])){
+
+					$editorial_id = $_POST["editorial_id"];				
+					$sql = "update editorial set estado = 1 WHERE id = $editorial_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Habilitar La Editorial </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Habilitar La Editorial </div>";
+	
+					}
+				}
+
+				if(isset($_POST["habilitar_tipos"])){
+
+					$tipo_id = $_POST["tipo_id"];				
+					$sql = "update escritor set estado = 1 WHERE escritor_id = $tipo_id";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Habilitar El Tipo De Libro </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Habilitar El Tipo De Libro</div>";
+	
+					}
+				}
+

@@ -81,6 +81,20 @@ function showModal() {
         })
     }
 
+    $("body").delegate("#habilitar_libros", "click", function(event) {
+        event.preventDefault();
+        var libro_id = $(this).attr('libro_id'); 
+        $.ajax({
+            url: "../controlador/accion.php",
+            method: "POST",
+            data: { habilitar_libros: 1,libro_id:libro_id },
+            success: function(data) {
+                libros_deshabilitados();
+                $("#msg_habilitado").html(data);
+               
+            }
+        })
+    })
 
     $("body").delegate("#editar_product", "click", function(event) {
         event.preventDefault();
@@ -211,6 +225,21 @@ function showModal() {
             })
         }
 
+        $("body").delegate("#habilitar_categorias", "click", function(event) {
+            event.preventDefault();
+            var categoria_id = $(this).attr('categoria_id'); 
+            $.ajax({
+                url: "../controlador/accion.php",
+                method: "POST",
+                data: { habilitar_categorias: 1,categoria_id:categoria_id },
+                success: function(data) {
+                    categorias_deshabilitados();
+                    $("#msg_habilitado").html(data);
+                   
+                }
+            })
+        })
+
     $("#ingreso_cat").click(function(event) {
         event.preventDefault();
         var nombrecat = $("#catnombre").val();
@@ -329,6 +358,21 @@ function tipo(){
     })
 }
 
+$("body").delegate("#habilitar_tipos", "click", function(event) {
+    event.preventDefault();
+    var tipo_id = $(this).attr('tipo_id'); 
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { habilitar_tipos: 1,tipo_id:tipo_id },
+        success: function(data) {
+            tipos_deshabilitados();
+            $("#msg_habilitado").html(data);
+           
+        }
+    })
+})
+
 $("#ingreso_tipo").click(function(event) {
     event.preventDefault();
     var nombreescritor = $("#nombre_tipo").val();
@@ -434,6 +478,21 @@ function autores_deshabilitados() {
     })
 }
 
+$("body").delegate("#habilitar_autores", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr('autor_id'); 
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { habilitar_autores: 1,autor_id:autor_id },
+        success: function(data) {
+            autores_deshabilitados();
+            $("#msg_habilitado").html(data);
+           
+        }
+    })
+})
+
 $("#ingreso_autor").click(function() {
     var nombre = $("#nombre_autor").val();
     var descripcion = $("#reseña_autor").val();
@@ -536,6 +595,22 @@ function editoriales_deshabilitados() {
         }
     })
 }
+
+$("body").delegate("#habilitar_editoriales", "click", function(event) {
+    event.preventDefault();
+    var editorial_id = $(this).attr('editorial_id'); 
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { habilitar_editoriales: 1,editorial_id:editorial_id },
+        success: function(data) {
+           editoriales_deshabilitados();
+            $("#msg_habilitado").html(data);
+           
+        }
+    })
+})
+
 
 $("#ingreso_edit").click(function() {
     var nombre = $("#nombre_editorial").val();
