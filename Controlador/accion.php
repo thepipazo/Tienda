@@ -82,7 +82,7 @@ if(isset($_POST["getProduct"])){
 
 
 
-if(isset($_POST["categorias"])){
+if(isset($_POST["categorias_cli"])){
 	
 	echo "<div class='nav nav-pills nav-stacked'><li class='active'><a href='#'><h4>Categorias</h4></a></li>";
 	$sql = "SELECT * FROM categoria";
@@ -97,7 +97,7 @@ if(isset($_POST["categorias"])){
 				$cid = $obj->CAT_ID;
 				$cat_nombre = $obj->CAT_NOMBRE;
 		
-				echo "<li><a href='#' class='categorias' cid='$cid'>$cat_nombre</a></li>";
+				echo "<li><a href='#' class='categorias_cli' cid='$cid'>$cat_nombre</a></li>";
 			 } while( $obj = oci_fetch_object($stmt) );			
 		}
 		else
@@ -2116,7 +2116,7 @@ if(isset($_POST["actualizar_autor"])){
 	
 		}
 
-		if(isset($_POST["tipo"])){
+		if(isset($_POST["tipo_cli"])){
 			$sql = "SELECT * FROM escritor";
 			
 				 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
@@ -2128,13 +2128,13 @@ if(isset($_POST["actualizar_autor"])){
 					{
 						 do
 						 {
-						$bid = $row->ESCRITOR_ID;
-						$escritor_nombre = $row->ESCRITOR_NOMBRE;
-						echo "<li><a href='#' class='selectBrand' bid='$bid'>$escritor_nombre</a></li>";
+						$tipo_id = $row->ESCRITOR_ID;
+						$tipo_nombre = $row->ESCRITOR_NOMBRE;
+						echo "<li><a href='#' class='tipo_cliente' tipo_id='$tipo_id'>$tipo_nombre</a></li>";
 						 } while( $row = oci_fetch_object($stmt) );			
 					}
 					else
-						echo "<p>No Hay Libros En Venta</p>";
+						echo "<p>No Hay Tipos de Libros</p>";
 				}
 				else
 					$ok = false;
@@ -2193,12 +2193,12 @@ if(isset($_POST["actualizar_autor"])){
 			}
 
 
-			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])){
+			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["search"])){
 				if(isset($_POST["categoria_cli_seleccionada"])){
 					$id = $_POST["cat_id"];
 					$sql = "SELECT * FROM libros WHERE libro_cat = '$id'";
-				}else if(isset($_POST["selectBrand"])){
-					$id = $_POST["brand_id"];
+				}else if(isset($_POST["tipo_cli_seleccionada"])){
+					$id = $_POST["tipo_id"];
 					$sql = "SELECT * FROM libros WHERE libro_escr = '$id'";
 				}else {
 					$keyword = $_POST["keyword"];
@@ -2225,7 +2225,7 @@ if(isset($_POST["actualizar_autor"])){
 										<div class='panel panel-info'>
 											<div class='panel-heading'>$pro_nombre</div>
 											<div class='panel-body'>
-												<img src='product_images/$pro_imagen' style='width:160px; height:250px;'/>
+												<img src='../product_images/$pro_imagen' style='width:160px; height:250px;'/>
 											</div>
 											<div class='panel-heading'>$.$pro_precio.00
 												<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>Añadir a la cesta</button>

@@ -34,6 +34,7 @@ include "../menus/cliente.php";
 						<div id="get_product_cli">
 							<!--aqui vienen los Libros desde mein js -->
 						</div>
+						
 						 
 
 					</div>

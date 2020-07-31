@@ -226,7 +226,7 @@ function showModal() {
         $.ajax({
             url: "../controlador/accion.php",
             method: "POST",
-            data: { categorias: 1 },
+            data: { categorias_cli: 1 },
             success: function(data) {
                 $("#get_cat").html(data);
     
@@ -369,8 +369,8 @@ function showModal() {
         })
     })
 
-    $("body").delegate(".categoria", "click", function(event) {
-        $("#get_product").html("<h3>Cargando...</h3>");
+    $("body").delegate(".categorias_cli", "click", function(event) {
+        $("#get_product_cli").html("<h3>Cargando...</h3>");
         event.preventDefault();
         var cid = $(this).attr('cid');
 
@@ -379,7 +379,7 @@ function showModal() {
             method: "POST",
             data: { categoria_cli_seleccionada: 1, cat_id: cid },
             success: function(data) {
-                $("#get_product").html(data);
+                $("#get_product_cli").html(data);
                 if ($("body").width() < 480) {
                     $("body").scrollTop(683);
                 }
@@ -541,12 +541,31 @@ function tipo_cli() {
     $.ajax({
         url: "../controlador/accion.php",
         method: "POST",
-        data: { tipo: 1 },
+        data: { tipo_cli: 1 },
         success: function(data) {
             $("#get_brand").html(data);
         }
     })
 }
+
+$("body").delegate(".tipo_cliente", "click", function(event) {
+    $("#get_product_cli").html("<h3>Cargando...</h3>");
+    event.preventDefault();
+    var tipo_id = $(this).attr('tipo_id');
+
+    $.ajax({
+        url: "../controlador/accion.php",
+        method: "POST",
+        data: { tipo_cli_seleccionada: 1, tipo_id: tipo_id },
+        success: function(data) {
+            $("#get_product_cli").html(data);
+            if ($("body").width() < 480) {
+                $("body").scrollTop(683);
+            }
+        }
+    })
+
+})   
 
 //-------------AUTORES---------------------------------------------
 function autor_cli() {
