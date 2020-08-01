@@ -5,7 +5,7 @@ include("../../menus/cliente.php");
 <?php
 include("../../db.php");
 $id_usuario=$_SESSION["uid"];
-$rutc ="";
+$rutc = "";
 $nombre="";
 $apellido="";
 $correo="";
@@ -13,7 +13,7 @@ $password ="";
 $direccion="";
 $telefono=0;
 
-$sql="SELECT*FROM USER_INFO WHERE USER_ID = $id_usuario";
+$sql="SELECT nombres,apellidos,email,password,telefono,direccion,rut FROM USER_INFO WHERE USER_ID = $id_usuario";
 //echo $sql;
 $runquery = oci_parse($con, $sql);                                  
 $ok = oci_execute($runquery);
@@ -22,14 +22,14 @@ $ok = oci_execute($runquery);
 if($ok){
     while($row = oci_fetch_object($runquery)){
         do{
-            
+            echo $row->RUT;
             $nombre = $row->NOMBRES;
             $apellido = $row->APELLIDOS;
             $correo = $row->EMAIL;
             $password = $row->PASSWORD;
             $telefono = $row->TELEFONO;
 			$direccion = $row->DIRECCION;
-			$rut = $row->RUT;
+			$rutc = $row->RUT;
 
         }while($row = oci_fetch_object($runquery));
     }

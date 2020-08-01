@@ -989,34 +989,33 @@ $("#actualizar_cliente").click(function(event) {
         method: "POST",
         data: { actualizar_cliente: 1, id_user:id_user,rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion },
         success: function(data) {
-            $("#perfil_cli_msg").html(data);
+            $("#perfil_cli_msg").html(data);            
+        }        
+    })
+})
+
+$("#autoregistro_cli").click(function(event) {
+    event.preventDefault();
+     var rut = $("#reg_rut").val();
+     var nombres = $("#reg_nombre").val();
+     var apellidos = $("#reg_apellido").val();
+     var password = $("#reg_password").val();
+     var repassword = $("#reg_repassword").val();
+     var telefono = $("#reg_telefono").val();
+     var correo = $("#reg_correo").val();
+     var direccion = $("#reg_direccion").val();
+    
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { registrar: 1, rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion,repassword:repassword },
+        success: function(data) {
+            $("#autoregistro_msgz").html(data);
             
         }
     })
 
 })
-/*
-$("body").delegate(".actualizar_cliente", "click", function(event) {
-   // var id_user = $(this).attr("user_id");
-   // var id_user = $("#user_id").val();
-    var rut = $("#cli_rut").val();
-    var nombres = $("#cli_nombre").val();
-    var apellidos = $("#cli_apellido").val();
-    var password = $("#cli_password").val();
-    var telefono = $("#cli_telefono").val();
-    var correo = $("#cli_correo").val();
-    var direccion = $("#cli_direccion").val();
-    $.ajax({
-        url: "../../controlador/accion.php",
-        method: "POST",
-        data: { actualizar_cliente: 1, id_user:id_user,rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion },
-        success: function(data) {
-            $("#perfil_cli_msg").html(data);
-            
-        }
-    })
-
-}) */
 
 
 })

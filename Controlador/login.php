@@ -17,6 +17,7 @@ if(isset($_POST["userLogin"])){
 		$_SESSION["pass"] = $_POST["userPassword"];
 		$_SESSION["uid"] = $row->USER_ID;
 		$_SESSION["name"] = $row->NOMBRES;
+		$_SESSION["rut_c"] = $row->RUT;
 		$_SESSION['password']= $row->PASSWORD;
 		$_SESSION["email"]= $email;
 		$_SESSION['tipo_user']= $row->UER_ADMIN;

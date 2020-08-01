@@ -2256,7 +2256,7 @@ if(isset($_POST["actualizar_autor"])){
 				oci_free_statement($stmt);  
 			
 				}
-/*
+
 
 				if(isset($_POST["actualizar_cliente"])){
 					
@@ -2282,7 +2282,7 @@ if(isset($_POST["actualizar_autor"])){
 					$run_query = oci_parse($con,$sql);
 						
 					$ok = oci_execute($run_query);
-					echo "ads";exit();
+					
 					if($ok){
 	
 						
@@ -2296,4 +2296,122 @@ if(isset($_POST["actualizar_autor"])){
 					}
 				}
 				oci_free_statement($run_query);  
-				}*/
+				}
+
+				if(isset($_POST["registrar"])){
+					$rut = $_POST["rut"];
+				$f_name = $_POST["nombres"];
+				$l_name = $_POST["apellidos"];
+				$email = $_POST['correo'];
+				$password = $_POST['password'];
+				$repassword = $_POST['repassword'];
+				$mobile = $_POST['telefono'];
+				$address1 = $_POST['direccion'];
+				$name = "/^[A-Z][a-zA-Z ]+$/";
+				$emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9]+(\.[a-z]{2,4})$/";
+				$number = "/^[0-9]+$/";
+				
+				if(empty($f_name) || empty($l_name) || empty($email) || empty($password) || empty($repassword) ||
+					empty($mobile) || empty($address1)){
+						
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Por favor llena todos los espacios
+				..!</b>
+							</div>
+						";
+						exit();
+					} else {
+				
+					if(!preg_match($emailValidation,$email)){
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>esta $email no es válido..!</b>
+							</div>
+						";
+						exit();
+					}
+					if(strlen($password) < 9 ){
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>La contraseña es débil</b>
+							</div>
+						";
+						exit();
+					}
+					
+					if($password != $repassword){
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>la contraseña no es lo mismo</b>
+							</div>
+						";
+						exit();
+					}
+					if(!preg_match($number,$mobile)){
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>El número $mobile no es lo mismo</b>
+							</div>
+						";
+						exit();
+					}
+					if(!(strlen($mobile) == 9)){
+						echo "
+							<div class='alert alert-warning'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>El número de móvil debe ser de 9 dígitost</b>
+							</div>
+						";
+						exit();
+					}
+					//existing email address in our database
+					$sql = "SELECT user_id FROM user_info WHERE email = '$email' " ;
+					
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					$row = ocI_fetch_object($run_query);
+					$count = oci_num_rows($run_query);
+					
+					//if($ok == true){
+					if($count > 0){
+						echo "
+							<div class='alert alert-danger'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>La dirección de correo electrónico ya está en uso Pruebe otra dirección de correo electrónico
+				</b>
+							</div>
+						";
+						exit();
+					} else {
+						$password = md5($password);
+						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
+						$run_query = oci_parse($con,$sql);
+						$ok = oci_execute($run_query);
+						if($ok){
+							echo "
+								<div class='alert alert-success'>
+									<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>Usted está registrado con éxito..!</b>
+								</div>
+							";exit();
+							
+							
+						}else{
+							echo "
+							<div class='alert alert-danger'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>!Error al registrarse¡</b>
+							</div>
+						";
+						exit();
+						}
+				
+					}
+				}
+				//}*/
+					}
