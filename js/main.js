@@ -971,4 +971,52 @@ $("#boton_buscar").click(function() {
     }
 })
 
+/*
+$("#actualizar_cliente").click(function(event) {
+  
+  var id_user = $(this).attr("user_id");
+    // var id_user = $("#user_id").val();
+    var rut = $("#cli_rut").val();
+    var nombres = $("#cli_nombre").val();
+     var apellidos = $("#cli_apellido").val();
+     var password = $("#cli_password").val();
+     var telefono = $("#cli_telefono").val();
+     var correo = $("#cli_correo").val();
+     var direccion = $("#cli_direccion").val();
+ 
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { actualizar_cliente: 1, id_user:id_user,rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion },
+        success: function(data) {
+            $("#perfil_cli_msg").html(data);
+            
+        }
+    })
+
+})*/
+/*
+$("body").delegate(".actualizar_cliente", "click", function(event) {
+   // var id_user = $(this).attr("user_id");
+   // var id_user = $("#user_id").val();
+    var rut = $("#cli_rut").val();
+    var nombres = $("#cli_nombre").val();
+    var apellidos = $("#cli_apellido").val();
+    var password = $("#cli_password").val();
+    var telefono = $("#cli_telefono").val();
+    var correo = $("#cli_correo").val();
+    var direccion = $("#cli_direccion").val();
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { actualizar_cliente: 1, id_user:id_user,rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion },
+        success: function(data) {
+            $("#perfil_cli_msg").html(data);
+            
+        }
+    })
+
+}) */
+
+
 })

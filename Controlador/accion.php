@@ -2256,3 +2256,43 @@ if(isset($_POST["actualizar_autor"])){
 				oci_free_statement($stmt);  
 			
 				}
+
+
+				if(isset($_POST["actualizar_cliente"])){
+					
+					$user_id = $_POST["id_user"];	
+					$rut = $_POST["rut"];	
+					$nombres = $_POST["nombres"];			
+					$apellidos = $_POST["apellidos"];	
+					$password = md5($_POST["password"]);	
+					$correo = $_POST["correo"];	
+					$telefono = $_POST["telefono"];	
+					$direccion = $_POST["direccion"];	
+					
+					
+	
+					if(trim($rut) == "" ||  trim($nombres) == "" ||  trim($apellidos) == "" ||  trim($password) == "" ||  trim($correo) == "" ||  trim($telefono) == "" ||  trim($correo) == ""){
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
+	
+					}else{
+	
+						
+					$sql = "update user_info set nombres = '$nombres', apellidos = '$apellidos', email = '$correo', password = '$password', telefono = $telefono, direccion = '$direccion' WHERE user_id = $user_id";
+					$run_query = oci_parse($con,$sql);
+					echo $sql; exit();
+					$ok = oci_execute($run_query);
+					if($ok){
+	
+						
+						
+						echo "<div class='alert alert-success' role='alert'>
+						 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+					}else{
+						echo "<div class='alert alert-danger' role='alert'>
+						 !Error Al Actualizar El Escritor¡¡ </div>";
+	
+					}
+				}
+			
+				}

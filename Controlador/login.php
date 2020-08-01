@@ -14,7 +14,7 @@ if(isset($_POST["userLogin"])){
 	$count = oci_num_rows($run_query);
 
 	if($count == 1){
-		
+		$_SESSION["pass"] = $_POST["userPassword"];
 		$_SESSION["uid"] = $row->USER_ID;
 		$_SESSION["name"] = $row->NOMBRES;
 		$_SESSION['password']= $row->PASSWORD;

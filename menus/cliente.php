@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
-	header("location:../index.php");
+	header("location:../../index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
     <meta charset="UTF-8">
     <title>Venta De Libros</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+ 
     <script src="../../js/jquery2.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/main.js"></script>
@@ -71,6 +72,8 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
             </li>
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo " Bienvenido,".$_SESSION["name"]; ?></a>
                 <ul class="dropdown-menu">
+                    <li><a  href="mi_perfil.php" style="text-decoration:none; color:blue;" id="editar_perfil"><span class="glyphicon glyphicon-shopping-cart"></span> Perfil</a></li>
+                    <li class="divider"></li>
                     <li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart"></span> Carro</a></li>
                     <li class="divider"></li>
                     <li><a href='enviarcorreo.php?hello=true' id="cambiar_password" name="cambiar_password"style="text-decoration:none; color:blue;" ><span class="glyphicon glyphicon-lock"></span> Cambia la contraseña</a></li>
