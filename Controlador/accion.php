@@ -2256,7 +2256,7 @@ if(isset($_POST["actualizar_autor"])){
 				oci_free_statement($stmt);  
 			
 				}
-
+/*
 
 				if(isset($_POST["actualizar_cliente"])){
 					
@@ -2296,4 +2296,4 @@ if(isset($_POST["actualizar_autor"])){
 					}
 				}
 				oci_free_statement($run_query);  
-				}
+				}*/

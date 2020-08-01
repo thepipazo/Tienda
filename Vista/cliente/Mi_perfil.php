@@ -5,7 +5,7 @@ include("../../menus/cliente.php");
 <?php
 include("../../db.php");
 $id_usuario=$_SESSION["uid"];
-$rut="";
+$rutc ="";
 $nombre="";
 $apellido="";
 $correo="";
@@ -22,13 +22,14 @@ $ok = oci_execute($runquery);
 if($ok){
     while($row = oci_fetch_object($runquery)){
         do{
-            $rut = $row->RUT;
+            
             $nombre = $row->NOMBRES;
             $apellido = $row->APELLIDOS;
             $correo = $row->EMAIL;
             $password = $row->PASSWORD;
             $telefono = $row->TELEFONO;
-            $direccion = $row->DIRECCION;
+			$direccion = $row->DIRECCION;
+			$rut = $row->RUT;
 
         }while($row = oci_fetch_object($runquery));
     }
@@ -59,7 +60,7 @@ if($ok){
 						<div class="row">
 						    <div class="col-md-12">
 						        <label for="cli_rut">Rut</label>
-						        <input type="text" id="cli_rut" name="cli_rut" class="form-control" VALUE = "<?php echo $rut ?>" disabled = 'true' >
+						        <input type="text" id="cli_rut" name="cli_rut" class="form-control" VALUE = "<?php echo $rutc ?>" disabled = 'true' >
 						    </div>
 						</div>
 

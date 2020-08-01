@@ -13,6 +13,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
 		<script src="../../js/bootstrap.min.js"></script>
 		<script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js " > </script> 
 		<script src="../../js/main.js"></script>
+		<link rel="icon" href="../../product_images/logo.png" type="image/png"/>
 		<style>
 			@media screen and (max-width:480px){
 				#search{width:80%;}
@@ -24,13 +25,8 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">	
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
-					<span class="sr-only"> alternar navegación</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="" class="navbar-brand">CoronaLibros</a>
+				<image type='image' src='../../product_images/esta_blanca.png'  style='border-radius:25px; width:50px; float:left; height:50px;'></image>
+				<a href="" class="navbar-brand"> &nbsp CoronaLibros</a>
 			</div>
 		<div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
