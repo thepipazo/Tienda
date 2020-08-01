@@ -59,18 +59,18 @@ if($ok){
 						<div class="row">
 						    <div class="col-md-12">
 						        <label for="cli_rut">Rut</label>
-						        <input type="text" id="cli_rut" name="cli_rut" class="form-control" disabled = 'true' >
+						        <input type="text" id="cli_rut" name="cli_rut" class="form-control" VALUE = "<?php echo $rut ?>" disabled = 'true' >
 						    </div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-6">
 								<label for="cli_nombre">Nombre</label>
-								<input type="text" id="cli_nombre" name="cli_nombre" class="form-control"  VALUE = "<?php echo $nombre ;?>" disabled = 'true' >
+								<input type="text" id="cli_nombre" name="cli_nombre" class="form-control"  VALUE = "<?php echo $nombre ?>" disabled = 'true' >
 							</div>
 							<div class="col-md-6">
 								<label for="cli_apellido">Apellidos</label>
-								<input type="text" id="cli_apellido" name="cli_apellido" class="form-control" VALUE = "<?php echo $apellido;?>" disabled = 'true'>
+								<input type="text" id="cli_apellido" name="cli_apellido" class="form-control" VALUE = "<?php echo $apellido?>" disabled = 'true'>
 							</div>
 						</div>
 
@@ -79,7 +79,7 @@ if($ok){
                                     <label for="cli_password">password</label>
                             <div class="row">
                                 <div class="col-md-11">        
-                                    <input type="password"   id="cli_password" name="cli_password" class="form-control"  VALUE = "<?php echo $_SESSION['pass'];?>" disabled = 'true'>
+                                    <input type="password"   id="cli_password" name="cli_password" class="form-control"  VALUE = "<?php echo $_SESSION['pass']?>" disabled = 'true'>
                                 </div>   
                                 <span><input type="checkbox" id="check_pass" onchange="mostrar_pass(this.checked);" disabled="true" ></span>
                                 </div>
@@ -89,25 +89,25 @@ if($ok){
 					
 							<div class="col-md-6">
 								<label for="cli_telefono">Celular</label>
-								<input type="text" id="cli_telefono" name="cli_telefono" class="form-control" VALUE = "<?php echo $telefono;?>" disabled = 'true'>
+								<input type="text" id="cli_telefono" name="cli_telefono" class="form-control" VALUE = "<?php echo $telefono?>" disabled = 'true'>
 							</div>
 						</div>
 
 						<div class="row">
                             <div class="col-md-6">
 								<label for="cli_correo">Email</label>
-								<input type="text" id="cli_correo" name="cli_correo" class="form-control" VALUE = "<?php echo $correo;?>" disabled = 'true'>
+								<input type="text" id="cli_correo" name="cli_correo" class="form-control" VALUE = "<?php echo $correo?>" disabled = 'true'>
 							</div>
 							<div class="col-md-6">
 								<label for="cli_direccio">Dirección </label>
-								<input type="text" id="cli_direccion" name="cli_direccio" class="form-control" VALUE = "<?php echo $direccion;?>" disabled = 'true'>
+								<input type="text" id="cli_direccion" name="cli_direccio" class="form-control" VALUE = "<?php echo $direccion?>" disabled = 'true'>
 							</div>
 						</div>
 						
 						<p><br></p>
 						<div class="row">
 							<div class="col-md-12">
-                                <button type="button" user_id="" disabled = 'true' id="" name="actualizar_cliente" class="btn btn-primary">Actualizar</button>
+                               <?php echo" <button type='button' user_id='$id_usuario' disabled = 'true' id='actualizar_cliente' name='actualizar_cliente' class='btn btn-primary'>Actualizar</button>"?>
 							</div>
 						</div>
 						
@@ -156,7 +156,7 @@ function habilitar_campos_perfil_cliente(value)
             if(value==true){
                 document.getElementById("cli_password").type= "text";
             }else{
-                document.getElementById("cli_password").type= password;
+                document.getElementById("cli_password").type= "password";
             }
 
         }

@@ -40,7 +40,7 @@ move_uploaded_file ($_FILES["imagen"]["tmp_name"], $ruta);
 
 ?>
 <script> alert('<?php echo $mensaje ?>');
-window.location='../vista/nuevo_libro.php';
+window.location='../vista/admin/nuevo_libro.php';
 </script> 
 
    <?php
@@ -48,7 +48,7 @@ window.location='../vista/nuevo_libro.php';
     ?>
 <script>
 alert ('Error alconectar con la base de datos ');
-window.location='../vista/nuevo_libro.php';
+window.location='../vista/admin/nuevo_libro.php';
 </script>
 <?php
     

@@ -971,7 +971,7 @@ $("#boton_buscar").click(function() {
     }
 })
 
-/*
+
 $("#actualizar_cliente").click(function(event) {
   
   var id_user = $(this).attr("user_id");
@@ -994,7 +994,7 @@ $("#actualizar_cliente").click(function(event) {
         }
     })
 
-})*/
+})
 /*
 $("body").delegate(".actualizar_cliente", "click", function(event) {
    // var id_user = $(this).attr("user_id");

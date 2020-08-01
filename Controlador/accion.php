@@ -2278,10 +2278,11 @@ if(isset($_POST["actualizar_autor"])){
 					}else{
 	
 						
-					$sql = "update user_info set nombres = '$nombres', apellidos = '$apellidos', email = '$correo', password = '$password', telefono = $telefono, direccion = '$direccion' WHERE user_id = $user_id";
+					$sql = "update user_info set rut = '$rut', nombres = '$nombres', apellidos = '$apellidos', email = '$correo', password = '$password', telefono = $telefono, direccion = '$direccion' WHERE user_id = $user_id";
 					$run_query = oci_parse($con,$sql);
-					echo $sql; exit();
+						
 					$ok = oci_execute($run_query);
+					echo "ads";exit();
 					if($ok){
 	
 						
@@ -2294,5 +2295,5 @@ if(isset($_POST["actualizar_autor"])){
 	
 					}
 				}
-			
+				oci_free_statement($run_query);  
 				}
