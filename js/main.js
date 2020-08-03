@@ -514,7 +514,7 @@ $("body").delegate("#eliminar_tipo", "click", function(event) {
         success: function(data) {
            
             $("#msg_actualizado").html(data);
-            escritores_admin();
+            tipo_admin();
             
         }
     })

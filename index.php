@@ -1,4 +1,5 @@
 <?php
+include('db.php');
 include('menus/index.php');
 ?>
 	<p><br/></p>

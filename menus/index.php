@@ -12,10 +12,12 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
 	<head>
 		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
 		<title>Venta De Libros</title>
+
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<script src="js/jquery2.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/main.js"></script>
+
 		<style>
 			@media screen and (max-width:480px){
 				#search{width:80%;}
@@ -28,15 +30,10 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">	
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
-					<span class="sr-only">navegación</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+				
 				<a href="../ecomerce" class="navbar-brand">CoronaLibros</a>
 			</div>
-		<div class="collapse navbar-collapse" id="collapse">
+		  <div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
 				<li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
