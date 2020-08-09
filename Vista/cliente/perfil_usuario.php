@@ -10,7 +10,7 @@ include "../../menus/cliente.php";
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-2">
-				<div id="get_cat">
+				<div id="get_cat_cli">
 					<!--aqui vienen las categorias desde mein js -->
 				</div>
 				  
@@ -63,7 +63,11 @@ include "../../menus/cliente.php";
 
 
 
+<script>
+$(document).ready(function() {
 
+)}
+</script>
 
 
 

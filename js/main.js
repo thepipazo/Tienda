@@ -4,10 +4,9 @@ product_admin();
 product_cli();
 libros_deshabilitados();
 
-categorias();
+categorias_admin();
+categorias_index();
 categorias_cliente();
-categorias_admin();
-categorias_admin();
 categorias_deshabilitados();
 
 
@@ -16,12 +15,13 @@ tipo_admin();
 tipos_deshabilitados();
 tipo_cli();
 
-
+autor_index();
 autor_admin();
 autor_cli();
 autores_deshabilitados();
 
 editorial_admin();
+editorial_index();
 editorial_cli();
 editoriales_deshabilitados();
 
@@ -222,14 +222,24 @@ function showModal() {
         })
     }
 
-    function categorias_cliente() {
+    function categorias_cliente() {       
         $.ajax({
             url: "../../controlador/accion.php",
             method: "POST",
             data: { categorias_cli: 1 },
-            success: function(data) {
-                $("#get_cat").html(data);
-    
+            success: function(data) {            
+               $("#get_cat_cli").html(data);
+            }
+        })
+    }
+
+    function categorias_index() {       
+        $.ajax({
+            url: "controlador/accion.php",
+            method: "POST",
+            data: { categorias_cli: 1 },
+            success: function(data) {            
+               $("#get_categorias").html(data);
             }
         })
     }
@@ -245,17 +255,9 @@ function showModal() {
         })
     }
 
-    function categorias() {
-        $.ajax({
-            url: "controlador/accion.php",
-            method: "POST",
-            data: { categorias: 1 },
-            success: function(data) {
-                $("#get_categorias").html(data);
-                }
-            })
-        }
+    
 
+    
         $("body").delegate("#actualizar_cat", "click", function(event) {
             event.preventDefault();
             var descripcion_categoria = $("#cat_reseña").val();
@@ -369,27 +371,40 @@ function showModal() {
         })
     })
 
-    $("body").delegate(".categorias_cli", "click", function(event) {
-        $("#get_product_cli").html("<h3>Cargando...</h3>");
+    $("body").delegate("#buscar_categorias", "click", function(event) {
         event.preventDefault();
-        var cid = $(this).attr('cid');
-
+        var categoria_id = $(this).attr("catid");
+        
         $.ajax({
-            url: "../../controlador/accion.php",
+            url: "controlador/accion.php",
             method: "POST",
-            data: { categoria_cli_seleccionada: 1, cat_id: cid },
+            data: { categoria_cli_seleccionada: 1, cat_id: categoria_id },
             success: function(data) {
-                $("#get_product_cli").html(data);
-                if ($("body").width() < 480) {
-                    $("body").scrollTop(683);
-                }
+               
+                $("#get_product").html(data);
+             
+                
             }
         })
+    })
 
-    })   
+ 
+
+  
     
 
 //-----------------TIPOS DE LIBROS---------------------------------------------
+
+function tipo_cli() {
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { tipo_cli: 1 },
+        success: function(data) {
+            $("#get_brand").html(data);
+        }
+    })
+}
 
 function tipo_admin() {
     $.ajax({
@@ -417,9 +432,9 @@ function tipo_index(){
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
-        data: { escritores: 1 },
+        data: { tipo_cli: 1 },
         success: function(data) {
-            $("#get_escritores").html(data);
+            $("#get_tipos").html(data);
         }
     })
 }
@@ -531,22 +546,12 @@ $("body").delegate("#deshabilitar_tipo", "click", function(event) {
         success: function(data) {
            
             $("#msg_actualizado").html(data);
-            escritores_admin();
+            tipo_admin();
             
         }
     })
 })
 
-function tipo_cli() {
-    $.ajax({
-        url: "../../controlador/accion.php",
-        method: "POST",
-        data: { tipo_cli: 1 },
-        success: function(data) {
-            $("#get_brand").html(data);
-        }
-    })
-}
 
 $("body").delegate(".tipo_cliente", "click", function(event) {
     $("#get_product_cli").html("<h3>Cargando...</h3>");
@@ -567,6 +572,28 @@ $("body").delegate(".tipo_cliente", "click", function(event) {
 
 })   
 
+
+$("body").delegate("#buscar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipoid = $(this).attr("tipoid");
+    
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { tipo_cli_seleccionada: 1, tipoid: tipoid },
+        success: function(data) {
+           
+            $("#get_product").html(data);
+         
+            
+        }
+    })
+})
+
+
+
+
+
 //-------------AUTORES---------------------------------------------
 function autor_cli() {
     $.ajax({
@@ -575,6 +602,17 @@ function autor_cli() {
         data: { autor_cli: 1 },
         success: function(data) {
             $("#autor_cli_msg").html(data);
+        }
+    })
+}
+
+function autor_index() {
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { autor_cli: 1 },
+        success: function(data) {
+            $("#get_autores").html(data);
         }
     })
 }
@@ -714,24 +752,40 @@ $("body").delegate("#deshabilitar_autor", "click", function(event) {
     })
 })
 
-$("body").delegate(".autor_cliente", "click", function(event) {
-    $("#get_product_cli").html("<h3>Cargando...</h3>");
+/*
+$("body").delegate(".buscar_autor", "click", function(event) {
     event.preventDefault();
-    var autor_id = $(this).attr('autor_id');
+    var autorid = $(this).attr('autor_id');
 
     $.ajax({
-        url: "../../controlador/accion.php",
+        url: "controlador/accion.php",
         method: "POST",
-        data: { autor_cli_seleccionada: 1, autor_id: autor_id },
+        data: { autor_cli_seleccionada: 1, autorid: autorid },
         success: function(data) {
-            $("#get_product_cli").html(data);
-            if ($("body").width() < 480) {
-                $("body").scrollTop(683);
-            }
+            $("#get_product").html(data);
+            
         }
     })
 
 }) 
+*/
+
+$("body").delegate("#buscar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autorid");
+    
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { autor_cli_seleccionada: 1, autor_id: autor_id },
+        success: function(data) {
+           
+            $("#get_product").html(data);
+         
+            
+        }
+    })
+})
 //------------------------EDITORIALES--------------------------
 function editorial_cli() {
     $.ajax({
@@ -740,6 +794,17 @@ function editorial_cli() {
         data: { editorial_cli: 1 },
         success: function(data) {
             $("#edit_cli_msg").html(data);
+        }
+    })
+}
+
+function editorial_index() {
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { editorial_cli: 1 },
+        success: function(data) {
+            $("#get_editoriales").html(data);
         }
     })
 }
@@ -898,6 +963,24 @@ $("body").delegate(".editorial_cliente", "click", function(event) {
     })
 
 }) 
+
+
+$("body").delegate("#buscar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editid = $(this).attr("editid");
+    
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { editorial_cli_seleccionada: 1, editid: editid },
+        success: function(data) {
+           
+            $("#get_product").html(data);
+         
+            
+        }
+    })
+})
 //-----------------LOGEAR-------------------------------------------------------
 
 $("#logear").click(function(event) {
@@ -912,10 +995,11 @@ $("#logear").click(function(event) {
             if (data == 0) {
 
                 location.href = "Vista/cliente/perfil_usuario.php";
-                //header("location:perfil_usuario.php");
+               
 
             }
             if (data == 1) {
+              
                 location.href = "Vista/admin/perfil_admin.php";
             }
             if (data == 2) {
@@ -972,6 +1056,26 @@ $("#boton_buscar").click(function() {
 })
 
 
+
+$("#boton_buscar2").click(function() {
+    //$("#get_product_cli").html("<h3>Cargando...</h3>");
+    var buscador_cliente = $("#buscador_cliente2").val();
+    if (buscador_cliente != "") {
+        $.ajax({
+            url: "controlador/accion.php",
+            method: "POST",
+            data: { buscador_cli: 1, buscador_cliente: buscador_cliente },
+            success: function(data) {
+                $("#get_product").html(data);
+                if ($("body").width() < 480) {
+                    $("body").scrollTop(683);
+                }
+            }
+        })
+    }
+})
+
+
 $("#actualizar_cliente").click(function(event) {
   
   var id_user = $(this).attr("user_id");
@@ -1016,6 +1120,9 @@ $("#autoregistro_cli").click(function(event) {
     })
 
 })
+
+
+
 
 
 })

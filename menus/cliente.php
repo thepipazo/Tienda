@@ -1,7 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
-	header("location:../../index.php");
+    header("location:../../index.php");
+    
 }
 ?>
 <!DOCTYPE html>
@@ -15,6 +16,8 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
     <script src="../../js/jquery2.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="../../js/main.js"></script>
+
+
     <style>
         @media screen and (max-width:480px){
             #search{width:80%;}
