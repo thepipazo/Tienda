@@ -2281,10 +2281,11 @@ if(isset($_POST["actualizar_autor"])){
 				}
 
 				if(isset($_POST["registrar"])){
-					$rut = $_POST["rut"];
+					
+				$rut = $_POST["rut"];
 				$f_name = $_POST["nombres"];
 				$l_name = $_POST["apellidos"];
-				$email = $_POST['correo'];
+				$email = $_POST["correo"];
 				$password = $_POST['password'];
 				$repassword = $_POST['repassword'];
 				$mobile = $_POST['telefono'];
@@ -2296,62 +2297,39 @@ if(isset($_POST["actualizar_autor"])){
 				if(empty($f_name) || empty($l_name) || empty($email) || empty($password) || empty($repassword) ||
 					empty($mobile) || empty($address1)){
 						
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Por favor llena todos los espacios
-				..!</b>
-							</div>
-						";
+						//en caso de que este vacio	
+						echo 1;						
 						exit();
+
 					} else {
 				
 					if(!preg_match($emailValidation,$email)){
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>esta $email no es válido..!</b>
-							</div>
-						";
+						//en caso de que el correo no sea valido
+						echo 2;
 						exit();
 					}
 					if(strlen($password) < 9 ){
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>La contraseña es débil</b>
-							</div>
-						";
+						//en caso de que la password sea debil
+						echo 3;
 						exit();
 					}
 					
 					if($password != $repassword){
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>la contraseña no es lo mismo</b>
-							</div>
-						";
+						//en caso de que las contraseña no sean iguales
+						echo 4;
 						exit();
 					}
 					if(!preg_match($number,$mobile)){
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>El número $mobile no es lo mismo</b>
-							</div>
-						";
+						//en caso de que el numero no sean solo numeros
+						echo 5;
 						exit();
 					}
 					if(!(strlen($mobile) == 9)){
-						echo "
-							<div class='alert alert-warning'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>El número de móvil debe ser de 9 dígitost</b>
-							</div>
-						";
+						//en caso de que el numero sea muy corto
+						echo 6;
 						exit();
 					}
-					//existing email address in our database
+					//en caso de que el correo existe
 					$sql = "SELECT user_id FROM user_info WHERE email = '$email' " ;
 					
 					$run_query = oci_parse($con,$sql);
@@ -2361,26 +2339,18 @@ if(isset($_POST["actualizar_autor"])){
 					
 					//if($ok == true){
 					if($count > 0){
-						echo "
-							<div class='alert alert-danger'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>La dirección de correo electrónico ya está en uso Pruebe otra dirección de correo electrónico
-				</b>
-							</div>
-						";
+						echo 7;
 						exit();
+
 					} else {
 						$password = md5($password);
 						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
 						$run_query = oci_parse($con,$sql);
 						$ok = oci_execute($run_query);
 						if($ok){
-							echo "
-								<div class='alert alert-success'>
-									<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>Usted está registrado con éxito..!</b>
-								</div>
-							";exit();
+
+							echo 8;
+							exit();
 							
 							
 						}else{

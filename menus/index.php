@@ -44,7 +44,7 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
                 <div class="topbar-divider d-none d-sm-block"></div>
                
                 <li class="nav-item dropdown no-arrow"> <a href="registro.php" class="nav-link">Registrar</a>
-                     <li class="nav-item dropdown no-arrow"><a  class="nav-link dropdown-toggle" role="button"id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">iniciar sesion</a>
+                <li class="nav-item dropdown no-arrow"> <a  class="nav-link dropdown-toggle" role="button"id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">iniciar sesion</a>
 
                
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> 

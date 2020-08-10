@@ -1008,6 +1008,32 @@ $("#logear").click(function(event) {
         }
     })
 })
+
+$("#logear_de_registro").click(function(event) {
+    event.preventDefault();
+    var email = $("#email2").val();
+    var pass = $("#password2").val();
+    $.ajax({
+        url: "controlador/login.php",
+        method: "POST",
+        data: { userLogin: 1, userEmail: email, userPassword: pass },
+        success: function(data) {
+            if (data == 0) {
+
+                location.href = "Vista/cliente/perfil_usuario.php";
+               
+
+            }
+            if (data == 1) {
+              
+                location.href = "Vista/admin/perfil_admin.php";
+            }
+            if (data == 2) {
+                $("#e_msg").html('<div class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
+            }
+        }
+    })
+})
 //-------------------------------------------------------------------------
 
 function mispedidos() {
@@ -1103,23 +1129,89 @@ $("#autoregistro_cli").click(function(event) {
      var rut = $("#reg_rut").val();
      var nombres = $("#reg_nombre").val();
      var apellidos = $("#reg_apellido").val();
-     var password = $("#reg_password").val();
+     var password = $("#password2").val();
      var repassword = $("#reg_repassword").val();
      var telefono = $("#reg_telefono").val();
-     var correo = $("#reg_correo").val();
      var direccion = $("#reg_direccion").val();
-    
+     var correo = $("#email2").val();
+
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
         data: { registrar: 1, rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion,repassword:repassword },
         success: function(data) {
-            $("#autoregistro_msgz").html(data);
-            
+
+            var msg_vacio = ` <div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>Por favor llena todos los espacios..!</b></div>`;
+
+            var msg_correo_no_val = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>el Correo no es válido..!</b></div>`;
+
+            var passwor_debil = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>La contraseña es débil</b></div>`;
+
+            var password_no_iguales = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>las contraseñas no son iguales</b></div>`;
+
+            var numero_no_val = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>El número $mobile solo debe contener numeros</b></div>`;
+
+            var numero_corto = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>El número de móvil debe ser de 9 dígitost</b></div>`;
+
+            var correo_en_uso = `<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>La dirección de correo electrónico ya está en uso, Pruebe otra dirección de correo electrónico</b></div>`;
+
+            var ingreso_con_exito = `<div class='form-card'>
+            <h2 class='fs-title text-center'> Exito!</h2>
+             <br><br>
+            <div class='row justify-content-center'>
+                <div class='col-3'> <img src='https://img.icons8.com/color/96/000000/ok--v2.png' class='fit-image'> </div>
+            </div> <br><br>
+            <div class='row justify-content-center'>
+                <div class='col-7 text-center'>
+                    <h5>Registrado Con Exito!!</h5>
+                </div>
+            </div>
+        </div> `;
+
+
+            if (data == 1){
+                $("#autoregistro_msgz").html(msg_vacio);
+             
+            }else if(data == 2){
+                $("#autoregistro_msgz").html(msg_correo_no_val);
+               
+            }else if (data == 3){
+                $("#autoregistro_msgz").html(passwor_debil);
+                
+            }else if (data == 4){
+                $("#autoregistro_msgz").html(password_no_iguales);
+               
+            }else if (data == 5){
+                $("#autoregistro_msgz").html(numero_no_val);
+               
+            }else if (data == 6){
+                $("#autoregistro_msgz").html(numero_corto);
+              
+            }else if (data == 7){
+                $("#autoregistro_msgz").html(correo_en_uso);
+                
+            }else if (data == 8){
+                $("#autoregistro_msgz").html(ingreso_con_exito);
+                $("#jajas").remove();
+
+            }
+
+
         }
     })
 
 })
+
+
+
+
 
 
 

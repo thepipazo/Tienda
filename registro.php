@@ -7,8 +7,7 @@ include('menus/index.php');
     <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-            <div id="autoregistro_msgz"> 
-            </div>
+          
             
                 <h2><strong>Registre su cuenta de usuario</strong></h2>
                 <p>Rellene todos los campos del formulario para ir al siguiente paso</p>
@@ -23,15 +22,17 @@ include('menus/index.php');
                                 <li id="confirm"><strong>Finalizar</strong></li>
                             </ul> <!-- fieldsets -->
                             <fieldset>
+                           
                                 <div class="form-card">
                                     <h2 class="fs-title">Informacion De La Cuenta</h2> 
-                                    <input type="email" id="reg_correo "name="reg_correo" placeholder="Correo" >
-                                      <input type="password" id="reg_password"name="reg_password" placeholder="Password">
+                                    <input type="email" id="email2" name="email2" placeholder="Correo" >
+                                      <input type="password" id="password2"name="password2" placeholder="Password">
                                        <input type="password" id="reg_repassword" name="reg_repassword" placeholder="Confirmar Password">
                                 </div>
-                                 <input type="button" name="next" class="next action-button" value="Siguente Paso">
+                                 <input type="button" id="cuenta" name="cuenta"  class="next action-button" value="Siguente Paso">
+                          
                             </fieldset>
-                            <fieldset>
+                           <fieldset>
                                 <div class="form-card">
                                     <h2 class="fs-title">Informacion Personal</h2> 
                                     <input type="text" id="reg_rut" name="reg_rut" placeholder="Rut">
@@ -69,17 +70,13 @@ include('menus/index.php');
                                 <input type="button" id="autoregistro_cli" name="autoregistro_cli" class="next action-button" value="Confirmar">
                             </fieldset>
                             <fieldset>
-                                <div class="form-card">
-                                    <h2 class="fs-title text-center"> Exito!</h2> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
-                                    </div> <br><br>
-                                    <div class="row justify-content-center">
-                                        <div class="col-7 text-center">
-                                            <h5>Registrado Con Exito!!</h5>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="autoregistro_msgz"> 
+
+                            </div>
+
+                            <input type='button'  id="jajas" name='jajas' class='previous action-button-previous' value='Atras'></button>
+                            <input type="button" id="logear_de_registro" name="logear_de_registro" class="next action-button" value="Iniciar Sesion">
+
                             </fieldset>
                         </form>
                     </div>
