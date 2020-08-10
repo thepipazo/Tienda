@@ -26,7 +26,7 @@ margin-top: -.25rem
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
-color: #d1d3e2
+color: #646780
 }
 
 .dropdown-toggle::after {
@@ -82,7 +82,7 @@ height: 40px
 
 .topbar .topbar-divider {
 width: 0;
-border-right: 1px solid #e3e6f0;
+border-right: 1px solid #646780;
 height: calc(4.375rem - 2rem);
 margin: auto 1rem
 }

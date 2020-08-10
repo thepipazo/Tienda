@@ -40,10 +40,11 @@ function showModal() {
 //----------------LIBROS -----------------------------------------
 
     function product(){
+        var urlp_index = "product_images";
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
-            data: { getProduct: 1 },
+            data: { getProduct: 1 ,urlp_cli:urlp_index},
             success: function(data) {
                 $("#get_product").html(data);
             }
@@ -51,10 +52,11 @@ function showModal() {
     }
 
     function product_cli() {
+        var urlp_cli = "../../product_images";
         $.ajax({
             url: "../../controlador/accion.php",
             method: "POST",
-            data: { getProduct: 1 },
+            data: { getProduct: 1, urlp_cli:urlp_cli},
             success: function(data) {
                 $("#get_product_cli").html(data);
             }
@@ -228,12 +230,12 @@ function showModal() {
             method: "POST",
             data: { categorias_cli: 1 },
             success: function(data) {            
-               $("#get_cat_cli").html(data);
+               $("#get_categorias_cli").html(data);
             }
         })
     }
 
-    function categorias_index() {       
+    function categorias_index() {   
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
@@ -374,14 +376,33 @@ function showModal() {
     $("body").delegate("#buscar_categorias", "click", function(event) {
         event.preventDefault();
         var categoria_id = $(this).attr("catid");
-        
+        var url2 = "product_images";
+
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
-            data: { categoria_cli_seleccionada: 1, cat_id: categoria_id },
+            data: { categoria_cli_seleccionada: 1, cat_id: categoria_id,url2:url2 },
             success: function(data) {
                
                 $("#get_product").html(data);
+             
+                
+            }
+        })
+    })
+
+    $("body").delegate("#buscar_categorias", "click", function(event) {
+        event.preventDefault();
+        var categoria_id = $(this).attr("catid");
+        var url2 = "../../product_images";
+
+        $.ajax({
+            url: "../../controlador/accion.php",
+            method: "POST",
+            data: { categoria_cli_seleccionada: 1, cat_id: categoria_id,url2:url2 },
+            success: function(data) {
+               
+                $("#get_product_cli").html(data);
              
                 
             }
@@ -401,7 +422,7 @@ function tipo_cli() {
         method: "POST",
         data: { tipo_cli: 1 },
         success: function(data) {
-            $("#get_brand").html(data);
+            $("#get_tipos_cli").html(data);
         }
     })
 }
@@ -576,14 +597,33 @@ $("body").delegate(".tipo_cliente", "click", function(event) {
 $("body").delegate("#buscar_tipo", "click", function(event) {
     event.preventDefault();
     var tipoid = $(this).attr("tipoid");
-    
+    var url2 = "product_images";
+
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
-        data: { tipo_cli_seleccionada: 1, tipoid: tipoid },
+        data: { tipo_cli_seleccionada: 1, tipoid: tipoid,url2:url2 },
         success: function(data) {
            
             $("#get_product").html(data);
+         
+            
+        }
+    })
+})
+
+$("body").delegate("#buscar_tipo", "click", function(event) {
+    event.preventDefault();
+    var tipoid = $(this).attr("tipoid");
+    var url2 = "../../product_images";
+
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { tipo_cli_seleccionada: 1, tipoid: tipoid,url2:url2 },
+        success: function(data) {
+           
+            $("#get_product_cli").html(data);
          
             
         }
@@ -601,7 +641,7 @@ function autor_cli() {
         method: "POST",
         data: { autor_cli: 1 },
         success: function(data) {
-            $("#autor_cli_msg").html(data);
+            $("#get_autores_cli").html(data);
         }
     })
 }
@@ -752,35 +792,38 @@ $("body").delegate("#deshabilitar_autor", "click", function(event) {
     })
 })
 
-/*
-$("body").delegate(".buscar_autor", "click", function(event) {
-    event.preventDefault();
-    var autorid = $(this).attr('autor_id');
 
-    $.ajax({
-        url: "controlador/accion.php",
-        method: "POST",
-        data: { autor_cli_seleccionada: 1, autorid: autorid },
-        success: function(data) {
-            $("#get_product").html(data);
-            
-        }
-    })
-
-}) 
-*/
 
 $("body").delegate("#buscar_autor", "click", function(event) {
     event.preventDefault();
     var autor_id = $(this).attr("autorid");
-    
+    var url2 = "product_images";
+
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
-        data: { autor_cli_seleccionada: 1, autor_id: autor_id },
+        data: { autor_cli_seleccionada: 1, autor_id: autor_id,url2:url2 },
         success: function(data) {
            
             $("#get_product").html(data);
+         
+            
+        }
+    })
+})
+
+$("body").delegate("#buscar_autor", "click", function(event) {
+    event.preventDefault();
+    var autor_id = $(this).attr("autorid");
+    var url2 = "../../product_images";
+
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { autor_cli_seleccionada: 1, autor_id: autor_id,url2:url2 },
+        success: function(data) {
+           
+            $("#get_product_cli").html(data);
          
             
         }
@@ -793,7 +836,7 @@ function editorial_cli() {
         method: "POST",
         data: { editorial_cli: 1 },
         success: function(data) {
-            $("#edit_cli_msg").html(data);
+            $("#get_editoriales_cli").html(data);
         }
     })
 }
@@ -968,11 +1011,11 @@ $("body").delegate(".editorial_cliente", "click", function(event) {
 $("body").delegate("#buscar_editorial", "click", function(event) {
     event.preventDefault();
     var editid = $(this).attr("editid");
-    
+    var url2 = "product_images";
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
-        data: { editorial_cli_seleccionada: 1, editid: editid },
+        data: { editorial_cli_seleccionada: 1, editid: editid,url2:url2 },
         success: function(data) {
            
             $("#get_product").html(data);
@@ -981,6 +1024,25 @@ $("body").delegate("#buscar_editorial", "click", function(event) {
         }
     })
 })
+$("body").delegate("#buscar_editorial", "click", function(event) {
+    event.preventDefault();
+    var editid = $(this).attr("editid");
+    var url2 = "../../product_images";
+    
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { editorial_cli_seleccionada: 1, editid: editid, url2:url2 },
+        success: function(data) {
+           
+            $("#get_product_cli").html(data);
+         
+            
+        }
+    })
+})
+
+
 //-----------------LOGEAR-------------------------------------------------------
 
 $("#logear").click(function(event) {
@@ -1066,11 +1128,13 @@ $("#misdevoluciones").click(function(event) {
 $("#boton_buscar").click(function() {
     $("#get_product_cli").html("<h3>Cargando...</h3>");
     var buscador_cliente = $("#buscador_cliente").val();
+    var url2 = "../../product_images";
+
     if (buscador_cliente != "") {
         $.ajax({
             url: "../../controlador/accion.php",
             method: "POST",
-            data: { buscador_cli: 1, buscador_cliente: buscador_cliente },
+            data: { buscador_cli: 1, buscador_cliente: buscador_cliente,url2:url2 },
             success: function(data) {
                 $("#get_product_cli").html(data);
                 if ($("body").width() < 480) {
@@ -1083,14 +1147,15 @@ $("#boton_buscar").click(function() {
 
 
 
-$("#boton_buscar2").click(function() {
+$("#boton_buscar").click(function() {
     //$("#get_product_cli").html("<h3>Cargando...</h3>");
-    var buscador_cliente = $("#buscador_cliente2").val();
+    var buscador_cliente = $("#buscador_cliente").val();
+    var url2 = "product_images";
     if (buscador_cliente != "") {
         $.ajax({
             url: "controlador/accion.php",
             method: "POST",
-            data: { buscador_cli: 1, buscador_cliente: buscador_cliente },
+            data: { buscador_cli: 1, buscador_cliente: buscador_cliente,url2:url2 },
             success: function(data) {
                 $("#get_product").html(data);
                 if ($("body").width() < 480) {

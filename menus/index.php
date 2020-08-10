@@ -33,8 +33,8 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
         <li class="nav-item dropdown no-arrow"> <a style="color:#d1d3e2; font-size: 26px;" href="index.php" class="nav-link">CoronaLibros</a></li>
             
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group"> <input type="text" id="buscador_cliente2" class="form-control bg-light border-0 small" placeholder="Buscar Por....">
-            <div class="input-group-append"> <button class="btn btn-primary" id="boton_buscar2" type="button"> <i class="fa fa-search fa-sm"></i> </button> </div>
+            <div class="input-group"> <input type="text" id="buscador_cliente" class="form-control bg-light border-0 small" placeholder="Buscar Por....">
+            <div class="input-group-append"> <button class="btn btn-primary" id="boton_buscar" type="button"> <i class="fa fa-search fa-sm"></i> </button> </div>
              </div>
         </form>
             <ul class="navbar-nav ml-auto">

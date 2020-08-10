@@ -2,7 +2,7 @@
 include "../db.php";
 session_start();
 if(isset($_POST["getProduct"])){
-
+ 	$url = $_POST["urlp_cli"];
 	$sql = "SELECT * FROM libros where estado = 1 ";
 	
 	 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
@@ -30,9 +30,9 @@ if(isset($_POST["getProduct"])){
 					
 					echo "
 					<div class='col-md-4'>
-					<div class='card p-4'>
+					<div class='card p-4' style='margin-bottom:15px'>
 					
-						<div class='text-center' > <image type='image' src='product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 						<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
 							<div class='buttons d-flex flex-row'>
 								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button  style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success cart-button px-5 clicked'><span class='dot'>1</span>Agregar al carro </button>
@@ -2170,6 +2170,9 @@ if(isset($_POST["actualizar_autor"])){
 
 
 			if(isset($_POST["categoria_cli_seleccionada"]) || isset($_POST["tipo_cli_seleccionada"]) || isset($_POST["autor_cli_seleccionada"]) || isset($_POST["editorial_cli_seleccionada"]) || isset($_POST["buscador_cli"])){
+				
+				$url = $_POST["url2"];
+
 				if(isset($_POST["categoria_cli_seleccionada"])){
 					$id = $_POST["cat_id"];
 					$sql = "SELECT * FROM libros WHERE libro_cat = '$id' and estado = 1";
@@ -2216,7 +2219,7 @@ if(isset($_POST["actualizar_autor"])){
 							<div class='col-md-4'>
 							<div class='card p-4'>
 							
-								<div class='text-center' > <image type='image' src='product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+								<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 								<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
 									<div class='buttons d-flex flex-row'>
 										<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button class='btn btn-success cart-button btn-block'><span class='dot'>1</span>Add to cart </button>

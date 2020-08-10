@@ -1,87 +1,54 @@
-<?php
-session_start();
-if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
-    header("location:../../index.php");
-    
-}
-?>
-<!DOCTYPE html>
+
+<?php session_start(); ?>
 <html>
-<head>
-    <meta http-equiv=”Content-Type” content=”text/html;/>
-    <meta charset="UTF-8">
-    <title>Venta De Libros</title>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
- 
-    <script src="../../js/jquery2.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/main.js"></script>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CoronaLibros</title>
+        <link href="../../css/mystile.css" rel="stylesheet">
 
-
-    <style>
-        @media screen and (max-width:480px){
-            #search{width:80%;}
-            #search_btn{width:30%;float:right;margin-top:-32px;margin-right:10px;}
-        }
-    </style>
-</head>
+        
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+        <script type="text/javascript" src=""></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script type="text/javascript" src="../../js/main.js"></script>
+        <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>    
+    </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">	
-        <div class="navbar-header">
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Topbar Search -->
+                <image type='image' src='../../product_images/logo.png'  style='border-radius:25px; width:50px; float:left; height:50px; margin-left:25px'></image>
+        <li class="nav-item dropdown no-arrow"> <a style="color:#d1d3e2; font-size: 26px;" href="index.php" class="nav-link">CoronaLibros</a></li>
             
-            <image type='image' src='../../product_images/esta_blanca.png'  style='border-radius:25px; width:50px; float:left; height:50px;'></image>
-				<a href="" class="navbar-brand"> &nbsp CoronaLibros</a>        
-                </div>
-    <div class="collapse navbar-collapse" id="collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="../../index.php"><span class="glyphicon glyphicon-modal-window"></span>Producto</a></li>
-            <li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="buscador_cliente"></li>
-            <li style="top:10px;left:20px;"><button class="btn btn-primary" id="boton_buscar">Buscar</button></li>
-            
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="mis_pedidos2.php" class="dropdown-toggle"  > <span class="glyphicon glyphicon-credit-card"></span><?php echo " Mis Pedidos";?></a></li>
-
-            <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span> Carro<span class="badge">0</span></a>
-                <div class="dropdown-menu" style="width:400px;">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-3 col-xs-3">Sl.No</div>
-                                <div class="col-md-3 col-xs-3">Imagen del producto</div>
-                                <div class="col-md-3 col-xs-3">nombre del producto</div>
-                                <div class="col-md-3 col-xs-3">Precio en $.</div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <div id="cart_product">
-                            <!--<div class="row">
-                                <div class="col-md-3">Sl.No</div>
-                                <div class="col-md-3">Product Image</div>
-                                <div class="col-md-3">Product Name</div>
-                                <div class="col-md-3">Price in $.</div>
-                            </div>-->
-                            </div>
-                        </div>
-                        <div class="panel-footer"></div>
-                    </div>
-                </div>
-            </li>
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo " Bienvenido,".$_SESSION["name"]; ?></a>
-                <ul class="dropdown-menu">
-                    <li><a  href="mi_perfil.php" style="text-decoration:none; color:blue;" id="editar_perfil"><span class="glyphicon glyphicon-shopping-cart"></span> Perfil</a></li>
-                    <li class="divider"></li>
-                    <li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart"></span> Carro</a></li>
-                    <li class="divider"></li>
-                    <li><a href='enviarcorreo.php?hello=true' id="cambiar_password" name="cambiar_password"style="text-decoration:none; color:blue;" ><span class="glyphicon glyphicon-lock"></span> Cambia la contraseña</a></li>
-                    <li class="divider"></li>
-                    <li><a href="../../controlador/logout.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group"> <input type="text" id="buscador_cliente" class="form-control bg-light border-0 small" placeholder="Buscar Por....">
+            <div class="input-group-append"> <button class="btn btn-primary" id="boton_buscar" type="button"> <i class="fa fa-search fa-sm"></i> </button> </div>
+             </div>
+        </form>
+            <ul class="navbar-nav ml-auto">
                 
-                </ul>
-            </li>
-            
-        </ul>
-    </div>
-</div>
-</div>
+                <li class="nav-item dropdown no-arrow mx-1"> <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cart-arrow-down"></i> <span class="badge badge-danger badge-counter">4</span> Carro </a> </li>
+                
+                <div class="topbar-divider d-none d-sm-block"></div>
+               
+                <li class="nav-item dropdown no-arrow"> <a  class="nav-link"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> <?php echo "Mis Pedidos";?></a>
+                <li class="nav-item dropdown no-arrow"> <a  class="nav-link dropdown-toggle" role="button"id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><?php echo " Bienvenido, ".$_SESSION["name"]; ?></a>
+
+               
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> 
+                <a class="dropdown-item" href="#"><i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i> My perfil </a>
+                   <a class="dropdown-item" href="#"> <i class="fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Cambiar Contraseña</a>
+                <div class="dropdown-divider"></div> 
+                <button class="dropdown-item" href="controlador/logout.php" > Salir </button>
+            </div>
+                        
+                  
+                </div>              
+            </ul>
+
+    </nav>
