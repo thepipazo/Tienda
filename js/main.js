@@ -28,7 +28,7 @@ editoriales_deshabilitados();
 
 
 mispedidos();
-
+carro_de_compras();
 
 
 function showModal() {
@@ -1293,6 +1293,16 @@ $("body").delegate("#agregar_producto", "click", function(event) {
 })
 
 
+function carro_de_compras() {
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { carro_de_compras: 1 },
+        success: function(data) {
+            $("#carro_productos").html(data);
+        }
+    })
+}
 
 
 })

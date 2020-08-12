@@ -2432,3 +2432,56 @@ if(isset($_POST["actualizar_autor"])){
 								";
 						}						
 					}			
+
+					if( isset($_POST["carro_de_compras"])){
+
+						
+						
+						$uid = $_SESSION["uid"];
+						$sql = "SELECT * FROM carro WHERE user_id = '$uid'";
+						$run_query = oci_parse($con,$sql);
+						$ok = oci_execute($run_query);
+
+						$rows = oci_parse($con,$sql);
+						$rows2 = oci_execute($rows);
+						$rows3 = oci_fetch_all($rows, $res);
+						
+							$no = 1;
+							$total_amt = 0;
+							if($ok){
+
+									echo "
+										<div class='col align-self-center text-right text-muted' styl>$rows3 items</div>
+									";
+							
+							while($row=oci_fetch_object($run_query)){
+										
+								$id = $row->ID;
+								$libro_id = $row->LIBRO_ID;
+								$libro_name = $row->NOMBRE_LIBRO;
+								$libro_image = $row->IMAGEN_LIBRO;
+								$qty = $row->QTY;
+								$precio = $row->PRECIO;
+								$total = $row->TOTAL_AMT;
+								$precio_array = array($total);
+								$total_sum = array_sum($precio_array);
+								$total_amt = $total_amt + $total_sum;
+								setcookie("ta",$total_amt,strtotime("+1 day"),"/","","",TRUE);
+									echo"
+											<div class='row border-top border-bottom'>
+												<div class='row main align-items-center'>
+													<div class='col-2'><img class='img-fluid' src='../../product_images/$libro_image'></div>
+													<div class='col'>
+														<div class='row text-muted'>$libro_name</div>
+														<div class='row'>ID: #$libro_id</div>
+													</div>
+													<div class='col'> <a href='#'>-</a><a href='#' class='border'>1</a><a href='#'>+</a> </div>
+													<div class='col'>$$precio  
+													<span role='button' class='close' proId='$libro_id' id='eliminar_carro_id' >X</span> </div>
+												</div>
+											</div>											
+										";
+								$no = $no + 1;											
+									}
+						}
+					}
