@@ -2485,3 +2485,69 @@ if(isset($_POST["actualizar_autor"])){
 									}
 						}
 					}
+
+					if(isset($_POST["modo_pago"])){
+						$uid = $_SESSION["uid"];
+						$sql = "SELECT * FROM carro WHERE user_id = '$uid'";
+						$run_query = oci_parse($con,$sql);
+						$ok = oci_execute($run_query);
+						$total = 0;
+						
+
+						$rows = oci_parse($con,$sql);
+						$rows2 = oci_execute($rows);
+						$rows3 = oci_fetch_all($rows, $res);
+						if($ok){
+
+						while($row=oci_fetch_object($run_query)){							
+								
+							$id = $row->ID;
+							$libro_id = $row->LIBRO_ID;
+							$libro_name = $row->NOMBRE_LIBRO;
+							$libro_image = $row->IMAGEN_LIBRO;
+							$qty = $row->QTY;
+							$precio = $row->PRECIO;
+							$total = $total+$row->TOTAL_AMT;									
+							//$total_amt = $total + $total_sum;
+						}
+						echo"
+					<h5><b>Detalles Del</b></h5>
+					</div>
+					<hr>
+					<div class='row'>
+						<div class='col' style='padding-left:0;''>Productos $rows3</div>
+						<div class='col text-right'>$$total</div>
+					</div>
+					<form>
+						<p>Medio De Pago</p> <select>";
+
+						$sql2 = "SELECT*FROM modo_pago where usuario = $uid";
+						$run_query2 = oci_parse($con,$sql2);
+						$ok2 = oci_execute($run_query2);
+						if($ok2){									
+							while($row = oci_fetch_object($run_query2)){	
+								do{
+									
+									$numero_targeta = $row->NUMERO_TARGETA;
+									$num_corto = substr($numero_targeta, 0 , 4);
+									echo "<option class='text-muted'> $num_corto-xxxx-xxxx-xxxx</option>";
+								}while($row = oci_fetch_object($run_query2));
+							
+
+							}
+						}
+
+						
+							echo"									
+						</select>
+						
+						<p>Descuento total</p> <input id='code' placeholder='Enter your code'>
+					</form>
+					<div class='row' style='border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;''>
+						<div class='col'>Total A Pagar</div>
+						<div class='col text-right'>$$total</div>
+					</div> 
+					<button class='btn btn-primary' style='background-color:#535e6b; border-color:#0f1419; width:262px'>Pagar</button>
+									";						
+										}
+	}

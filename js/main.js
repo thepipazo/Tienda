@@ -29,7 +29,7 @@ editoriales_deshabilitados();
 
 mispedidos();
 carro_de_compras();
-
+modo_pago();
 
 function showModal() {
     $('#exampleModal').modal('show');
@@ -1304,5 +1304,17 @@ function carro_de_compras() {
     })
 }
 
+
+
+function modo_pago() {
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { modo_pago: 1 },
+        success: function(data) {
+            $("#msg_modo_de_pago").html(data);
+        }
+    })
+}
 
 })
