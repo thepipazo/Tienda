@@ -1,5 +1,9 @@
 
-<?php session_start(); ?>
+<?php session_start(); 
+if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
+	header("location:../../index.php");
+}?>
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -23,7 +27,7 @@
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <!-- Topbar Search -->
                 <image type='image' src='../../product_images/logo.png'  style='border-radius:25px; width:50px; float:left; height:50px; margin-left:25px'></image>
-        <li class="nav-item dropdown no-arrow"> <a style="color:#d1d3e2; font-size: 26px;" href="index.php" class="nav-link">CoronaLibros</a></li>
+        <li class="nav-item dropdown no-arrow"> <a style="color:#d1d3e2; font-size: 26px;" href="../../index.php" class="nav-link">CoronaLibros</a></li>
             
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group"> <input type="text" id="buscador_cliente" class="form-control bg-light border-0 small" placeholder="Buscar Por....">
@@ -32,7 +36,7 @@
         </form>
             <ul class="navbar-nav ml-auto">
                 
-                <li class="nav-item dropdown no-arrow mx-1"> <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cart-arrow-down"></i> <span class="badge badge-danger badge-counter">4</span> Carro </a> </li>
+                <li class="nav-item dropdown no-arrow mx-1"><a href="carro.php" class="nav-link"> <i class="fa fa-cart-arrow-down"></i>  Carro </a> </li>
                 
                 <div class="topbar-divider d-none d-sm-block"></div>
                
@@ -44,7 +48,7 @@
                 <a class="dropdown-item" href="#"><i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i> My perfil </a>
                    <a class="dropdown-item" href="#"> <i class="fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Cambiar Contraseña</a>
                 <div class="dropdown-divider"></div> 
-                <button class="dropdown-item" href="controlador/logout.php" > Salir </button>
+                <a class="dropdown-item" href="../../controlador/logout.php" > Salir </a>
             </div>
                         
                   

@@ -35,9 +35,9 @@ if(isset($_POST["getProduct"])){
 						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 						<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
 							<div class='buttons d-flex flex-row'>
-								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button  style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success cart-button px-5 clicked'><span class='dot'>1</span>Agregar al carro </button>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
-							<div class='weight'> <small>1 piece 2.5kg</small> </div>
+						
 						</div>
 					</div>
 				</div>
@@ -53,7 +53,7 @@ if(isset($_POST["getProduct"])){
                     <div class='text-center' > <image type='image' src='product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
                     <div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
                         <div class='buttons d-flex flex-row'>
-                            <div class='cart'><i class='fa fa-shopping-cart'></i></div> <button class='btn btn-success '><span class='dot'>1</span>Add to cart </button>
+                            <div class='cart'><i class='fa fa-shopping-cart'></i></div> <button class='btn btn-success id='agregar_producto' '><span class='dot'>1</span>Add to cart </button>
                         </div>
                         <div class='weight'> <small>1 piece 2.5kg</small> </div>
                     </div>
@@ -2370,3 +2370,65 @@ if(isset($_POST["actualizar_autor"])){
 				}
 				//}*/
 					}
+					
+
+
+					if(isset($_POST["agregar_producto"])){
+		
+						if(isset($_SESSION["uid"])){
+						$libro_id = $_POST["proId"];
+						$user_id = $_SESSION["uid"];
+						$sql = "SELECT * FROM carro WHERE libro_id = '$libro_id' AND user_id = '$user_id'";
+						$run_query = oci_parse($con,$sql);
+						$ok = oci_execute($run_query);
+						$obj = oci_fetch_object($run_query);
+						$count = oci_num_rows($run_query);
+						oci_free_statement($run_query);
+						
+						if($count > 0){
+							
+							echo "
+								<div class='alert alert-warning' style='text-align:center;'>
+										<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+										<b>El producto ya está agregado al carrito Continuar comprando..!</b>
+								</div>
+							";
+						} else {
+							 
+							
+							
+							$sql = "SELECT * FROM libros WHERE libro_id = '$libro_id'";
+							$run_query = oci_parse($con,$sql);
+							$ok = oci_execute($run_query);
+							$row = oci_fetch_object($run_query);
+							$num = oci_num_rows($run_query);
+							oci_free_statement($run_query);
+							
+								$id = $row->LIBRO_ID;
+								$libro_nombre = $row->LIBRO_NOMBRE;
+								$imagen_libro = $row->LIBRO_IMAGEN;
+								$libro_precio = $row->LIBRO_PRECIO;
+							$sql = "INSERT INTO carro VALUES (NULL, '$libro_id', '0', '$user_id', '$libro_nombre', '$imagen_libro', '1', '$libro_precio', '$libro_precio')";
+							$run_query = oci_parse($con,$sql);
+							$ok = oci_execute($run_query);
+							oci_free_statement($run_query);
+							if($ok == true){
+								echo "
+									<div class='alert alert-success' style='text-align:center;'>
+										<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+										<b>Producto agregado..!</b>
+									</div>
+								";
+							}else{
+								
+							}
+						}
+						}else{
+							echo "
+									<div class='alert alert-success' style='text-align:center;'>
+										<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+										<b>Lo siento ..! Ir y Registrarse Primero, entonces puedes agregar un producto a tu carrito</b>
+									</div>
+								";
+						}						
+					}			

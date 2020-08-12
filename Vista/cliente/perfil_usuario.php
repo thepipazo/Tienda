@@ -152,6 +152,8 @@ include('../../menus/cliente.php');
 
 
 </div>
+
+<div id="msg_agregar_al_carro"></div>
                      
 
                                  <div class="container" style="width:fit-content;" >

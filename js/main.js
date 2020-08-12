@@ -1276,8 +1276,21 @@ $("#autoregistro_cli").click(function(event) {
 
 
 
-
-
+$("body").delegate("#agregar_producto", "click", function(event) {
+    event.preventDefault();
+    var proId = $(this).attr("proId");
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { agregar_producto: 1, proId:proId },
+        success: function(data) {
+           
+            $("#msg_agregar_al_carro").html(data);
+         
+            
+        }
+    })
+})
 
 
 
