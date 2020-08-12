@@ -2327,7 +2327,7 @@ if(isset($_POST["actualizar_autor"])){
 						echo 5;
 						exit();
 					}
-					if(!(strlen($mobile) == 9)){
+					if(strlen($mobile) < 9){
 						//en caso de que el numero sea muy corto
 						echo 6;
 						exit();
