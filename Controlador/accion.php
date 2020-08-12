@@ -2551,3 +2551,22 @@ if(isset($_POST["actualizar_autor"])){
 									";						
 										}
 	}
+
+	
+	if(isset($_POST["eliminar_de_carro"])){
+		
+		$lid = $_POST["proId"];
+		$uid = $_SESSION["uid"];
+		$sql = "DELETE FROM carro WHERE user_id = '$uid' AND libro_id = '$lid'";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+								
+			if($ok == false){
+				echo "
+					<div class='alert alert-danger'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					<b>Error Al Quitar El Producto Del Carro!</b>
+					</div>
+					";	
+							}								
+	}

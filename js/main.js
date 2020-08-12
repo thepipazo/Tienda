@@ -1317,4 +1317,27 @@ function modo_pago() {
     })
 }
 
+$("body").delegate("#eliminar_carro_id", "click", function(event) {
+    event.preventDefault();
+    var proId = $(this).attr("proId");
+
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { eliminar_de_carro: 1,proId:proId},
+        success: function(data) {           
+            $("#carro_productos").html(data);
+            carro_de_compras();
+            modo_pago();
+            
+        }
+    })
+})
+
+
+
+
+
+
+
 })
