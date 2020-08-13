@@ -151,7 +151,7 @@ include('menus/index.php');
 
 
 </div>
-                     
+<div id="msg_agregar_al_carro1"></div>
 
                                  <div class="container" style="width:fit-content;" >
                                     <div class="row col-md-12" id="get_product" style="width: 900px; margin-left: 100px;">

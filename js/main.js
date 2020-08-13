@@ -28,8 +28,8 @@ editoriales_deshabilitados();
 
 
 mispedidos();
+
 carro_de_compras();
-modo_pago();
 
 function showModal() {
     $('#exampleModal').modal('show');
@@ -81,6 +81,19 @@ function showModal() {
             data: { libros_deshabilitados: 1 },
             success: function(data) {
                 $("#libros_des_msg").html(data);
+
+            }
+        })
+    }
+
+    libros_a_ofertar();
+    function libros_a_ofertar() {
+        $.ajax({
+            url: "../../controlador/accion.php",
+            method: "POST",
+            data: { libros_deshabilitados: 1 },
+            success: function(data) {
+                $("#libros_ofertar_msg").html(data);
 
             }
         })
@@ -1264,7 +1277,7 @@ $("#autoregistro_cli").click(function(event) {
                 
             }else if (data == 8){
                 $("#autoregistro_msgz").html(ingreso_con_exito);
-                $("#jajas").remove();
+                $("#pagar_pedido").remove();
 
             }
 
@@ -1292,6 +1305,21 @@ $("body").delegate("#agregar_producto", "click", function(event) {
     })
 })
 
+$("body").delegate("#agregar_producto_sin_registrar", "click", function(event) {
+    event.preventDefault();
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { agregar_producto: 1 },
+        success: function(data) {
+           
+            $("#msg_agregar_al_carro1").html(data);
+         
+            
+        }
+    })
+})
+
 
 function carro_de_compras() {
     $.ajax({
@@ -1299,18 +1327,23 @@ function carro_de_compras() {
         method: "POST",
         data: { carro_de_compras: 1 },
         success: function(data) {
+            if(data != 1){
             $("#carro_productos").html(data);
-        }
+            modo_pago(1);
+        }else{
+            modo_pago(0);        }
+    }
     })
 }
 
 
 
-function modo_pago() {
+function modo_pago(value) {
+var value = value;
     $.ajax({
         url: "../../controlador/accion.php",
         method: "POST",
-        data: { modo_pago: 1 },
+        data: { modo_pago: 1, value:value},
         success: function(data) {
             $("#msg_modo_de_pago").html(data);
         }
@@ -1320,11 +1353,12 @@ function modo_pago() {
 $("body").delegate("#eliminar_carro_id", "click", function(event) {
     event.preventDefault();
     var proId = $(this).attr("proId");
+    var cantidad = $(this).attr("cantidad");
 
     $.ajax({
         url: "../../controlador/accion.php",
         method: "POST",
-        data: { eliminar_de_carro: 1,proId:proId},
+        data: { eliminar_de_carro: 1,proId:proId,cantidad:cantidad},
         success: function(data) {           
             $("#carro_productos").html(data);
             carro_de_compras();
@@ -1337,7 +1371,158 @@ $("body").delegate("#eliminar_carro_id", "click", function(event) {
 
 
 
+     $("body").delegate("#mas_cant", "click", function(event) {
+        event.preventDefault();
+         var libro = $(this).attr("libro");
+         var precio = $(this).attr("precio");
+         $.ajax({
+             url: "../../controlador/accion.php",
+             method: "POST",
+             data: { stock_mas_carro: 1,libro:libro},
+             success: function(data) {  
+
+                 if(data == 1){
+                    sumar_qty(libro,precio);
+                 }
+                      
+             }
+         })
+
+})
+         function sumar_qty(libro,precio){
+
+            $.ajax({
+                url: "../../controlador/accion.php",
+                method: "POST",
+                data: { sumar_cant_carro: 1,libro:libro,precio:precio},
+                success: function(data) {
+                  carro_de_compras();
+                 
+                       
+                }
+            })
+
+         }  
+            
 
 
+
+
+         $("body").delegate("#menos_cant", "click", function(event) {
+            event.preventDefault();
+             var libro = $(this).attr("libro");
+             var precio = $(this).attr("precio");
+
+             $.ajax({
+                 url: "../../controlador/accion.php",
+                 method: "POST",
+                 data: { stock_menos_carro: 1,libro:libro,precio:precio},
+                 success: function(data) {  
+    
+                     if(data == 1){
+                        restar_qty(libro,precio);
+                     }
+                          
+                 }
+             })
+    
+    })
+
+
+    function restar_qty(libro,precio){
+
+        $.ajax({
+            url: "../../controlador/accion.php",
+            method: "POST",
+            data: { restar_cant_carro: 1,libro:libro,precio:precio},
+            success: function(data) {     
+                carro_de_compras();
+            }
+        })
+
+     } 
+
+
+
+$("body").delegate("#pagar_pedido", "click", function(event) {
+    event.preventDefault();
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { pagar_pedido: 1},
+        success: function(data) {           
+            $("#carro_productos").html(data);
+            $("#pagar_pedido").remove();
+        }
+    })
+})
+
+$("body").delegate("#mis_pedidos_boton", "click", function(event) {
+
+    mispedidos();
+
+})
+
+
+mispedidos();
+
+function mispedidos() {
+    var titulo = `<h3 id="titulo_msg_pedidos"><strong>Mis Pedidos</strong></h3>`
+
+    $.ajax({
+        url: "../../controlador/pedidos.php",
+        method: "POST",
+        data: { pedido: 1 },
+        success: function(data) {
+            $("#pedidos_msg").html(data);
+            $("#titulo_msg_pedidos").html(titulo);
+
+        }
+    })
+}
+
+
+
+$("#devolver").click(function(event) {
+    event.preventDefault();
+    //var radios = $("#radios-0").val();
+    var radios = $("input:radio[name=radios]:checked").val();
+    var libro = $("#nlibro").val();
+    var nventa = $("#nventa").val();
+    var nombre = $("#f_name").val();
+    var email = $("#email").val();
+    var otro = $("#otro").val();
+    var nventas = $("#nventa2").val();
+    $.ajax({
+        url: "../../controlador/devolver.php",
+        method: "POST",
+        data: { librosid: libro, nventa: nventa, radios: radios, nombre: nombre, email: email, otro: otro, npedido: nventas },
+        success: function(data) {
+            $("#devolver_msg").html(data);
+            $("#devolver").remove();
+        }
+    })
+
+})
+
+
+
+
+$("body").delegate("#misdevoluciones", "click", function(event) {
+    event.preventDefault();
+    var titulo = `<h3 id="titulo_msg_pedidos"><strong>Mis Devoluciones</strong></h3>`
+    $.ajax({
+        url: "../../controlador/mis_devoluciones.php",
+        method: "POST",
+        data: { devolucion: 1 },
+        success: function(data) {
+
+            $("#pedidos_msg").html(data);
+            $("#titulo_msg_pedidos").html(titulo);
+            
+        }
+    })
+
+})
 
 })

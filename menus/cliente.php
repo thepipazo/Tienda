@@ -40,7 +40,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
                 
                 <div class="topbar-divider d-none d-sm-block"></div>
                
-                <li class="nav-item dropdown no-arrow"> <a  class="nav-link"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> <?php echo "Mis Pedidos";?></a>
+                <li class="nav-item dropdown no-arrow"> <a  href="mis_pedidos.php"  class="nav-link"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> <?php echo "Mis Pedidos";?></a>
                 <li class="nav-item dropdown no-arrow"> <a  class="nav-link dropdown-toggle" role="button"id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i><?php echo " Bienvenido, ".$_SESSION["name"]; ?></a>
 
                

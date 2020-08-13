@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
+if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 0 ){
 	header("location:../../index.php");
 }?>
 <!DOCTYPE html>
@@ -47,6 +47,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
 					</ul>
 				</li>
 				<li><a href="habilitar.php"><span class="glyphicon glyphicon-ban-circle"></span> Habilitar</a></li>
+				<li><a href="ofertar.php"> <span class="glyphicon glyphicon-tag"></span> Ofertas </a></li>
 
 			</ul>
 

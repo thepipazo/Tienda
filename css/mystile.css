@@ -213,7 +213,9 @@ width: 20rem !important
 }
 
 .card:hover {
+    
     transform: scale(1.04);
+    transition: 6ms;
     z-index: 2;
     overflow: hidden
 }

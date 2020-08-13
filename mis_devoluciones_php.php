@@ -1,9 +1,9 @@
 <?php
 session_start();
 if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
-	header("location:../index.php");
+	header("location:index.php");
 }
-				include "../db.php";
+				include "db.php";
 if(isset($_POST["devolucion"])){	
 	?>
 	<?php			

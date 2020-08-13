@@ -1,14 +1,15 @@
 <?php 
 include('../../menus/cliente.php');
+$contador = 1;
 ?>
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
                                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
                                
-<div id="msg_carro">
-   </div>
-<div class="card1">
-   
+
+  
+<div class="card1" >
+<div id="msg_carro" >
     <div class="row">
         <div class="col-md-8 cart1">
             <div class='title'>
@@ -19,19 +20,20 @@ include('../../menus/cliente.php');
 					</div>
                 </div>
             </div>
-            <div id="carro_productos">
+            <div id="carro_productos" style="width:auto;height: 400px; overflow-y: auto;">
                       <!-- qui van los productos del carro -->
 
             </div>
             
-            <div class="back-to-shop"><a href="../../index.php">&leftarrow;</a><span class="text-muted">Continuar Comprando</span></div>
+            <div class="back-to-shop1"><a href="../../index.php">&leftarrow;</a><span class="text-muted">Continuar Comprando</span></div>
         </div>
-        <div class="col-md-4 summary1">
+        <div class="col-md-4 summary1" >
         <div id="msg_modo_de_pago"></div>
             <div>
                 
         </div>
     </div>
+</div>
 </div>
 </body>
 
@@ -126,7 +128,7 @@ img {
     width: 3.5rem
 }
 
-.back-to-shop {
+.back-to-shop1 {
     margin-top: 4.5rem
 }
 
@@ -197,3 +199,4 @@ a:hover {
 }
 </style>
 </html>
+

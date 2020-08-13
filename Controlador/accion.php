@@ -22,9 +22,14 @@ if(isset($_POST["getProduct"])){
 				//echo $obj->PRODUCT_IMAGE;
 				$pro_imagen = $obj->LIBRO_IMAGEN;
 				$pro_stock = $obj->STOCK;
+				$msg ="";
 				//<input  style='width:160px; height:250px;' type='button'  id='mymodal' name='mymodal'src='product_images/$pro_imagen' >
-				
-
+				if($pro_stock == 0){
+					$msg = "<small style='color:red;'> No Disponible &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</small> ";
+					
+				}else{
+					$msg = "<small style='color:green;'> Disponible &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</small> ";
+				}
 
 				if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
 					
@@ -37,30 +42,33 @@ if(isset($_POST["getProduct"])){
 							<div class='buttons d-flex flex-row'>
 								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
-						
+					<div class='weight' > $msg  $pro_stock/U  </div>
+					
+							
+							
 						</div>
 					</div>
 				</div>
 				";
 				
-				}else
+				}else{
 
 
 				echo "
-				<div class='col-md-4'>
-				<div class='card p-4'style='margin-bottom:15px'>
-				
-                    <div class='text-center' > <image type='image' src='product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
-                    <div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
-                        <div class='buttons d-flex flex-row'>
-                            <div class='cart'><i class='fa fa-shopping-cart'></i></div> <button class='btn btn-success id='agregar_producto' '><span class='dot'>1</span>Add to cart </button>
-                        </div>
-                        <div class='weight'> <small>1 piece 2.5kg</small> </div>
-                    </div>
-                </div>
-            </div>
-			";
-
+					<div class='col-md-4'>
+					<div class='card p-4' style='margin-bottom:15px'>
+					
+						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+						<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
+							<div class='buttons d-flex flex-row'>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button  id='agregar_producto_sin_registrar' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
+							</div>
+							<div class='weight'> $msg </div>
+						</div>
+					</div>
+				</div>
+				";
+				}
 			
                         
 			 } while( $obj = oci_fetch_object($stmt) );	
@@ -2216,19 +2224,22 @@ if(isset($_POST["actualizar_autor"])){
 							$pro_imagen = $obj->LIBRO_IMAGEN;
 			
 							echo "
-							<div class='col-md-4'>
-							<div class='card p-4'>
-							
-								<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
-								<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
-									<div class='buttons d-flex flex-row'>
-										<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button class='btn btn-success cart-button btn-block'><span class='dot'>1</span>Add to cart </button>
-									</div>
-									<div class='weight'> <small>1 piece 2.5kg</small> </div>
-								</div>
+					<div class='col-md-4'>
+					<div class='card p-4' style='margin-bottom:15px'>
+					
+						<div class='text-center' > <image type='image' src='product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+						<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
+							<div class='buttons d-flex flex-row'>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
+					<div class='weight' > $msg  $pro_stock/U  </div>
+					
+							
+							
 						</div>
-						";
+					</div>
+				</div>
+				";
 				   
 						   
 						} while( $obj = oci_fetch_object($stmt) );			
@@ -2405,14 +2416,26 @@ if(isset($_POST["actualizar_autor"])){
 							oci_free_statement($run_query);
 							
 								$id = $row->LIBRO_ID;
+								$stock = $row->STOCK;
 								$libro_nombre = $row->LIBRO_NOMBRE;
 								$imagen_libro = $row->LIBRO_IMAGEN;
 								$libro_precio = $row->LIBRO_PRECIO;
+							
+
+								if($stock > 0){
+
 							$sql = "INSERT INTO carro VALUES (NULL, '$libro_id', '0', '$user_id', '$libro_nombre', '$imagen_libro', '1', '$libro_precio', '$libro_precio')";
 							$run_query = oci_parse($con,$sql);
 							$ok = oci_execute($run_query);
 							oci_free_statement($run_query);
-							if($ok == true){
+
+									$stock = $stock-1;
+							$sql = "UPDATE libros set STOCK = $stock where libro_id = $id";
+							$run_query = oci_parse($con,$sql);
+							$ok2 = oci_execute($run_query);
+							oci_free_statement($run_query);
+
+							if($ok == true and $ok2 == true){
 								echo "
 									<div class='alert alert-success' style='text-align:center;'>
 										<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -2421,13 +2444,22 @@ if(isset($_POST["actualizar_autor"])){
 								";
 							}else{
 								
-							}
+							}						
+						}else{//en caso de que no hay stock
+							echo "
+							<div class='alert alert-danger' style='text-align:center;'>
+								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+								<b>No hay stock del producto..!</b>
+							</div>
+						";
 						}
+					}
+						//si no esta logeado
 						}else{
 							echo "
-									<div class='alert alert-success' style='text-align:center;'>
+									<div class='alert alert-danger' style='text-align:center;'>
 										<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-										<b>Lo siento ..! Ir y Registrarse Primero, entonces puedes agregar un producto a tu carrito</b>
+										<b>Para Agregar Productos Primero Debe Iniciar Sesion..!!</b>
 									</div>
 								";
 						}						
@@ -2445,6 +2477,7 @@ if(isset($_POST["actualizar_autor"])){
 						$rows = oci_parse($con,$sql);
 						$rows2 = oci_execute($rows);
 						$rows3 = oci_fetch_all($rows, $res);
+						if($rows3 > 0){
 						
 							$no = 1;
 							$total_amt = 0;
@@ -2460,9 +2493,9 @@ if(isset($_POST["actualizar_autor"])){
 								$libro_id = $row->LIBRO_ID;
 								$libro_name = $row->NOMBRE_LIBRO;
 								$libro_image = $row->IMAGEN_LIBRO;
-								$qty = $row->QTY;
+								$cant = $row->QTY;
 								$precio = $row->PRECIO;
-								$total = $row->TOTAL_AMT;
+								$total = $row->TOTAL_AMT;							
 								$precio_array = array($total);
 								$total_sum = array_sum($precio_array);
 								$total_amt = $total_amt + $total_sum;
@@ -2475,15 +2508,18 @@ if(isset($_POST["actualizar_autor"])){
 														<div class='row text-muted'>$libro_name</div>
 														<div class='row'>ID: #$libro_id</div>
 													</div>
-													<div class='col'> <a href='#'>-</a><a href='#' class='border'>1</a><a href='#'>+</a> </div>
-													<div class='col'>$$precio  
-													<span role='button' class='close' proId='$libro_id' id='eliminar_carro_id' >X</span> </div>
+													<div class='col'> <span precio='$precio' role='button' libro = '$libro_id' id='menos_cant'>-</span> <input id='contador$libro_id' type='text' style='width:45px; height:20px; margin-top:35px' value='$cant'disabled='true'> <span role='button' precio='$precio' libro='$libro_id' id='mas_cant'>+</span> </div>
+													<div class='col'><a id='precio$libro_id' >$$total  </a>
+													<span role='button' cantidad='$cant' class='close'  proId='$libro_id' id='eliminar_carro_id' >X</span> </div>
 												</div>
 											</div>											
 										";
 								$no = $no + 1;											
 									}
 						}
+					}else{
+						echo 1;
+					}
 					}
 
 					if(isset($_POST["modo_pago"])){
@@ -2546,27 +2582,265 @@ if(isset($_POST["actualizar_autor"])){
 					<div class='row' style='border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;''>
 						<div class='col'>Total A Pagar</div>
 						<div class='col text-right'>$$total</div>
-					</div> 
-					<button class='btn btn-primary' style='background-color:#535e6b; border-color:#0f1419; width:262px'>Pagar</button>
-									";						
+					</div>";
+					if($_POST["value"]==0){
+						echo "<button class='btn btn-primary' id='pagar_pedido' style='background-color:#535e6b; border-color:#0f1419; width:262px; display:none' >Pagar</button>";
+
+					}else{
+						echo"
+						<button class='btn btn-primary' id='pagar_pedido' style='background-color:#535e6b; border-color:#0f1419; width:262px;' >Pagar</button>";
+					}						
 										}
 	}
 
 	
 	if(isset($_POST["eliminar_de_carro"])){
-		
+		$stok = 0;
 		$lid = $_POST["proId"];
 		$uid = $_SESSION["uid"];
-		$sql = "DELETE FROM carro WHERE user_id = '$uid' AND libro_id = '$lid'";
+		$cantidad = $_POST["cantidad"];
+
+		$sql = "SELECT*FROM libros  WHERE libro_id = '$lid'";
 		$run_query = oci_parse($con,$sql);
 		$ok = oci_execute($run_query);
-								
-			if($ok == false){
-				echo "
-					<div class='alert alert-danger'>
-					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-					<b>Error Al Quitar El Producto Del Carro!</b>
-					</div>
-					";	
-							}								
+		if($ok){
+			while($row = oci_fetch_object($run_query)){
+				$stok = $row->STOCK;
+				$stok = $stok + $cantidad;
+			}
+		
+		$sql2 = "UPDATE libros set stock = $stok where libro_id = '$lid'";
+		$run_query2 = oci_parse($con,$sql2);
+		$ok2 = oci_execute($run_query2);
+		
+			$sql = "DELETE FROM carro WHERE user_id = '$uid' AND libro_id = '$lid'";
+			$run_query = oci_parse($con,$sql);
+			$ok = oci_execute($run_query);
+			
+		
+				if($ok == false){
+					echo "
+						<div class='alert alert-danger'>
+						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+						<b>Error Al Quitar El Producto Del Carro!</b>
+						</div>
+						";	
+								}
+		
+		
+			}								
 	}
+
+
+
+	if(isset($_POST["pagar_pedido"])){
+	$contador=1;
+	$id = 0;
+	$total_compra=0;
+	$uid = $_SESSION["uid"];
+	$sql = "SELECT * FROM carro WHERE user_id = '$uid'";
+	$qery_carro = oci_parse($con,$sql);
+	$ok = oci_execute($qery_carro);
+	
+	//oci_free_statement($run_query);
+	
+	
+	$sql2 = "INSERT into detalleventa values (null,0,sysdate,$uid,sysdate + 7)";
+	$run_query2 = oci_parse($con,$sql2);
+	$ok2 = oci_execute($run_query2);
+	//oci_free_statement($run_query2);
+	
+	
+	if($ok == true){
+	  $seq = "Select IDDETALLE from (select * from DETALLEVENTA order by DETALLEVENTA.IDDETALLE desc )where rownum = 1 ";
+	  $run_query4 = oci_parse($con,$seq);
+	  $ok4 = oci_execute($run_query4);
+	  $rows = oci_fetch_object($run_query4);
+	  $id = $rows->IDDETALLE;
+	
+	 
+	
+	while($row=oci_fetch_object($qery_carro)){
+		
+	  $idlibro = $row->LIBRO_ID;
+	  $total = $row->TOTAL_AMT;
+	  $cantidad = $row->QTY;
+	  $total_compra = $total_compra+$total;
+	 
+	  $_SESSION['iddetalle']=$id;
+	  
+	  $fecha = date('Y-m-j');
+	  $nuevafecha = strtotime ( '+5 day' , strtotime ( $fecha ) ) ;
+	  $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+	  $_SESSION['fecha']=$nuevafecha;
+	
+	  $query = OCIParse($con, "begin AGREGAR_VENTA2(:id_libro,:total,:cantidad_de_libro,:iddetalle,:MENSAJE); end;");
+	  oci_bind_by_name($query, ':ID_LIBRO',$idlibro);
+	  oci_bind_by_name($query, ':TOTAL',$total);
+	  oci_bind_by_name($query, ':CANTIDAD_DE_LIBRO',$cantidad);
+	  oci_bind_by_name($query, ':IDDETALLE',$id);
+	  oci_bind_by_name($query, ':MENSAJE',$mensaje,100);
+	 //echo $seq;
+	 if ( $sp = @oci_execute($query)){
+	
+
+	 }else{
+	
+	  //echo "malo";
+	 }
+	
+	
+	 $sql = "UPDATE detalleventa set total_compra = $total_compra where iddetalle = $id";
+	 $run_query = oci_parse($con,$sql);
+	 $ok = oci_execute($run_query);
+	
+	$query = OCIParse($con, "begin eliminar_carro(:LIBRO_ID2, :USER_ID2); end;");
+	oci_bind_by_name($query, ':LIBRO_ID2', $idlibro);
+	oci_bind_by_name($query, ':USER_ID2',$uid);
+	$sp = @oci_execute($query);
+	
+	
+		
+	$contador++;
+		
+	}
+	//header("location:perfil_usuario.php");
+	echo "<IMG SRC='../../product_images/correcto.png' style='width:200px;margin-left:32%;margin-top:15%;'>";
+
+	}else{
+		echo "noooo";
+	}
+
+	}
+
+
+
+
+
+	if(isset($_POST["stock_mas_carro"])){
+		$id_libro  = $_POST["libro"];
+		$user = $_SESSION['uid'];
+		$sql = "SELECT stock FROM libros WHERE libro_id = $id_libro";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+
+		if($ok){
+			while($row = oci_fetch_object($run_query)){
+				$stock = $row->STOCK;
+				
+				if($stock > 0){
+				
+					$stock = $stock-1;
+					$sql = "UPDATE libros SET stock = $stock  WHERE libro_id = $id_libro";
+					$run_query = oci_parse($con,$sql);
+					$ok = oci_execute($run_query);
+					if($ok){
+						echo 1;exit();
+					}
+					
+				}else{
+					echo "sin stock";exit();
+				}
+			}			
+		}
+	}
+
+
+if(isset($_POST["sumar_cant_carro"])){
+		$cantidad = 0;
+		$precio = $_POST["precio"];
+		$id_libro  = $_POST["libro"];
+		$user = $_SESSION['uid'];
+		$sql = "SELECT*FROM CARRO WHERE user_id = $user and libro_id = $id_libro";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+
+		if($ok){
+			while($row = oci_fetch_object($run_query)){
+					$cant = $row->QTY;
+					$cantidad = $cant+1;
+					$sql2 = "UPDATE carro set qty = $cantidad where user_id = $user and libro_id = $id_libro";
+					$run_query2 = oci_parse($con,$sql2);
+					$ok2 = oci_execute($run_query2);
+						if($ok2)
+						{	
+
+									$total = $precio*$cantidad;
+									$sql3 = "UPDATE carro set total_amt = $total where user_id = $user and libro_id = $id_libro";
+									$run_query3 = oci_parse($con,$sql3);
+									$ok3 = oci_execute($run_query3);
+
+								if($ok3)
+								{
+								exit();
+								}
+						}
+			}
+		}
+}
+
+
+
+if(isset($_POST["stock_menos_carro"])){
+	$id_libro  = $_POST["libro"];
+	$user = $_SESSION['uid'];
+	$sql = "SELECT stock FROM libros WHERE libro_id = $id_libro";
+	$run_query = oci_parse($con,$sql);
+	$ok = oci_execute($run_query);
+
+	if($ok){
+		while($row = oci_fetch_object($run_query)){
+			$stock = $row->STOCK;			
+			
+			
+				$stock = $stock+1;
+				$sql = "UPDATE libros SET stock = $stock  WHERE libro_id = $id_libro";
+				$run_query = oci_parse($con,$sql);
+				$ok = oci_execute($run_query);
+				if($ok){
+					echo 1;exit();
+				}
+				
+			
+		}			
+	}
+}
+
+
+	
+if(isset($_POST["restar_cant_carro"])){
+	$cantidad = 0;
+	$precio = $_POST["precio"];
+	$id_libro  = $_POST["libro"];
+	$user = $_SESSION['uid'];
+	$sql = "SELECT*FROM CARRO WHERE user_id = $user and libro_id = $id_libro";
+	$run_query = oci_parse($con,$sql);
+	$ok = oci_execute($run_query);
+
+	if($ok){
+		while($row = oci_fetch_object($run_query)){
+				$cant = $row->QTY;
+				$cantidad = $cant-1;
+
+				if($cantidad >= 1){
+
+				$sql2 = "UPDATE carro set qty = $cantidad where user_id = $user and libro_id = $id_libro";
+				$run_query2 = oci_parse($con,$sql2);
+				$ok2 = oci_execute($run_query2);
+					if($ok2)
+					{	
+
+								$total = $precio*$cantidad;
+								$sql3 = "UPDATE carro set total_amt = $total where user_id = $user and libro_id = $id_libro";
+								$run_query3 = oci_parse($con,$sql3);
+								$ok3 = oci_execute($run_query3);
+
+							if($ok3)
+							{
+								exit();
+							}
+					}
+		}
+	}
+	}
+}
