@@ -11,6 +11,7 @@ $run_sql = oci_parse($con,$sql);
 $ok = oci_execute($run_sql);
 $abrir = 1;
 while($row = oci_fetch_object($run_sql)){
+
     $iddetalle= $row->IDDETALLE;
     ?>
 
@@ -26,11 +27,12 @@ while($row = oci_fetch_object($run_sql)){
                                         <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->IDDETALLE ?> </th> 
                                         <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->USER_ID ?> </th> 
                                         <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->TOTAL_COMPRA ?> </th> 
+                                        <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->TOTAL_AHORRO ?> </th> 
                                         <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->FECHA_REALIZADA ?> </th> 
                                         <th data-toggle="collapse" href="#<?php echo $abrir ?>"scope="col"><?php echo $row->FECHA_VENCE_GAR ?> </th> 
                                     </tr>
                                     <tr>
-                                    <small>ID DETALLE  &emsp;USUARIO &emsp;&emsp;  TOTAL  &emsp;&emsp; &emsp;&emsp;&emsp;&emsp; FECHA ENVIADO  &emsp;&emsp;&emsp; &emsp;&emsp; &emsp;GARANTIA HASTA</small>
+                                    <small><label style="margin-left:-20px">ID DETALLE</label>  <label style="margin-left:15px">USUARIO</label> <label style="margin-left:14px">TOTAL</label><label style="margin-left:60px">AHORRADO</label>  <label style="margin-left:40px">FECHA ENVIADO</label> <label style="margin-left:60px"> GARANTIA HASTA</label> </small>
 
                                     </tr>
                                 </thead>
@@ -49,14 +51,15 @@ while($row = oci_fetch_object($run_sql)){
                                     <th scope="col"><?php echo $abrir ?></th>
                                     <th scope="col">Portada</th>
                                     <th scope="col">Nombre Libro</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Ejemplares</th>                                
+                                    <th scope="col">TOTAL</th>
+                                    <th scope="col">Ejemplares</th>   
+                                    <th scope="col">DESCUENTO</th>                             
                                     <th scope="col">Devolver</th>
                                     </tr>
                                 </thead>
                             <tbody>
                                 <?php 
-                                        $sql2="SELECT v.idventa,v.idlibro,V.cantidad,l.libro_imagen,l.libro_nombre,l.libro_precio,d.iddetalle from venta v join detalleventa d on v.IDDETALLE = d.IDDETALLE join libros l on v.idlibro = l.LIBRO_ID WHERE d.USER_ID=$user and d.iddetalle=$iddetalle" ;
+                                        $sql2="SELECT v.idventa,v.idlibro,V.cantidad,V.total,v.descuento,l.libro_imagen,l.libro_nombre,l.libro_precio,d.iddetalle from venta v join detalleventa d on v.IDDETALLE = d.IDDETALLE join libros l on v.idlibro = l.LIBRO_ID WHERE d.USER_ID=$user and d.iddetalle=$iddetalle" ;
                                     
                                         $run_query = oci_parse($con,$sql2);
                                         $ok= oci_execute($run_query);
@@ -69,8 +72,10 @@ while($row = oci_fetch_object($run_sql)){
                                         <td><?php echo $row->IDLIBRO?></td>
                                         <td><?php echo " <div class='col-md-3 col-xs-3'><img src='../../product_images/$libro_image' width='60px' height='50px'></div>" ?></td>
                                         <td><?PHP echo  "$row->LIBRO_NOMBRE"?></td>
-                                        <td><?php echo  "$row->LIBRO_PRECIO"?></td>
-                                        <td><?php echo  "$row->CANTIDAD"?></td>                                        
+                                        <td><?php echo  "$row->TOTAL"?></td>
+                                        <td><?php echo  "$row->CANTIDAD"?></td>    
+                                        <td><?php echo  "$row->DESCUENTO%"?></td>     
+
                                         <td><?php echo "<a href='formulario_devolucion.php?idventa=$row->IDVENTA&idlibro=$row->IDLIBRO&iddetalle=$row->IDDETALLE'><i class='fa fa-undo' aria-hidden='true'></i>"?></td>
                                     </tr>
                                 

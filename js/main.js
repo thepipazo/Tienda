@@ -1,5 +1,6 @@
 $(document).ready(function() {
 product();
+carrusel_usuario();
 product_admin();
 product_cli();
 libros_deshabilitados();
@@ -91,7 +92,7 @@ function showModal() {
         $.ajax({
             url: "../../controlador/accion.php",
             method: "POST",
-            data: { libros_deshabilitados: 1 },
+            data: { listar_libros_para_ofertar: 1 },
             success: function(data) {
                 $("#libros_ofertar_msg").html(data);
 
@@ -1525,4 +1526,61 @@ $("body").delegate("#misdevoluciones", "click", function(event) {
 
 })
 
+
+$("body").delegate("#mandar_libros_a_oferta", "click", function(event) {
+    event.preventDefault();
+    var precio = $(this).attr('precio'); 
+    var libro = $(this).attr('libro_id')
+    $("#precio_actual").val(precio);
+    $("#agregar_oferta").val(libro);
+
+    document.getElementById("lista_de_descuentos").disabled=false;
+    
 })
+
+
+
+function carrusel_usuario(){
+
+    
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { carruse_ofertas: 1},
+        success: function(data) {     
+            $("#carrusel_de_ofertas1").html(data);
+            
+        }
+    })
+
+ }
+
+
+
+ $("body").delegate("#agregar_oferta", "click", function(event) {
+    event.preventDefault();
+    var descuento = document.getElementById("lista_de_descuentos").value;
+    var libro = $(this).val();
+   
+  alert(descuento+libro);
+    
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { poner_en_oferta: 1,descuento:descuento,libro:libro },
+        success: function(data) {
+            libros_a_ofertar();
+            $("#msg_poner_en_oferta").html(data);
+            
+            
+        }
+    })
+
+})
+
+
+
+})
+
+
+
