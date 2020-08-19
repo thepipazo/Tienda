@@ -2345,12 +2345,22 @@ if(isset($_POST["actualizar_autor"])){
 				$repassword = $_POST['repassword'];
 				$mobile = $_POST['telefono'];
 				$address1 = $_POST['direccion'];
+
+
+				$titular = $_POST['titular'];
+				$numero_targeta = $_POST['numero_targeta'];
+				$cvv = $_POST['cvv'];
+				$fecha1 = $_POST['fecha1'];
+				$fecha2 = $_POST['fecha2'];
+
+				
+
 				$name = "/^[A-Z][a-zA-Z ]+$/";
 				$emailValidation = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9]+(\.[a-z]{2,4})$/";
 				$number = "/^[0-9]+$/";
 				
-				if(empty($f_name) || empty($l_name) || empty($email) || empty($password) || empty($repassword) ||
-					empty($mobile) || empty($address1)){
+				if(empty($f_name) || empty($l_name) || empty($email) || empty($password) || empty($repassword) 
+				|| empty($mobile) || empty($address1)){
 						
 						//en caso de que este vacio	
 						echo 1;						
@@ -2385,8 +2395,7 @@ if(isset($_POST["actualizar_autor"])){
 						exit();
 					}
 					//en caso de que el correo existe
-					$sql = "SELECT user_id FROM user_info WHERE email = '$email' " ;
-					
+					$sql = "SELECT user_id FROM user_info WHERE email = '$email' " ;					
 					$run_query = oci_parse($con,$sql);
 					$ok = oci_execute($run_query);
 					$row = ocI_fetch_object($run_query);
@@ -2396,32 +2405,66 @@ if(isset($_POST["actualizar_autor"])){
 					if($count > 0){
 						echo 7;
 						exit();
+					}
 
-					} else {
 						$password = md5($password);
 						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
 						$run_query = oci_parse($con,$sql);
-						$ok = oci_execute($run_query);
-						if($ok){
 
-							echo 8;
-							exit();
+							//en caso de que los datos de la targeta esten vacios
+							if((empty($titular) and empty($numero_targeta) and empty($cvv)) and empty($fecha1) and empty($fecha2))
+							{
+								$ok = oci_execute($run_query);
+
+								if($ok){
+									echo 9;
+									exit();
+								}else{
+									echo 10;
+									exit();
+								}
+								
+					
+							//en caso de que los datos de la targeta esten llenos
+							}elseif(trim($titular) != "" and trim($numero_targeta) != "" and trim($cvv) != "" and trim($fecha1) != "" and trim($fecha2) != "")
+							{
 							
 							
-						}else{
-							echo "
-							<div class='alert alert-danger'>
-								<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
-								<b>!Error al registrarse¡</b>
-							</div>
-						";
-						exit();
-						}
-				
-					}
+								$sql2 = "INSERT INTO modo_pago VALUES (null, '$titular', $numero_targeta, '$fecha1/$fecha2',(SELECT  user_id from (select * from user_info order by user_info.user_id desc )where rownum = 1))";
+								$run_query2 = oci_parse($con,$sql2);
+									
+								$ok = oci_execute($run_query);
+								
+
+								if($ok)
+								{
+
+									$ok2 = oci_execute($run_query2);
+
+									if($ok2)
+									{
+										echo 9;
+										exit();
+									}else
+									{
+										echo 11;
+										exit();
+									}	
+								
+								}else{
+									echo 10;
+									exit();
+								}
+	
+							}else{//en caso de que los datos de la targeta esten inconpletos
+								echo 8;
+								exit();
+							}
+							
+						
 				}
-				//}*/
-					}
+				}
+					
 					
 
 

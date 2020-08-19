@@ -1203,6 +1203,8 @@ $("#actualizar_cliente").click(function(event) {
     })
 })
 
+
+
 $("#autoregistro_cli").click(function(event) {
     event.preventDefault();
      var rut = $("#reg_rut").val();
@@ -1214,13 +1216,23 @@ $("#autoregistro_cli").click(function(event) {
      var direccion = $("#reg_direccion").val();
      var correo = $("#email2").val();
 
+     var titular = $("#titular_targeta").val();
+     var numero_targeta = $("#num_targeta").val();
+     var cvv = $("#cvv").val();
+     var fecha1 = $("#fecha_1").val();
+     var fecha2 = $("#fecha_2").val();
+     
+    
     $.ajax({
         url: "controlador/accion.php",
         method: "POST",
-        data: { registrar: 1, rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo, direccion:direccion,repassword:repassword },
+        data: { registrar: 1, rut:rut, nombres:nombres,  apellidos:apellidos, password:password,telefono:telefono, correo:correo
+                , direccion:direccion,repassword:repassword,titular:titular,numero_targeta:numero_targeta,cvv:cvv,fecha1:fecha1,fecha2:fecha2},
         success: function(data) {
+            $("#autoregistro_msgz").html(data);
 
-            var msg_vacio = ` <div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+             
+          var msg_vacio = ` <div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
             <b>Por favor llena todos los espacios..!</b></div>`;
 
             var msg_correo_no_val = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -1241,6 +1253,9 @@ $("#autoregistro_cli").click(function(event) {
             var correo_en_uso = `<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
             <b>La dirección de correo electrónico ya está en uso, Pruebe otra dirección de correo electrónico</b></div>`;
 
+            var targeta = `<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>!Registre la targeta de credito u Omitala</b></div>`;
+
             var ingreso_con_exito = `<div class='form-card'>
             <h2 class='fs-title text-center'> Exito!</h2>
              <br><br>
@@ -1252,37 +1267,55 @@ $("#autoregistro_cli").click(function(event) {
                     <h5>Registrado Con Exito!!</h5>
                 </div>
             </div>
-        </div> `;
+            </div> `;
+
+            var error_ingreso_usuario = `<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>!Error al registrarse¡</b></div>`
+
+            var error_ingreso_targeta = `<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+            <b>!Error al Registrar Su Medio De Pago</b></div>`
 
 
             if (data == 1){
                 $("#autoregistro_msgz").html(msg_vacio);
-             
+                $("#logear_de_registro").hide();      
             }else if(data == 2){
                 $("#autoregistro_msgz").html(msg_correo_no_val);
-               
+                $("#logear_de_registro").hide();      
             }else if (data == 3){
                 $("#autoregistro_msgz").html(passwor_debil);
-                
+                $("#logear_de_registro").hide();      
             }else if (data == 4){
                 $("#autoregistro_msgz").html(password_no_iguales);
-               
+                $("#logear_de_registro").hide();      
             }else if (data == 5){
                 $("#autoregistro_msgz").html(numero_no_val);
-               
+                $("#logear_de_registro").hide();      
             }else if (data == 6){
                 $("#autoregistro_msgz").html(numero_corto);
-              
+                $("#logear_de_registro").hide();      
             }else if (data == 7){
                 $("#autoregistro_msgz").html(correo_en_uso);
-                
+                $("#logear_de_registro").hide();      
             }else if (data == 8){
+                $("#autoregistro_msgz").html(targeta);
+                $("#logear_de_registro").hide();              
+                 // $("#logear_de_registro").remove();
+            }else if (data == 9){
                 $("#autoregistro_msgz").html(ingreso_con_exito);
-                $("#pagar_pedido").remove();
-
+                $("#jajas").remove();
+                $("#logear_de_registro").show(); 
+               
+                
+                
+            }else if (data == 10){
+                $("#autoregistro_msgz").html(error_ingreso_usuario);
+                $("#logear_de_registro").remove();
             }
-
-
+            else if (data == 11){
+                $("#autoregistro_msgz").html(error_ingreso_targeta);
+                $("#jajas").remove();
+            }
         }
     })
 

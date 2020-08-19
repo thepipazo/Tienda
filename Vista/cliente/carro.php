@@ -30,6 +30,7 @@ $contador = 1;
         <div class="col-md-4 summary1" >
         <div id="msg_modo_de_pago"></div>
             <div>
+            <div id='msg_modo_pago'></div>
                 
         </div>
     </div>

@@ -51,18 +51,18 @@ include('menus/index.php');
                                         <div class="radio" data-value="credit"><img src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px"></div>
                                         <div class="radio" data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px"></div> <br>
                                     </div> <label class="pay">Nombre del titular de la tarjeta*</label>
-                                     <input type="text" name="holdername" placeholder="">
+                                     <input type="text" name="titular_targeta" id="titular_targeta" placeholder="">
                                     <div class="row">
                                         <div class="col-4"> <label class="pay">Numero de targeta*</label>
-                                         <input type="text" name="cardno" placeholder=""> </div>
+                                         <input type="text" name="num_targeta" id="num_targeta" placeholder=""> </div>
 
                                         <div class="col-3"> <label class="pay">CVV*</label>
-                                         <input type="password" name="cvcpwd" placeholder="***"> </div>
+                                         <input type="password" name="cvv" id="cvv" placeholder="***"> </div>
                                 
                                   
                                         <div class="col-3"> <label class="pay" style="width:300px">Fecha de expiracion*</label> 
-                                        <input type="text"  style="width:40px"><label for="">/</label>
-                                        <input type="text"   style="width:40px">
+                                        <input type="text"  style="width:40px" id="fecha_1" name="fecha_1"><label for="">/</label>
+                                        <input type="text"   style="width:40px" id="fecha_2" name="fecha_2">
                                         </div>
                                             
                                     </div>

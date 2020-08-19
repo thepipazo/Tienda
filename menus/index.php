@@ -76,6 +76,7 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
                                         </div>
                                     </div>
                             </div>
+                   
                     </div>
                 </div>              
             </ul>
