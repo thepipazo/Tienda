@@ -99,9 +99,12 @@ include('../../menus/cliente.php');
                    </div>
          
           
-             
+                <div id="modal2">
+                asdjas
+                </div>
     </body>
 </html>
+
 
 <script type="text/javascript">document.addEventListener("DOMContentLoaded", function(event) {
     const cartButtons = document.querySelectorAll('.cart-button');
@@ -159,3 +162,4 @@ viewedSlider.trigger('next.owl.carousel');
 
 
 });</script>
+

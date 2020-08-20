@@ -55,13 +55,13 @@ if(isset($_POST["getProduct"])){
 
 				
 
-						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+						<div class='text-center' > <image  libro='$pro_id' id='producto_mostrar' role='button' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 
 						$msg_principal
 
 						<div class='product-details'> 
 								$msg_precio
-							<span>$pro_nombre</span>
+							<span role='button' libro='$pro_id' id='producto_mostrar'>$pro_nombre</span>
 							<div class='buttons d-flex flex-row'>
 								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
@@ -89,7 +89,7 @@ if(isset($_POST["getProduct"])){
 
 						<div class='product-details'> 
 								$msg_precio
-							<span>$pro_nombre</span>
+							<link>$pro_nombre</link>
 							<div class='buttons d-flex flex-row'>
 								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
@@ -2698,6 +2698,7 @@ if(isset($_POST["actualizar_autor"])){
 						<div class='col'>Total A Pagar</div>
 						<div class='col text-right'>$$total</div>
 					</div>";
+
 					if($_POST["value"]==0){
 						echo "<button class='btn btn-primary' id='pagar_pedido' style='background-color:#535e6b; border-color:#0f1419; width:262px; display:none' >Pagar</button>";
 
@@ -3127,9 +3128,148 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 					}else{
 						echo $sql;
 					}
-						
+	}
 
+
+
+	if(isset($_POST["producto_solo"])){
+	
+		$libro = $_POST["libro"];
+		$sql = "SELECT*FROM libros where  libro_id = $libro";
+		$run_query = oci_parse($con,$sql);					
+		$ok = oci_execute($run_query);
+		$nombre="";
+		$portada ="";
+		$precio=0;
+		$nuevo_precio=0;
+		$descuento=0;
+		$reseña="";
+		$editorial=0;
+		$autor=0
+;		if($ok){		
+			while($row = oci_fetch_object($run_query)){
+				$nombre = $row->LIBRO_NOMBRE;
+				$portada = $row->LIBRO_IMAGEN;
+				$precio = $row->LIBRO_PRECIO;
+				$descuento = $row->DESCUENTO;
+				$reseña = $row->LIBRO_DESCR;
+				$autor = $row->LIBRO_AUTOR;
+				$editorial = $row->LIBRO_EDITORIAL;
+				$pro_stock = $row->STOCK;
+
+				$total_descuento = ($precio*$descuento)/100;
+				$nuevo_precio = ($precio-$total_descuento);
+			}
+		}else{
+			$nombre=$libro;
+		}
+
+		$sql = "SELECT*FROM autor where  ID = $autor";
+		$run_query = oci_parse($con,$sql);					
+		$ok = oci_execute($run_query);
+		if($ok){
+			while($row = oci_fetch_object($run_query)){
+				$autor = $row->NOMBRES_Y_APELLIDOS;
+			}
+		}
+
+
+		$sql = "SELECT*FROM editorial where  ID = $editorial";
+		$run_query = oci_parse($con,$sql);					
+		$ok = oci_execute($run_query);
+		if($ok){
+			while($row = oci_fetch_object($run_query)){
+				$editorial = $row->NOMBRE;
+			}
+		}
+
+		if($pro_stock == 0){
+			$msg = "<small style='color:red;'> No Disponible &emsp;&emsp;&emsp;</small> ";
+			
+		}else{
+			$msg = "<small style='color:green;'> Disponible &emsp;&emsp;&emsp;</small> ";
+		}
+		
+		echo "
+			<div class='modal fade' id='exampleModal2'  tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle'  aria-hidden='true'>
+			  <div class='modal-dialog' role='document' style='margin-right: 50%;'>
+				<div class='modal-content' style='width: 1000px; margin-right:500px'>
+				  <div class='modal-header'>
+					<div id='msg_actualizado' </div>
+					<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+					  <span aria-hidden='true'>&times;</span>
+					</button>
+					<div id='msg_actualizado' </div>
+				  </div>
+				  <div class='modal-body'>
+
+
+
+
+
+		 <div class='row'>
+                
+		<div class='col-lg-4 order-lg-2 order-1'>
+			<div class='image_selected'><img src='../../product_images/$portada' style='width: 600px;' alt=''></div>
+		</div>
+		<div class='col-lg-6 order-3' style='margin-left:5%;width: 50%;' >
+		<div id='agregar_product_solo'></div>
+			<div class='product_description2'>
+			
+				<div class='product_name2'>
+						$nombre 
+				</div>
+				<div class='product-rating2'>
+					<span class='badge2 badge2-success'><i class='fa fa-pencil fa-1x'></i>Autor: $autor</span> 
+					<span class='badge2 badge2-success' ><i class='fa fa-text-width fa-1x'></i>Editorial:  $editorial</span>
 					
+				</div>";
+				
+				if($descuento >0){
+					echo"
+						<div>
+							<span class='product_price2'>$ $nuevo_precio</span>
+								<strike class='product_discount2'>
+							<span style='color:black'>$ $precio </span>
+								</strike> 		
+								<span style='color:red;'>-$descuento%</span>
+						<div>";
+				}else{
+					echo"
+						<div>
+							<span class='product_price2'>$ $precio</span>													
+						<div>";
+				}
+				echo "
+				
+				</div>
+					<hr class='singleline2'>
+					
+				<div> 
+					<span>$reseña</span>
+				</div>
+			<div>
+			</div>
+			
+		</div>
+					<hr class=singleline2'>
 
+					<div> $msg  $pro_stock/U  </div>
+
+			<div class='order_info d-flex flex-row'>
+				<form action='#'>
+				</form>
+			</div>
+				<div class='row' style='float:center'>
+				  <button class='btn btn-success' proId='$libro' id='agregar_producto_directo' style='width: 200px;'> Aagregar Al Carro</button>					
+				</div>
+			</div>
+		</div>
+
+				</div>
+				  <div class='modal-footer'>
+				  </div>
+			
+			";exit();
 
 	}

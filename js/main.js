@@ -36,6 +36,10 @@ function showModal() {
     $('#exampleModal').modal('show');
   }
 
+  function showModal2() {
+    $('#exampleModal2').modal('show');
+  }
+
 
 
 //----------------LIBROS -----------------------------------------
@@ -1339,6 +1343,22 @@ $("body").delegate("#agregar_producto", "click", function(event) {
     })
 })
 
+$("body").delegate("#agregar_producto_directo", "click", function(event) {
+    event.preventDefault();
+    var proId = $(this).attr("proId");
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { agregar_producto: 1, proId:proId },
+        success: function(data) {
+           
+            $("#agregar_product_solo").html(data);
+         
+            
+        }
+    })
+})
+
 $("body").delegate("#agregar_producto_sin_registrar", "click", function(event) {
     event.preventDefault();
     $.ajax({
@@ -1609,6 +1629,23 @@ function carrusel_usuario(){
         }
     })
 
+})
+
+$("body").delegate("#producto_mostrar", "click", function(event) {
+    event.preventDefault();
+    var libro = $(this).attr('libro');
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { producto_solo: 1 , libro:libro},
+        success: function(data) {  
+
+        //$("#modal2").html(data);
+
+            $("#modal2").html(data);
+            showModal2();
+        }
+    })
 })
 
 
