@@ -2462,7 +2462,7 @@ if(isset($_POST["actualizar_autor"])){
 					}
 
 						$password = md5($password);
-						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
+						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut',0)";
 						$run_query = oci_parse($con,$sql);
 
 							//en caso de que los datos de la targeta esten vacios
