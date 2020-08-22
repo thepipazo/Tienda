@@ -2369,6 +2369,10 @@ if(isset($_POST["actualizar_autor"])){
 						 !Error, Verifique Que Todos Los Campos No Esten Vacios¡¡ </div>"; exit();
 	
 					}else{
+					if(strlen($rut)>10){
+						echo "<div class='alert alert-danger' role='alert'>
+						!Error, El rut es invalido¡¡ </div>"; exit();
+					}
 	
 						
 					$sql = "update user_info set rut = '$rut', nombres = '$nombres', apellidos = '$apellidos', email = '$correo', password = '$password', telefono = $telefono, direccion = '$direccion' WHERE user_id = $user_id";

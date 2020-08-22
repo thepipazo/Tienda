@@ -1,6 +1,6 @@
 
 <?php
-include("../../menus/cliente.php");
+include("../../menus/admin.php");
 ?>
 <?php
 include("../../db.php");
@@ -36,6 +36,10 @@ if($ok){
 
 ?>
 	<p><br/></p>
+	<p><br/></p>
+
+	<p><br/></p>
+
 
 
         <div class="row">
