@@ -7,7 +7,7 @@ if(isset($_POST["userLogin"])){
 	
 	$email = $_POST["userEmail"];
 	$password = md5($_POST["userPassword"]);
-	$sql = "SELECT * FROM user_info WHERE email = '$email' AND password = '$password'";
+	$sql = "SELECT * FROM user_info WHERE email = '$email' AND password = '$password' and estado = 0";
 	$run_query = oci_parse($con,$sql);
 	$ok = oci_execute($run_query);
 	$row = oci_fetch_object($run_query);

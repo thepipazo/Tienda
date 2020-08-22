@@ -15,6 +15,8 @@ include('menus/index.php');
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
 
+                            <div id="msg_login">dd</div>
+
                             <div class="viewed">
                             <div class="container">
        <div class="row">
@@ -26,7 +28,6 @@ include('menus/index.php');
                        <div class="bbb_viewed_nav bbb_viewed_next"> <i>Siguiente</i> <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
                    </div>
                </div>
-
                <div id="carrusel_de_ofertas_index"></div>
 
 

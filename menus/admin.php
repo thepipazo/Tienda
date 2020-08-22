@@ -49,7 +49,7 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 0 ){
 				<li><a href="habilitar.php"><span class="glyphicon glyphicon-ban-circle"></span> Habilitar</a></li>
 				<li><a href="ofertar.php"> <span class="glyphicon glyphicon-tag"></span> Ofertas </a></li>
 				<li><a href="excel.php"> <span class="glyphicon glyphicon-cloud-download"></span> Reportes </a></li>
-				<li><a href="usuarios.php"> <span class="glyphicon glyphicon-cloud-download"></span> Clientes </a></li>
+				<li><a href="usuarios.php"> <span class="glyphicon glyphicon-user"></span> Clientes </a></li>
 
 
 			</ul>

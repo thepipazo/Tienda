@@ -1099,7 +1099,8 @@ $("#logear").click(function(event) {
                 location.href = "Vista/admin/perfil_admin.php";
             }
             if (data == 2) {
-                $("#e_msg").html('<div class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
+                //$("#msg_login").html(data);
+                $("#msg_login").html('<div style="text-align: center;" class="alert alert-danger">	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><b> El usuario o contraseña no es !correcta¡..!</b>	</div>');
             }
         }
     })
