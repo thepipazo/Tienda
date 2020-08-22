@@ -63,7 +63,6 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 0 ){
 				</li>
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo " Bienvenido,".$_SESSION["name"]; ?></a>
 					<ul class="dropdown-menu">
-						<li><a href="enviarcorreo.php" id="cambiar_password" name="cambiar_password"style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-lock"></span> Cambia la contraseña</a></li>
 						<li class="divider"></li>
 						<li><a href="../../controlador/logout.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
 					</ul>
