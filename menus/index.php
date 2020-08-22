@@ -71,10 +71,6 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
                                         <div class="form-group"><button type="buton" id="logear" name="logear" class="btn btn-primary mb-2">Iniciar Sesion</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group"><a href="" class="forgot">Ovidaste Tu Contraseña?</a>
-                                        </div>
-                                    </div>
                             </div>
                    
                     </div>
