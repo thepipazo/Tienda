@@ -15,7 +15,7 @@ include('menus/index.php');
                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
 
-                            <div id="msg_login">dd</div>
+                            <div id="msg_login"></div>
 
                             <div class="viewed">
                             <div class="container">

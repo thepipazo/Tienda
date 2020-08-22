@@ -52,9 +52,6 @@ if(isset($_POST["getProduct"])){
 					echo "
 					<div class='col-md-4'>
 					<div class='card p-4' style='margin-bottom:15px'>
-
-				
-
 						<div class='text-center' > <image  libro='$pro_id' id='producto_mostrar' role='button' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 
 						$msg_principal
@@ -80,10 +77,7 @@ if(isset($_POST["getProduct"])){
 					echo "
 					<div class='col-md-4'>
 					<div class='card p-4' style='margin-bottom:15px'>
-
-				
-
-						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+					<div class='text-center' > <image  librod='$pro_id' id='producto_mostrar_index' role='button' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 
 						$msg_principal
 
@@ -2318,15 +2312,15 @@ if(isset($_POST["actualizar_autor"])){
 
 				
 
-						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+						<div class='text-center' > <image  libro='$pro_id' id='producto_mostrar' role='button' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
 
 						$msg_principal
 
 						<div class='product-details'> 
 								$msg_precio
-							<link>$pro_nombre</link>
+							<span role='button' libro='$pro_id' id='producto_mostrar_index'>$pro_nombre</span>
 							<div class='buttons d-flex flex-row'>
-								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto_sin_registrar' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
 					<div class='weight' > $msg  $pro_stock/U  </div>
 					
@@ -3241,7 +3235,8 @@ if(isset($_POST["restar_cant_carro"]))
 
 
 	if(isset($_POST["producto_solo"])){
-	
+		$user = $_SESSION["uid"];
+		$url = $_POST["src"];
 		$libro = $_POST["libro"];
 		$sql = "SELECT*FROM libros where  libro_id = $libro";
 		$run_query = oci_parse($con,$sql);					
@@ -3318,7 +3313,7 @@ if(isset($_POST["restar_cant_carro"]))
 		 <div class='row'>
                 
 		<div class='col-lg-4 order-lg-2 order-1'>
-			<div class='image_selected'><img src='../../product_images/$portada' style='width: 600px;' alt=''></div>
+			<div class='image_selected'><img src='$url' style='width: 600px;' alt=''></div>
 		</div>
 		<div class='col-lg-6 order-3' style='margin-left:5%;width: 50%;' >
 		<div id='agregar_product_solo'></div>
@@ -3368,8 +3363,18 @@ if(isset($_POST["restar_cant_carro"]))
 				<form action='#'>
 				</form>
 			</div>
-				<div class='row' style='float:center'>
-				  <button class='btn btn-success' proId='$libro' id='agregar_producto_directo' style='width: 200px;'> Aagregar Al Carro</button>					
+				<div class='row' style='float:center'>";
+				if($user){
+					echo "
+					<button class='btn btn-success' proId='$libro' id='agregar_producto_directo' style='width: 200px;'> Aagregar Al Carro</button>					
+					";
+				}else{
+					echo"
+					<button class='btn btn-success' proId='$libro' id='agregar_producto_directo_index' style='width: 200px;'> Aagregar Al Carro</button>					
+					";
+				}
+				echo "
+				
 				</div>
 			</div>
 		</div>

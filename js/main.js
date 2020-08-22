@@ -43,7 +43,7 @@ function showModal() {
   }
 
   function showModal3() {
-    $('#exampleModal3').modal('show');
+    $('#exampleModal2').modal('show');
   }
 
 
@@ -1376,6 +1376,22 @@ $("body").delegate("#agregar_producto_directo", "click", function(event) {
     })
 })
 
+$("body").delegate("#agregar_producto_directo_index", "click", function(event) {
+    event.preventDefault();
+    var proId = $(this).attr("proId");
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { agregar_producto: 1, proId:proId },
+        success: function(data) {
+           
+            $("#agregar_product_solo").html(data);
+         
+            
+        }
+    })
+})
+
 $("body").delegate("#agregar_producto_sin_registrar", "click", function(event) {
     event.preventDefault();
     $.ajax({
@@ -1710,16 +1726,37 @@ $("body").delegate("#quitar_oferta", "click", function(event) {
 $("body").delegate("#producto_mostrar", "click", function(event) {
     event.preventDefault();
     var libro = $(this).attr('libro');
+    var src = $(this).attr('src');
+
     $.ajax({
         url: "../../controlador/accion.php",
         method: "POST",
-        data: { producto_solo: 1 , libro:libro},
+        data: { producto_solo: 1 , libro:libro,src:src},
         success: function(data) {  
 
         //$("#modal2").html(data);
 
             $("#modal2").html(data);
             showModal2();
+        }
+    })
+})
+
+$("body").delegate("#producto_mostrar_index", "click", function(event) {
+    event.preventDefault();
+    var libro = $(this).attr('librod');
+    var src = $(this).attr('src');
+
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { producto_solo: 1 , libro:libro,src:src},
+        success: function(data) {  
+
+        //$("#modal2").html(data);
+
+            $("#modal3").html(data);
+            showModal3();
         }
     })
 })
