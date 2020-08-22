@@ -3491,3 +3491,34 @@ if(isset($_POST["restar_cant_carro"]))
 						echo $sql;
 					}
 	}
+
+
+	if(isset($_POST["code"])){
+		$codigo = $_POST["code"];
+		$id = $_SESSION["uid"];
+		$sql = "select codigo from codigo_recuperacion where user_id = '$id'";
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+		$row = oci_fetch_object($run_query);
+		$codigo_re  = $row->CODIGO;
+	
+	
+		if($codigo != $codigo_re){
+			echo "
+				<div class='alert alert-warning'>
+					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+					<b>Codigo Erroneo !!</b>
+				</div>
+			";
+			exit();
+		}else{
+		   ?> 
+			<script> 
+	
+		window.location.replace('cambiar_password.php'); 
+	
+		</script>
+	
+		<?php
+		}
+		}
