@@ -27,7 +27,7 @@ include("../../menus/admin.php");
 <script>
 function filtro_cliente(){
         var rut = document.getElementById("filtro_rut").value;
-    $.ajax({
+x    $.ajax({
         url: "../../controlador/accion.php",
         method: "POST",
         data: { mostrar_clientes:0 ,rut:rut},
