@@ -46,7 +46,6 @@ if(!isset($_SESSION["uid"]) or $_SESSION['tipo_user'] == 1 ){
                
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> 
                 <a class="dropdown-item" href="#"><i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i> My perfil </a>
-                   <a class="dropdown-item" href="../../controlador/enviarcorreo.php?hello=true"> <i class="fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Cambiar Contraseña</a>
                 <div class="dropdown-divider"></div> 
                 <a class="dropdown-item" href="../../controlador/logout.php" > Salir </a>
             </div>
