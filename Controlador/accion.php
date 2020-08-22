@@ -2385,10 +2385,10 @@ if(isset($_POST["actualizar_autor"])){
 						
 						
 						echo "<div class='alert alert-success' role='alert'>
-						 !Exito Al Actualizar El Escritor¡¡ </div>"; 
+						 !Exito Al Actualizar Su Perfil </div>"; 
 					}else{
 						echo "<div class='alert alert-danger' role='alert'>
-						 !Error Al Actualizar El Escritor¡¡ </div>";
+						 !Error Al Actualizar Su Perfil¡¡ </div>";
 	
 					}
 				}
