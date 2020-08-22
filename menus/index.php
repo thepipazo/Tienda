@@ -60,7 +60,7 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
 
                                     <div class="col-md-6">
                                         <div class="form-group"><label for="password" class="sr-only">Password</label>
-                                            <input type="password" class="form-control" id="password" placeholder="contraseña">
+                                            <input type="password" class="form-control" id="password" placeholder="Contraseña">
                                         </div>
                                     </div>
                                 </div>

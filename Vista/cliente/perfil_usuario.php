@@ -100,7 +100,6 @@ include('../../menus/cliente.php');
          
           
                 <div id="modal2">
-                asdjas
                 </div>
     </body>
 </html>
