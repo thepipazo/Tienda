@@ -1733,18 +1733,8 @@ function clientes_admin(){
         }
     })
 }
-    $("filtro_rut").change(function(){
-        var rut = $(this).value();
 
-    $.ajax({
-        url: "../../controlador/accion.php",
-        method: "POST",
-        data: { mostrar_clientes:0 ,rut:rut},
-        success: function(data) {
-            $("#clientes_registrados_msg").html(data);
-        }
-    })
-})
+
 
 
 
