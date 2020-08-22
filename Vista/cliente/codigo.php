@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
-		<title>Libros</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css"/>
-		<script src="js/jquery2.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="main.js"></script>
-	</head>
-<body>
+<?php
+include "../../menus/cliente.php"
+?>
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">	
 			<div class="navbar-header">
