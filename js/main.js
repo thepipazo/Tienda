@@ -1780,6 +1780,23 @@ $("body").delegate("#habilitar_usuario", "click", function(event) {
     })
 })
 
+$("#verificar").click(function(event) {
+    event.preventDefault();
+    var codigo = $("#code").val();
+    $.ajax({
+        url: "action.php",
+        method: "POST",
+        data: { code: codigo },
+        success: function(data) {
+            $("#codigo_msg").html(data);
+        }
+    })
+
+})
+
+
+
+
 })
 
 
