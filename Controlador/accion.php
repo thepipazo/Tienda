@@ -2464,7 +2464,7 @@ if(isset($_POST["actualizar_autor"])){
 					}
 
 						$password = md5($password);
-						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
+						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut',0)";
 						$run_query = oci_parse($con,$sql);
 
 							//en caso de que los datos de la targeta esten vacios
@@ -3381,3 +3381,115 @@ if(isset($_POST["restar_cant_carro"]))
 
 
 
+
+
+
+	if(isset($_POST["mostrar_clientes"])){
+		$rut = $_POST["rut"];
+		if($rut != 0){
+		
+			$sql="SELECT*FROM user_info where uer_admin != 1 and rut = $rut";
+			echo $sql;exit();
+		}else{
+			$sql="SELECT*FROM user_info where uer_admin != 1";
+			echo $sql;exit();
+		}
+		$query = oci_parse($con,$sql);
+		$ok = oci_execute($query);
+		echo"  
+		<div style='height: 600px; overflow: auto;'>
+		<table class='table table-hover' style='font-size:15px'>
+		<thead>
+		  <tr>
+			<th>ID</th>
+			<th>NOMBRES</th>
+			<th>APELLIDOS</th>
+			<th>EMAIL</th>
+			<th>TELEFONO</th>
+			<th>DIRECCION</th>
+			<th>RUT</th>
+			<th>ESTADO</th>
+		  </tr>
+		</thead>
+		<tbody>";
+		
+		
+	
+			if( $ok == true )
+			{
+				 while( $ROW = oci_fetch_object($query) )
+				{
+					 
+						 $ID = $ROW->USER_ID;
+						 $NOMBRES = $ROW->NOMBRES;
+						 $APELLIDOS = $ROW->APELLIDOS;
+						 $EMAIL = $ROW->EMAIL;
+						 $TELEFONO = $ROW->TELEFONO;
+						 $DIRECCION = $ROW->DIRECCION;
+						 $RUT = $ROW->RUT;
+						 $ESTADO = $ROW->ESTADO;
+
+						if($ESTADO==0){
+							$ESTADO = "
+							<button type='button' pid='410' id='banear_usuario' user_id='$ID' class='btn btn-success btn-xs'>ACTIVO</button>
+							";
+						}else{
+							$ESTADO = "
+							<button type='button' pid='410' id='habilitar_usuario' user_id_baned='$ID' class='btn btn-danger btn-xs'>INACTIVO</button>
+							";
+						}
+					
+					
+					echo "<tr>
+							<td>$ID</td>
+							<td>$NOMBRES</td>
+							<td>$APELLIDOS</td>
+							<td>$EMAIL</td>
+							<td>$TELEFONO</td>
+							<td>$DIRECCION</td>
+							<td>$RUT</td>
+							<td>$ESTADO</td>
+						<tr>
+					";
+	
+				
+					 
+					  
+					 
+				}
+				
+			}
+			else
+				$ok = false;
+			 oci_free_statement($query); 
+	
+			echo"
+			 </tbody> 
+			 </table>
+			 </div>
+			 ";exit();
+	}
+
+
+
+
+	if(isset($_POST["ban_desban"])){			
+		$usuario = $_POST["user"];
+		$sql = "";
+		$msg="";
+		if($_POST["ban_desban"] == 1){
+			$sql = "UPDATE user_info set estado = 1 where  user_id = $usuario";
+			$msg="<div class='alert alert-warning' role='alert'>!Se Baneo El Usuario Correctamente¡¡ </div>";
+		}elseif($_POST["ban_desban"] == 0){
+			$sql = "UPDATE user_info set estado = 0 where  user_id = $usuario";
+			$msg="<div class='alert alert-success' role='alert'>!Se Habilito El Usuario Correctamente¡¡ </div>";
+		}
+		$run_query = oci_parse($con,$sql);
+		$ok = oci_execute($run_query);
+
+					if($ok){
+					echo $msg; exit();
+					}else{
+						echo $sql;
+					}
+	}

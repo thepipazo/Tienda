@@ -31,7 +31,7 @@ editoriales_deshabilitados();
 
 
 mispedidos();
-
+clientes_admin()
 carro_de_compras();
 
 function showModal() {
@@ -1723,10 +1723,62 @@ $("body").delegate("#producto_mostrar", "click", function(event) {
     })
 })
 
+function clientes_admin(){
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { mostrar_clientes:0, rut:0},
+        success: function(data) {
+            $("#clientes_registrados_msg").html(data);
+        }
+    })
+}
+    $("filtro_rut").change(function(){
+        var rut = $(this).value();
+
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { mostrar_clientes:0 ,rut:rut},
+        success: function(data) {
+            $("#clientes_registrados_msg").html(data);
+        }
+    })
+})
 
 
 
+$("body").delegate("#banear_usuario", "click", function(event) {
+    event.preventDefault();
+    var user = $(this).attr('user_id');
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { ban_desban: 1 , user:user},
+        success: function(data) {  
 
+            $("#msg_ban_desban").html(data);
+            clientes_admin();
+          
+        }
+    })
+})
+
+$("body").delegate("#habilitar_usuario", "click", function(event) {
+    event.preventDefault();
+    var user = $(this).attr('user_id_baned');
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { ban_desban: 0 , user:user},
+        success: function(data) {  
+
+            $("#msg_ban_desban").html(data);
+            clientes_admin();
+          
+        }
+    })
+})
 
 })
 
