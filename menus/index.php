@@ -37,11 +37,9 @@ if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
             <div class="input-group-append"> <button class="btn btn-primary" id="boton_buscar" type="button"> <i class="fa fa-search fa-sm"></i> </button> </div>
              </div>
         </form>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">               
                 
-                <li class="nav-item dropdown no-arrow mx-1"> <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cart-arrow-down"></i> <span class="badge badge-danger badge-counter">4</span> Carro </a> </li>
                 
-                <div class="topbar-divider d-none d-sm-block"></div>
                
                 <li class="nav-item dropdown no-arrow"> <a href="registro.php" class="nav-link">Registrar</a>
                 <li class="nav-item dropdown no-arrow"> <a  class="nav-link dropdown-toggle" role="button"id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">iniciar sesion</a>
