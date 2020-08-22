@@ -6,12 +6,12 @@ include("../../menus/admin.php");
 	<p><br/></p>
 	<p><br/></p>
 
-<div class="container"  class="col-md-12">
+<div class=""  class="col-md-12">
         <div class="row">
     
-		    <div class="col-md-4">
+		    <div class="col-md-3">
 			    <div class="panel panel-primary" style="height: 600px;" >
-                        <div class="panel-heading">Libros Registrados
+                        <div class="panel-heading">Libros Sin Oferta
                         </div>
 				    <div class="panel-body">
                         <div class="container"  style="width:100%;">	                   				
@@ -23,7 +23,7 @@ include("../../menus/admin.php");
                 </div>
             </div>
 
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="panel panel-primary">
                             <div class="panel-heading">Formulario Para Hacer Ofertas
                             </div>
@@ -71,14 +71,61 @@ include("../../menus/admin.php");
 
                             <div class="row">
                             <button class="btn btn-primary" id="agregar_oferta" value='' disabled="true">Agregar Oferta </button>
-                            <button class="btn btn-danger" style="float:right">Cancelar </button>
+                            <button class="btn btn-danger" onclick="cancelar()" style="float:right" id="cancelar" disabled="true">Cancelar </button>
                             </div>
-                            </div>     
-                            <div id="msg_poner_en_oferta"></div>              
+                            </div>    
+                        </div>
+                        <div style="width: 400px;margin-left: 24%;" id="msg_poner_en_oferta"></div>              
+
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Quitar De Oferta</div>
+                        <div class="panel-body">
+                            <div class="container"  style="width:100%;">	 
+                                <div class="row">
+
+                                     <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Precio  Oferta</label>
+                                        <input type="text" class="form-control" id="precio_sin_oferta" disabled=true >
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <button value=""  id="quitar_oferta" disabled="true" style="margin-left: 98px;width: 91px;margin-top: 25px;" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-right"></span></button>
+
+                                    </div>
+
+                                    <div class="form-group col-md-3" style="float:right">
+                                        <label for="inputEmail4">Precio Normal</label>
+                                        <input type="text"  class="form-control" id="oferta_precio" disabled=true >
+                                    </div>
+                                </div>
+                                <div id="libros_ofertad_msg"></div>
+
+                            </div>
+
                         </div>
                     </div>
-         
-                <div>
+
+
+
+
+                </div>
+             
+
+                        <div class="col-md-3">
+                            <div class="panel panel-primary" style="height: 600px;" >
+                                            <div class="panel-heading">Libros Con Oferta
+                                            </div>
+                                <div class="panel-body">
+                                    <div class="container"  style="width:100%;">	                   				
+                                        <div id="libros_ofertado_msg">
+
+                                        </div>
+                                    </div>                   
+                                </div>
+                            </div>
+                        </div>
+                
             </div>  
     </div>
 </div>
@@ -105,5 +152,17 @@ window.addEventListener("load",function(){
             }
         })
 })
+
+
+function cancelar() {
+    document.getElementById("nuevo_precio").value="";
+    document.getElementById("lista_de_descuentos").value="";
+    document.getElementById("precio_actual").value="";
+    document.getElementById("nuevo_precio").disabled=true;
+    document.getElementById("lista_de_descuentos").disabled=true;
+    document.getElementById("precio_actual").disabled=true;
+
+    
+}
 
 </script>

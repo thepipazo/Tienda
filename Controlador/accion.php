@@ -91,7 +91,7 @@ if(isset($_POST["getProduct"])){
 								$msg_precio
 							<link>$pro_nombre</link>
 							<div class='buttons d-flex flex-row'>
-								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto_sin_registrar' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
 					<div class='weight' > $msg  $pro_stock/U  </div>
 					
@@ -2256,6 +2256,9 @@ if(isset($_POST["actualizar_autor"])){
 							$pro_precio = $obj->LIBRO_PRECIO;
 							$pro_imagen = $obj->LIBRO_IMAGEN;
 							$pro_stock = $obj->STOCK;
+							$descuento = $obj->DESCUENTO;
+							$total_descuento = ($pro_precio*$descuento)/100;
+							$nuevo_precio = ($pro_precio-$total_descuento);
 
 							if($pro_stock == 0){
 								$msg = "<small style='color:red;'> No Disponible &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</small> ";
@@ -2263,24 +2266,77 @@ if(isset($_POST["actualizar_autor"])){
 							}else{
 								$msg = "<small style='color:green;'> Disponible &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</small> ";
 							}
+
+
+				$msg_precio = "";
+				$msg_principal = "";
+				$msg ="";
+				
+
+				if($descuento == 0){
+				$msg_precio=	"<span class='font-weight-bold d-block'>$ $pro_precio</span>";
+
+				}else{
+					$msg_precio = "<div class='bbb_viewed_price'>$$nuevo_precio<span>$$pro_precio</span></div>";
+					$msg_principal = "<ul class='item_marks' ><li class='item_mark item_discount' style='display:block; width:55px; height:55px; margin-left:-36px;'> <a style='position:absolute; margin-top:8px; font-size:19px; margin-left:-25px;'> -$descuento%</a></li>
+					</ul>";
+				}
 			
-							echo "
+				if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
+					
+					echo "
 					<div class='col-md-4'>
 					<div class='card p-4' style='margin-bottom:15px'>
-					
-						<div class='text-center' > <image type='image' src='../../product_images/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
-						<div class='product-details'> <span class='font-weight-bold d-block'>$ $pro_precio</span> <span>$pro_nombre</span>
+
+				
+
+						<div class='text-center' > <image  libro='$pro_id' id='producto_mostrar' role='button' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+
+						$msg_principal
+
+						<div class='product-details'> 
+								$msg_precio
+							<span role='button' libro='$pro_id' id='producto_mostrar'>$pro_nombre</span>
 							<div class='buttons d-flex flex-row'>
 								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
 							</div>
 					<div class='weight' > $msg  $pro_stock/U  </div>
 					
-							
+					
 							
 						</div>
 					</div>
 				</div>
 				";
+				
+				}else{
+
+
+					echo "
+					<div class='col-md-4'>
+					<div class='card p-4' style='margin-bottom:15px'>
+
+				
+
+						<div class='text-center' > <image type='image' src='$url/$pro_imagen'  style='width:150px; height:200px; '></image> </div>
+
+						$msg_principal
+
+						<div class='product-details'> 
+								$msg_precio
+							<link>$pro_nombre</link>
+							<div class='buttons d-flex flex-row'>
+								<div class='cart'><i class='fa fa-shopping-cart'></i></div> <button proId='$pro_id' id='agregar_producto_sin_registrar' style='width: 198px;text-align: center;	padding-top: 0px;' class='btn btn-success'><span class='dot'>1</span>Agregar al carro </button>
+							</div>
+					<div class='weight' > $msg  $pro_stock/U  </div>
+					
+					
+							
+						</div>
+					</div>
+				</div>
+				";
+				}
 				   
 						   
 						} while( $obj = oci_fetch_object($stmt) );			
@@ -2997,9 +3053,22 @@ if(isset($_POST["restar_cant_carro"]))
 
 
 
-if(isset($_POST["listar_libros_para_ofertar"])){
-				
-	$sql = "SELECT libro_id,libro_nombre,libro_precio,libro_imagen,(select nombres_y_apellidos from autor where id = libro_autor) as autor FROM libros where descuento = 0";
+
+
+
+	if(isset($_POST["listar_libros_para_ofertar"])){
+			$id="";
+			$sql ="";
+		if($_POST["listar_libros_para_ofertar"]==1){
+			$id="mandar_libros_a_oferta";
+			$sql = "SELECT descuento,libro_id,libro_nombre,libro_precio,libro_imagen,(select nombres_y_apellidos from autor where id = libro_autor) as autor FROM libros where descuento = 0";
+
+		}elseif($_POST["listar_libros_para_ofertar"]==2){
+			$id="quitar_libro_ofertado";
+
+			$sql = "SELECT descuento,libro_id,libro_nombre,libro_precio,libro_imagen,(select nombres_y_apellidos from autor where id = libro_autor) as autor FROM libros where descuento > 0";
+
+		}
 	
 		 $stmt = oci_parse($con, $sql);        // Preparar la sentencia
 		 $ok   = oci_execute($stmt);          // Ejecutar la sentencia
@@ -3027,16 +3096,44 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 				$nombre = $row->LIBRO_NOMBRE;				
 				$autor = $row->AUTOR;
 				$ID = $row->LIBRO_ID;
-				$precio = $row->LIBRO_PRECIO;
+				$descuento = $row->DESCUENTO;
+				if($_POST["listar_libros_para_ofertar"]==1){
+					$precio = $row->LIBRO_PRECIO;
+
+				}elseif($_POST["listar_libros_para_ofertar"]==2){
+					$precio = $row->LIBRO_PRECIO;
+					$total_descuento = ($precio*$descuento)/100;
+					$precio_nuevo = ($precio-$total_descuento);
+				}
+
+				
 				
 				echo "<tr>
 				<td>$ID</td>
 				<td>$nombre</td>
 				<td>$autor</td>
-				
-				<td> <button type='button' precio='$precio' libro_id='$ID' id='mandar_libros_a_oferta'  class='btn btn-danger btn-xs'>
-				<span class='glyphicon glyphicon-edit'></span>  </button></td>
-				  </tr>";
+				";
+				if($_POST["listar_libros_para_ofertar"]==1){
+					echo"
+					<td> 
+					<button type='button' descuento_libro='$descuento' precio='$precio' libro_id='$ID' id='$id'  class='btn btn-danger btn-xs'>
+						<span class='glyphicon glyphicon-edit'></span>  
+					</button>
+				</td>
+				</tr>";
+
+				}if($_POST["listar_libros_para_ofertar"]==2){
+
+					echo "
+					<td> 
+					<button type='button' precio_nuevo='$precio_nuevo'  descuento_libro='$descuento' precio='$precio' libro_id='$ID' id='$id'  class='btn btn-danger btn-xs'>
+						<span class='glyphicon glyphicon-edit'></span>  
+					</button>
+				</td>
+				</tr>";
+
+				}
+				 
 				  
 				 } while( $row = oci_fetch_object($stmt) );			
 			}
@@ -3069,6 +3166,7 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 			$sql = "SELECT*from libros where descuento != 0";			
 			$run_query = oci_parse($con,$sql);
 			$ok = oci_execute($run_query);
+			$url = "";
 	
 			if($ok){
 				while($row = oci_fetch_object($run_query)){
@@ -3081,13 +3179,18 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 					$total_descuento = ($precio*$descuento)/100;
 					$nuevo_precio = ($precio-$total_descuento);
 
-
+					if(isset($_SESSION["uid"]) and $_SESSION['tipo_user'] == 0){
+						$url = "../../product_images";
+					}else{
+						$url = "product_images";
+					
+				}
 
 					echo"
 				<div class='owl-item cloned' style='width: 150px;  margin-right: 30px;'>
 				<div class='owl-item'>
 					<div class='bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center'>
-						<div class='bbb_viewed_image'><img style='height:140px;' src='../../product_images/$imagen' alt=''></div>
+						<div class='bbb_viewed_image'><img style='height:140px;' src='$url/$imagen' alt=''></div>
 						<div class='bbb_viewed_content text-center'>
 						<div class='bbb_viewed_price'>$$nuevo_precio<span>$$precio</span></div>
 						<div class='bbb_viewed_name'><a href='#'>$nombre</a></div>
@@ -3124,7 +3227,8 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 				
 				$ok = oci_execute($run_query);
 					if($ok){
-						echo $sql;
+						echo "<div class='alert alert-success' role='alert'>
+						!Se Actualizo El Precio Correctamente¡¡ </div>"; 
 					}else{
 						echo $sql;
 					}
@@ -3273,3 +3377,7 @@ if(isset($_POST["listar_libros_para_ofertar"])){
 			";exit();
 
 	}
+
+
+
+

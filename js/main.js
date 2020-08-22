@@ -1,8 +1,10 @@
 $(document).ready(function() {
 product();
 carrusel_usuario();
+carrusel_index();
 product_admin();
 product_cli();
+libros_a_ofertar();
 libros_deshabilitados();
 
 categorias_admin();
@@ -40,6 +42,9 @@ function showModal() {
     $('#exampleModal2').modal('show');
   }
 
+  function showModal3() {
+    $('#exampleModal3').modal('show');
+  }
 
 
 //----------------LIBROS -----------------------------------------
@@ -91,7 +96,6 @@ function showModal() {
         })
     }
 
-    libros_a_ofertar();
     function libros_a_ofertar() {
         $.ajax({
             url: "../../controlador/accion.php",
@@ -99,6 +103,18 @@ function showModal() {
             data: { listar_libros_para_ofertar: 1 },
             success: function(data) {
                 $("#libros_ofertar_msg").html(data);
+
+            }
+        })
+    }
+     libros_ofertados()
+    function libros_ofertados() {
+        $.ajax({
+            url: "../../controlador/accion.php",
+            method: "POST",
+            data: { listar_libros_para_ofertar: 2 },
+            success: function(data) {
+                $("#libros_ofertado_msg").html(data);
 
             }
         })
@@ -1588,20 +1604,52 @@ $("body").delegate("#mandar_libros_a_oferta", "click", function(event) {
     $("#agregar_oferta").val(libro);
 
     document.getElementById("lista_de_descuentos").disabled=false;
+    document.getElementById("cancelar").disabled=false;
+
+    
+})
+
+$("body").delegate("#quitar_libro_ofertado", "click", function(event) {
+    event.preventDefault();
+    var precio = $(this).attr('precio'); 
+    var libro = $(this).attr('libro_id');
+    var descuento = $(this).attr('descuento_libro');
+    var precio_sin_oferta = $(this).attr('precio_nuevo');
+
+
+
+    $("#oferta_precio").val(precio);
+    $("#precio_sin_oferta").val(precio_sin_oferta);
+
+    $("#quitar_oferta").val(libro);
+    $("#desc").val(descuento);
+
+    document.getElementById("quitar_oferta").disabled=false;
+
     
 })
 
 
 
 function carrusel_usuario(){
-
-    
     $.ajax({
         url: "../../controlador/accion.php",
         method: "POST",
         data: { carruse_ofertas: 1},
         success: function(data) {     
             $("#carrusel_de_ofertas1").html(data);
+            
+        }
+    })
+
+ }
+ function carrusel_index(){
+    $.ajax({
+        url: "controlador/accion.php",
+        method: "POST",
+        data: { carruse_ofertas: 1},
+        success: function(data) {     
+            $("#carrusel_de_ofertas_index").html(data);
             
         }
     })
@@ -1615,7 +1663,6 @@ function carrusel_usuario(){
     var descuento = document.getElementById("lista_de_descuentos").value;
     var libro = $(this).val();
    
-  alert(descuento+libro);
     
     $.ajax({
         url: "../../controlador/accion.php",
@@ -1623,7 +1670,35 @@ function carrusel_usuario(){
         data: { poner_en_oferta: 1,descuento:descuento,libro:libro },
         success: function(data) {
             libros_a_ofertar();
+            libros_ofertados();
+            document.getElementById("nuevo_precio").value="";
+            document.getElementById("lista_de_descuentos").value="";
+            document.getElementById("precio_actual").value="";
+            document.getElementById("nuevo_precio").disabled=true;
+            document.getElementById("lista_de_descuentos").disabled=true;
+            document.getElementById("precio_actual").disabled=true;
+        
             $("#msg_poner_en_oferta").html(data);
+            
+            
+        }
+    })
+
+})
+
+$("body").delegate("#quitar_oferta", "click", function(event) {
+    event.preventDefault();
+    var libro = $(this).val();
+
+    
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { poner_en_oferta: 1,libro:libro,descuento : 0 },
+        success: function(data) {
+            libros_a_ofertar();
+            libros_ofertados();
+            $("#libros_ofertad_msg").html(data);
             
             
         }
@@ -1647,6 +1722,9 @@ $("body").delegate("#producto_mostrar", "click", function(event) {
         }
     })
 })
+
+
+
 
 
 

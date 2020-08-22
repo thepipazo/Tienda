@@ -16,7 +16,7 @@ include('menus/index.php');
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
 
                             <div class="viewed">
-   <div class="container">
+                            <div class="container">
        <div class="row">
            <div class="col" style="border-bottom:solid #dadada 2px">
                <div class="bbb_viewed_title_container">
@@ -26,89 +26,12 @@ include('menus/index.php');
                        <div class="bbb_viewed_nav bbb_viewed_next"> <i>Siguiente</i> <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
                    </div>
                </div>
-               <div class="bbb_viewed_slider_container">
-                   <div class="owl-carousel owl-theme bbb_viewed_slider owl-loaded owl-drag">
-                       
-                       
-                       
-                       
-                       
-                       
-                   <div class="owl-item cloned" style="width: 150px;  margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹30079</div>
-                                   <div class="bbb_viewed_name"><a href="#">Samsung LED</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div><div class="owl-item cloned" style="width: 160px; margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹22250</div>
-                                   <div class="bbb_viewed_name"><a href="#">Samsung Mobile</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div><div class="owl-item cloned" style="width: 160px; margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹1379</div>
-                                   <div class="bbb_viewed_name"><a href="#">Huawei Power</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div><div class="owl-item cloned" style="width: 160px; margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img  style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹225<span>₹300</span></div>
-                                   <div class="bbb_viewed_name"><a href="#">Sony Power</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div><div class="owl-item cloned" style="width: 160px; margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹13275</div>
-                                   <div class="bbb_viewed_name"><a href="#">Speedlink Mobile</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div><div class="owl-item" style="width: 160px; margin-right: 30px;"><div class="owl-item">
-                           <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                               <div class="bbb_viewed_image"><img style="height:140px;" src="https://e7.pngegg.com/pngimages/635/358/png-clipart-carve-the-mark-quatro-historias-da-serie-divergente-hardcover-book-covers-book-text-2017.png" alt=""></div>
-                               <div class="bbb_viewed_content text-center">
-                                   <div class="bbb_viewed_price">₹12225<span>₹13300</span></div>
-                                   <div class="bbb_viewed_name"><a href="#">Alkatel Phone</a></div>
-                               </div>
-                               <ul class="item_marks">
-                                   <li class="item_mark item_discount">-25%</li>
-                                   <li class="item_mark item_new">new</li>
-                               </ul>
-                           </div>
-                       </div></div></div>
-               </div>
-           </div>
+
+               <div id="carrusel_de_ofertas_index"></div>
+
+
+                    </div>
+        
        </div>
    </div>
 </div>
@@ -151,6 +74,8 @@ include('menus/index.php');
 
 
 </div>
+<div id="msg_agregar_al_carro1"> </div>
+
 
                                  <div class="container" style="width:fit-content;" >
                                     <div class="row col-md-12" id="get_product" style="width: 900px; margin-left: 100px;">
@@ -161,12 +86,14 @@ include('menus/index.php');
                                
                   
                    
-
+</div>
                            <!-- aqui van los productos-->  
                     
                    <div class="foter">
 
                    </div>
+                   <div id="modal3">
+                </div>
          
           
              
@@ -230,3 +157,4 @@ viewedSlider.trigger('next.owl.carousel');
 
 
 });</script>
+
