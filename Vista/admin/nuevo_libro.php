@@ -204,7 +204,7 @@ include "../../menus/admin.php";
 						<div class="row">
 							<div class="col-md-12">
 							
-								<input style="float:right;" value="Registrar" type="submit" id="nuevolibro" name="nuevolibro"  class="btn btn-primary upload">
+								<input style="float:right;margin-right: 50px" value="Registrar" type="submit" id="nuevolibro" name="nuevolibro"  class="btn btn-primary upload">
 							</div>
 						</div>
 						
