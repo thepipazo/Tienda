@@ -11,7 +11,7 @@ include("../../menus/admin.php");
                 <div class="row">
                             <div class=col-md-2><span>Clientes</span></div>
                         <label>Rut</label>
-                        <input class="form-controls" id="filtro_rut" style="color:black;" type="text" placeholder="19473669k">
+                        <input class="form-controls" onkeyup="filtro_cliente()" id="filtro_rut" style="color:black;" type="text" placeholder="19473669k">
                
                 </div>
             </DIV>
@@ -23,3 +23,17 @@ include("../../menus/admin.php");
                 </div>
         </div>
 </div>
+
+<script>
+function filtro_cliente(){
+        var rut = document.getElementById("filtro_rut").value;
+    $.ajax({
+        url: "../../controlador/accion.php",
+        method: "POST",
+        data: { mostrar_clientes:0 ,rut:rut},
+        success: function(data) {
+            $("#clientes_registrados_msg").html(data);
+        }
+    })
+}
+</script>

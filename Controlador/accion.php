@@ -2464,7 +2464,7 @@ if(isset($_POST["actualizar_autor"])){
 					}
 
 						$password = md5($password);
-						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut',0)";
+						$sql = "INSERT INTO user_info VALUES (null, '$f_name', '$l_name', '$email', '$password', '$mobile', '$address1', 0,'$rut')";
 						$run_query = oci_parse($con,$sql);
 
 							//en caso de que los datos de la targeta esten vacios
@@ -3388,11 +3388,9 @@ if(isset($_POST["restar_cant_carro"]))
 		$rut = $_POST["rut"];
 		if($rut != 0){
 		
-			$sql="SELECT*FROM user_info where uer_admin != 1 and rut = $rut";
-			echo $sql;exit();
+			$sql="SELECT*FROM user_info where uer_admin != 1 and rut like '%$rut%'";
 		}else{
 			$sql="SELECT*FROM user_info where uer_admin != 1";
-			echo $sql;exit();
 		}
 		$query = oci_parse($con,$sql);
 		$ok = oci_execute($query);
